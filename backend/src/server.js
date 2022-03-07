@@ -25,6 +25,10 @@ app.get('/foo:id', (req, res) => {
 
 app.post('/tsv', (req, res) => {
     const data = req.body.data;
+
+    res.send({
+        blah: 42
+    });
 });
 
 app.listen(4201, () => {
