@@ -21,7 +21,7 @@ class Homepage extends React.Component {
 
   render() {
       return (
-        <div className="Homepage"> 
+        <div className="Homepage">
           <h1 className = "title" > Hyperlink </h1>
             <div> 
               <InputForm 
