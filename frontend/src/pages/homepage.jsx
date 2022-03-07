@@ -16,8 +16,7 @@ class Homepage extends React.Component {
   // Should login them in if successful, should display errors otherwise
   loginPressed = () => { }
 
-  // TODO: Should make a call to our backend that attempts to create a new user
-  // Should login them in if successful, should display errors otherwise
+  // TODO: Should re-route user to signup component
   signupPressed = () => { }
 
   render() {

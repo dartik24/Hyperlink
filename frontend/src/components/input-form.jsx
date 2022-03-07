@@ -3,14 +3,16 @@ import React from 'react'
 
 // Accepts props: Array<InputNames>
 class InputForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props)
     
-    this.state = {
-      username: "",
-      password: "",
-      type: "password"
+    
+    let _state = {};
+    for(const input of props.inputs) {
+      _state[input] = ""
     }
+
+    this.state = _state; 
   }
 
   handleChange = (event) => {
@@ -20,6 +22,8 @@ class InputForm extends React.Component {
       [id]: value
     }));
   }
+
+  // TODO: Make want to be able to emit the state to its parent component
 
   render() {
     const inputs = this.props.inputs.map(input => 
@@ -41,14 +45,14 @@ class InputForm extends React.Component {
     )
 
     return (
-    <div className="InputForm">
-        <form> 
-          <div> 
-              <ul> {inputs} </ul>
-              <ul> {buttons} </ul> 
-          </div>
-        </form>
-    </div>
+      <div className="InputForm">
+          <form> 
+            <div> 
+                <ul> {inputs} </ul>
+                <ul> {buttons} </ul> 
+            </div>
+          </form>
+      </div>
     );
   }
 }

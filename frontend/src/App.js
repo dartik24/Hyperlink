@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <Route exact path="/"> <Homepage className="Homepage"/> </Route>
-      <Route exact path="/signup?id"> <SignUp className="SignUp"/> </Route>
+      <Route exact path="/signup"> <SignUp className="SignUp"/> </Route>
     </BrowserRouter>
   );
 }
