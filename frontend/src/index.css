@@ -19,11 +19,12 @@
   --base8x0c: #2b2b2b;
 }
 
-html, body, #root, div {
+html, body, #root {
   margin: 0;
   height: 100%;
 }
 
 * {
+  padding: 0;
   font-family: 'Inconsolata';
 }
