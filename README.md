@@ -1,5 +1,11 @@
 # Setup
 
+## Workflow
+1. Git pull prior to starting your work for the day
+2. Handle any merge conflicts immediately after pulling
+3. Make frequent commits
+4. Open a PR as soon as your work is functional, doesn't need to be perfect 
+
 ## Note
 1. You want to be using some form of Linux (wsl or virtual box if on Windows) or a mac
 2. Below is the setup that I used
