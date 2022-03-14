@@ -28,3 +28,17 @@ button {
 #login {
     background-color: var(--purple)
 }
+
+.Homepage {
+    width: 30%;
+    height: 70%;
+    margin: 0 auto;
+}
+
+.InputForm {
+    height: 100%;
+}
+
+form {
+    height: 100%;
+}

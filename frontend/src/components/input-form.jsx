@@ -5,8 +5,8 @@ import React from 'react'
 class InputForm extends React.Component {
   constructor(props) {
     super(props)
-    
-    
+            
+    // Setup the state to map each input to its current value
     let _state = {};
     for(const input of props.inputs) {
       _state[input] = ""
@@ -47,10 +47,8 @@ class InputForm extends React.Component {
     return (
       <div className="InputForm">
           <form> 
-            <div> 
-                <ul> {inputs} </ul>
-                <ul> {buttons} </ul> 
-            </div>
+              <ul> {inputs} </ul>
+              <ul> {buttons} </ul> 
           </form>
       </div>
     );

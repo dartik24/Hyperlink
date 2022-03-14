@@ -1,0 +1,59 @@
+#container, #background {
+    height: 70%;
+    background: white;
+    width: 40%;
+    margin: 0 auto;
+    position: relative;
+    top: 15%;
+
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: var(--purple);
+}
+
+#container {
+    min-width: 400px;
+    min-height: 600px;
+}
+
+#background {
+    height: 84%;
+    top: 3%;
+    background-color: white;
+    border: 1px solid black;
+}
+
+#container * {
+    margin: 0 auto;
+    width: 90%;
+}
+
+#img-carousel {
+    height: 60%;
+    position: relative;
+    top: 2%;
+
+    border: 1px solid black;
+}
+
+#about-me {
+    height: 25%;
+    border: 1px solid black;
+}
+
+#socials {
+    border: 1px solid black;
+    border-top: 0;
+    border-bottom: 0;
+    height: 15%;
+}
+
+#footer {
+    background-color: var(--purple);
+    height: 15%;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+}

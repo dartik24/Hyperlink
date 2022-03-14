@@ -22,15 +22,13 @@ class Homepage extends React.Component {
   render() {
       return (
         <div className="Homepage">
-          <h1 className = "title" > Hyperlink </h1>
-            <div> 
-              <InputForm 
-                inputs={["username", "password"]}
-                buttons={[
-                  {name: "Login", callback: this.loginPressed },
-                  {name: "Sign Up", callback: this.signupPressed }]}
-              />
-            </div>
+            <h1 className = "title" > Hyperlink </h1>
+            <InputForm 
+              inputs={["username", "password"]}
+              buttons={[
+                {name: "Login", callback: this.loginPressed },
+                {name: "Sign Up", callback: this.signupPressed }]}
+            />
         </div>
       );
   }
