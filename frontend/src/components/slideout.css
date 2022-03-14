@@ -16,5 +16,5 @@ i {
 #slider-content {
     background-color: var(--base6);
     height: 100%;
-    width: 30vw;
+    min-width: 20vw;
 }

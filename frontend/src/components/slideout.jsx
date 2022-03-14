@@ -3,7 +3,7 @@ import React from 'react'
 
 
 // TODO: There is padding at the top of the slider that I can't figure out how to get rid of
-// Also the icon should probably reverse when the slider is oepn
+// Also the icon should probably reverse when the slider is open
 class SlideOut extends React.Component {
     constructor() {
         super();
