@@ -3,6 +3,13 @@ import InputForm from '../components/input-form'
 import React from 'react'
 
 class Signup extends React.Component {
+  constructor() { 
+    super()
+    this.state = {
+      selectedOption: 'employee'
+    }
+  }
+
   handleChange = (event) => {
     const {id, value} = event.target;
     console.log(id, value);
@@ -10,6 +17,12 @@ class Signup extends React.Component {
       ...prevState,
       [id]: value
     }));
+  }
+
+  radioButtonPressed = (ev) => { 
+    this.setState({
+      selectedOption: ev.target.value
+    })
   }
 
   // TODO: Should make a call to our backend that attempts to create a new user
@@ -22,8 +35,14 @@ class Signup extends React.Component {
         <div className="Signup"> 
           <h1 className = "title" > Create a new account </h1>
             <ul> 
-              <li> a </li>
-              <li> a </li>
+            <label>
+              <input type='radio' value='employee' checked={this.state.selectedOption === 'employee'} onChange={this.radioButtonPressed}/>
+              Employee
+              </label>
+              <label>
+                <input type='radio' value='employer' checked={this.state.selectedOption === 'employer'}  onChange={this.radioButtonPressed}/>
+                Employer
+              </label>
             </ul>
             <div> 
               <InputForm 

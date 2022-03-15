@@ -1,6 +1,7 @@
 import './homepage.css';
 import InputForm from '../components/input-form'
 import React from 'react'
+import { withRouter } from 'react-router-dom';
 
 class Homepage extends React.Component {
   handleChange = (event) => {
@@ -17,7 +18,7 @@ class Homepage extends React.Component {
   loginPressed = () => { }
 
   // TODO: Should re-route user to signup component
-  signupPressed = () => { }
+  signupPressed = () => { this.props.history.push('/signup') }
 
   render() {
       return (
@@ -34,4 +35,4 @@ class Homepage extends React.Component {
   }
 }
 
-export default Homepage;
+export default withRouter (Homepage);
