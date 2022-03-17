@@ -15,12 +15,13 @@ class SlideOut extends React.Component {
     render() {
         return(
             <div className="slider-container">
-                <div id='slider-content' style={{display: this.state.open ? 'inline-block' : 'none'}}>
+                <div id='slider-content' style={{display: this.state.open ? 'revert' : 'none'}}>
                     Put ye content he
                 </div>
                 <i 
+                    id="openClose"
                     onClick={() => this.setState({open: !this.state.open})} 
-                    className="bi bi-arrow-bar-right"> 
+                    className={this.state.open ? "bi bi-arrow-bar-left" : "bi bi-arrow-bar-right"}> 
                 </i>
             </div>
         );

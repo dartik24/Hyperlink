@@ -15,8 +15,9 @@ function App() {
       <SlideOut/>
       <Route exact path="/"> <Homepage className="Homepage"/> </Route>
       <Route exact path="/signup"> <SignUp className="SignUp"/> </Route>
-      <Route exact path="/testpage"> <TestPage className="TestPage"/> </Route>
       <Route exact path="/feedpage"> <FeedPage className="FeedPage"/> </Route>
+
+      <Route exact path="/testpage"> <TestPage className="TestPage"/> </Route>
     </BrowserRouter>
   );
 }
