@@ -1,26 +1,26 @@
-#container, #background {
-    height: 70%;
-    background: white;
-    width: 40%;
+#flex-container {
+    display: flex;
+    width: fit-content;
     margin: 0 auto;
-    position: relative;
-    top: 15%;
+}
 
-    border: 1px solid black;
-    border-radius: 5px;
+#container {
+    background: white;
+    border-radius: 2px;
     background-color: var(--purple);
+}
+
+#background {
+    background: white;
+    border-radius: 2px;
+    background-color: var(--purple);
+    height: 90%;
+    background-color: white;
 }
 
 #container {
     min-width: 400px;
     min-height: 600px;
-}
-
-#background {
-    height: 84%;
-    top: 3%;
-    background-color: white;
-    border: 1px solid black;
 }
 
 #container * {
@@ -30,30 +30,32 @@
 
 #img-carousel {
     height: 60%;
-    position: relative;
-    top: 2%;
-
     border: 1px solid black;
 }
 
 #about-me {
     height: 25%;
     border: 1px solid black;
+    border-top: 0;
 }
 
 #socials {
-    border: 1px solid black;
+    background-color: white;
     border-top: 0;
     border-bottom: 0;
-    height: 15%;
 }
 
 #footer {
     background-color: var(--purple);
-    height: 15%;
+    height: 10%;
 }
 
 ul {
     display: flex;
     align-items: center;
+}
+
+ul i {
+    font-size: 28px;
+    padding: 20px;
 }
