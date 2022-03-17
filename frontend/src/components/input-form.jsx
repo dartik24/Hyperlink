@@ -17,10 +17,9 @@ class InputForm extends React.Component {
 
   handleChange = (event) => {
     const {id, value} = event.target;
-    this.setState(prevState => ({
-      ...prevState,
+    this.setState({
       [id]: value
-    }));
+    });
   }
 
   // TODO: Make want to be able to emit the state to its parent component

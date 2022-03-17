@@ -10,15 +10,6 @@ class Signup extends React.Component {
     }
   }
 
-  handleChange = (event) => {
-    const {id, value} = event.target;
-    console.log(id, value);
-    this.setState(prevState => ({
-      ...prevState,
-      [id]: value
-    }));
-  }
-
   radioButtonPressed = (ev) => { 
     this.setState({
       selectedOption: ev.target.value
@@ -38,18 +29,16 @@ class Signup extends React.Component {
             <label>
               <input type='radio' value='employee' checked={this.state.selectedOption === 'employee'} onChange={this.radioButtonPressed}/>
               Employee
-              </label>
-              <label>
-                <input type='radio' value='employer' checked={this.state.selectedOption === 'employer'}  onChange={this.radioButtonPressed}/>
-                Employer
-              </label>
+            </label>
+            <label>
+              <input type='radio' value='employer' checked={this.state.selectedOption === 'employer'}  onChange={this.radioButtonPressed}/>
+              Employer
+            </label>
             </ul>
             <div> 
               <InputForm 
                 inputs={["name", "username", "password"]}
-                buttons={[
-                  {name: "Sign Up", callback: this.signupPressed }]}
-              />
+                buttons={[{name: "Sign Up", callback: this.signupPressed }]}/>
             </div>
         </div>
       );
