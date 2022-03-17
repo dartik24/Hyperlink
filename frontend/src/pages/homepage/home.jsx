@@ -1,9 +1,9 @@
-import './homepage.css';
-import InputForm from '../components/input-form'
+import './home.css';
+import InputForm from '../../components/input-form/input-form'
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 
-class Homepage extends React.Component {
+class Home extends React.Component {
   handleChange = (event) => {
     const {id, value} = event.target;
     console.log(id, value);
@@ -35,4 +35,4 @@ class Homepage extends React.Component {
   }
 }
 
-export default withRouter (Homepage);
+export default withRouter (Home);

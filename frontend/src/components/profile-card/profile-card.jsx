@@ -1,7 +1,7 @@
 import React from 'react'
-import './big-card.css'
+import './profile-card.css'
 
-class BigCard extends React.Component {
+class ProfileCard extends React.Component {
     constructor(props) {
         super(props);
 
@@ -45,4 +45,4 @@ class BigCard extends React.Component {
     }
 }
 
-export default BigCard;
+export default ProfileCard;

@@ -24,8 +24,8 @@ html, body, #root {
   height: 100%;
 }
 
-#root:first-child {
-  width: 100%;
+#root {
+  overflow: auto;
 }
 
 * {

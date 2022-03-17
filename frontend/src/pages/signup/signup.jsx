@@ -1,5 +1,5 @@
 import './signup.css';
-import InputForm from '../components/input-form'
+import InputForm from '../../components/input-form/input-form'
 import React from 'react'
 
 class Signup extends React.Component {

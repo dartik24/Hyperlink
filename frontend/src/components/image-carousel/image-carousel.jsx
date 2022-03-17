@@ -1,5 +1,6 @@
 import React from 'react'
-import {Carousel} from 'react-responsive-carousel'
+import { Carousel } from 'react-responsive-carousel'
+
 import image1 from './image-carousel-tests/monke1.jpg'
 import image2 from './image-carousel-tests/monke2.jpg'
 
