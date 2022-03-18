@@ -33,11 +33,26 @@ app.get('/foo:id', (req, res) => {
 });
 
 // Sample get request
-app.get('/test', (req, res) => {
-    console.log(req, req.query);
-    res.send({
-        blah: 'get succeeded'
-    });
+app.get('/user', (req, res) => {
+    const data = JSON.parse(req.query.data);
+    const un = data.username;
+    const pw = data.password;
+    console.log("un/pw", un, pw);
+
+    const entry = _.find(users, u => u.username === un && u.password === pw)
+    console.log("User data: ", data);
+    console.log("Entry found: ", entry);
+
+    if(entry) {
+        res.send({
+            ...entry,
+            success: true
+        });
+    } else {
+        res.send({
+            success: false
+        });
+    }
 });
 
 app.post('/user', (req, res) => {
@@ -48,10 +63,12 @@ app.post('/user', (req, res) => {
         users.push(user);
     }
 
+    console.log("Current Users: ");
     console.log(users);
 
     res.send({
-        user
+        user,
+        success: true
     });
 });
 

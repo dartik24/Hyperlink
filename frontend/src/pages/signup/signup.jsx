@@ -1,6 +1,7 @@
 import './signup.css';
 import React from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom'
 
 import InputForm from '../../components/input-form/input-form';
 
@@ -33,7 +34,9 @@ class Signup extends React.Component {
 
     if(formValid) {
       axios.post('http://localhost:4201/user', { data: userData }).then(r => {
-        console.log(r);
+        if(r.data.success) {
+          this.props.history.push('/feed');
+        }
       });
     }
   };
@@ -75,4 +78,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);
