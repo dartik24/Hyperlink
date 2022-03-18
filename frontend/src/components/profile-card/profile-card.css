@@ -1,0 +1,61 @@
+#flex-container {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+#container {
+  background: white;
+  border-radius: 2px;
+  background-color: var(--purple);
+}
+
+#background {
+  background: white;
+  border-radius: 2px;
+  background-color: var(--purple);
+  height: 90%;
+  background-color: white;
+}
+
+#container {
+  min-width: 400px;
+  min-height: 600px;
+}
+
+#container * {
+  margin: 0 auto;
+  width: 90%;
+}
+
+#img-carousel {
+  height: 60%;
+  border: 1px solid black;
+}
+
+#about-me {
+  height: 25%;
+  border: 1px solid black;
+  border-top: 0;
+}
+
+#socials {
+  background-color: white;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+#footer {
+  background-color: var(--purple);
+  height: 10%;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+}
+
+ul i {
+  font-size: 28px;
+  padding: 20px;
+}

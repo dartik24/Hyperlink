@@ -1,22 +1,31 @@
 import './App.css';
 
-import Homepage from './pages/homepage'
-import SignUp from './pages/signup';
-import TestPage from './pages/testpage';
-import FeedPage from './pages/feedpage';
+import Home from './pages/homepage/home';
+import SignUp from './pages/signup/signup';
+import Test from './pages/test/test';
+import Feed from './pages/feed/feed';
 
-import SlideOut from './components/slideout';
+import SlideOut from './components/slideout/slideout';
 
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <BrowserRouter id='router'>
-      <SlideOut/>
-      <Route exact path="/"> <Homepage className="Homepage"/> </Route>
-      <Route exact path="/signup"> <SignUp className="SignUp"/> </Route>
-      <Route exact path="/testpage"> <TestPage className="TestPage"/> </Route>
-      <Route exact path="/feedpage"> <FeedPage className="FeedPage"/> </Route>
+    <BrowserRouter id="router">
+      <SlideOut />
+      <Route exact path="/">
+        <Home className="Homepage" />
+      </Route>
+      <Route exact path="/signup">
+        <SignUp className="SignUp" />
+      </Route>
+      <Route exact path="/feedpage">
+        <Feed className="FeedPage" />
+      </Route>
+
+      <Route exact path="/testpage">
+        <Test className="TestPage" />
+      </Route>
     </BrowserRouter>
   );
 }
