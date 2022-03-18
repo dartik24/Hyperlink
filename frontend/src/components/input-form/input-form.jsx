@@ -22,9 +22,8 @@ class InputForm extends React.Component {
     });
   };
 
-  // TODO: Make want to be able to emit the state to its parent component
-
   render() {
+    // Creates markup for inputs
     const inputs = this.props.inputs.map((input) => (
       <input
         className="input"
@@ -37,8 +36,17 @@ class InputForm extends React.Component {
       />
     ));
 
+    // Function generator that generates onclick functions given a callback
+    const onclickGen = (f) => {
+      return function(e) {
+        e.preventDefault();
+        f();
+      }
+    }
+
+    // Creates markup for buttons
     const buttons = this.props.buttons.map((button) => (
-      <button id={button.name} onClick={button.callback} key={button.name}>
+      <button id={button.name} onClick={onclickGen(button.callback)} key={button.name}>
         {button.name}
       </button>
     ));

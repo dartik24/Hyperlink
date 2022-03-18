@@ -26,17 +26,17 @@ class ProfileCard extends React.Component {
 
             <div className="row" id="socials">
               <ul>
-                <i class="bi bi-github"></i>
-                <i class="bi bi-linkedin"></i>
-                <i class="bi bi-file-person-fill"></i>
+                <i className="bi bi-github"></i>
+                <i className="bi bi-linkedin"></i>
+                <i className="bi bi-file-person-fill"></i>
               </ul>
             </div>
           </div>
           <div id="footer" className="row">
             <ul>
-              <i class="bi bi-hand-thumbs-up-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-hand-thumbs-down-fill"></i>
+              <i className="bi bi-hand-thumbs-up-fill"></i>
+              <i className="bi bi-star-fill"></i>
+              <i className="bi bi-hand-thumbs-down-fill"></i>
             </ul>
           </div>
         </div>
