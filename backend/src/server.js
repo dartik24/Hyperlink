@@ -1,5 +1,5 @@
 import express from 'express';
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 // Initialize expess
 const app = express();
@@ -18,16 +18,40 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Stores an array of users as a mock DB
+// id: number
+// linked: url
+// git: url
+// pfp: image link
+// user: string
+// password: string
+const users = [ ];
+
 // Sample get request
 app.get('/foo:id', (req, res) => {
     const ID = parseInt(req.params.id.replace(':', ''));
 });
 
-app.post('/tsv', (req, res) => {
-    const data = req.body.data;
+// Sample get request
+app.get('/test', (req, res) => {
+    console.log(req, req.query);
+    res.send({
+        blah: 'get succeeded'
+    });
+});
+
+app.post('/user', (req, res) => {
+    const user = req.body.data;
+    const prev = _.find(users, u => _.isEqual(u, user));
+    
+    if(!prev) {
+        users.push(user);
+    }
+
+    console.log(users);
 
     res.send({
-        blah: 42
+        user
     });
 });
 
