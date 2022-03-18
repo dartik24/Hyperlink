@@ -1,10 +1,13 @@
 import './signup.css';
-import InputForm from '../../components/input-form/input-form';
 import React from 'react';
+import axios from 'axios';
+
+import InputForm from '../../components/input-form/input-form';
 
 class Signup extends React.Component {
   constructor() {
     super();
+    this.form = React.createRef();
     this.state = {
       selectedOption: 'employee',
     };
@@ -16,9 +19,24 @@ class Signup extends React.Component {
     });
   };
 
-  // TODO: Should make a call to our backend that attempts to create a new user
-  // Should login them in if successful, should display errors otherwise
-  signupPressed = () => {};
+  signupPressed = () => {
+    // TODO: Form Validation
+    let formValid = true;
+
+    // Gets reference to form
+    const curForm = this.form.current;
+    const userData = {
+      ...curForm.state,
+      employee: this.state.selectedOption === 'employee'
+    };
+    console.log(userData);
+
+    if(formValid) {
+      axios.post('http://localhost:4201/user', { data: userData }).then(r => {
+        console.log(r);
+      });
+    }
+  };
 
   render() {
     // TODO: Style the radio buttons
@@ -49,6 +67,7 @@ class Signup extends React.Component {
           <InputForm
             inputs={['name', 'username', 'password']}
             buttons={[{ name: 'Sign Up', callback: this.signupPressed }]}
+            ref={this.form} 
           />
         </div>
       </div>
