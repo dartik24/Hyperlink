@@ -2,3 +2,14 @@
   width: 100%;
   height: 100%;
 }
+
+#test-content {
+  display: inline-block;
+  padding-top: 15vh;
+}
+
+#test-content .col {
+  display: inline-block;
+  width: fit-content;
+  padding-left: 20px;
+}
