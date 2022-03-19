@@ -1,5 +1,6 @@
 import React from 'react';
 import InputForm from '../../components/input-form/input-form';
+import axios from 'axios';
 
 import './add-listing.css'
 
@@ -7,11 +8,15 @@ class AddListing extends React.Component {
     constructor() {
         super();
         this.form = React.createRef();
-
     }
 
-    signupPressed() {
+    signupPressed = () => {
         const form = this.form.current;
+        axios.post('http://localhost:4201/listing', { data: form.state }).then(r => {
+        if(r.data.success) {
+            console.log('request succeeded');
+        }
+      });
     }
 
     render() {
@@ -20,7 +25,7 @@ class AddListing extends React.Component {
                 <h2> Add a listing </h2>
                 <InputForm
                     id='add-listing-form' 
-                    inputs={["Team Name", "Title", "Description", "Skills"]}
+                    inputs={["Team", "Title", "Description", "Skills"]}
                     types={["text", "text", "textarea", "text"]}
                     buttons={[{ name: 'Add Listing', callback: this.signupPressed }]}
                     ref={this.form} 

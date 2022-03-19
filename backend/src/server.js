@@ -25,7 +25,8 @@ app.use(express.urlencoded({ extended: false }));
 // pfp: image link
 // user: string
 // password: string
-const users = [ ];
+let users = [ ];
+let listings = [ ];
 
 // Sample get request
 app.get('/foo:id', (req, res) => {
@@ -68,6 +69,23 @@ app.post('/user', (req, res) => {
 
     res.send({
         user,
+        success: true
+    });
+});
+
+app.post('/listing', (req, res) => {
+    const listing = req.body.data;
+    const prev = _.find(listings, l => _.isEqual(l, listing));
+    
+    if(!prev) {
+        listings.push(listing);
+    }
+
+    console.log("Current Listings: ");
+    console.log(listings);
+
+    res.send({
+        listing,
         success: true
     });
 });
