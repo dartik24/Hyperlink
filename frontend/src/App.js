@@ -2,6 +2,7 @@ import './App.css';
 
 import Home from './pages/homepage/home';
 import SignUp from './pages/signup/signup';
+import AddListing from './pages/add-listing/add-listing';
 import Test from './pages/test/test';
 import Feed from './pages/feed/feed';
 
@@ -21,6 +22,9 @@ function App() {
       </Route>
       <Route exact path="/feed">
         <Feed className="FeedPage" />
+      </Route>
+      <Route exact path="/add-listing">
+        <AddListing className="AddListing" />
       </Route>
 
       <Route exact path="/testpage">

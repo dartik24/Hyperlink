@@ -25,6 +25,7 @@ class InputForm extends React.Component {
   render() {
     // Creates markup for inputs
     const inputs = this.props.inputs.map((input, i) => (
+      this.props.types[i] !== 'textarea' ?
       <input
         className="input"
         label={input}
@@ -35,6 +36,16 @@ class InputForm extends React.Component {
         onChange={this.handleChange}
         type={this.props.types[i]}
       />
+      : // Allows for creation of multiline text field
+      <textarea
+        className="input"
+        label={input}
+        id={input}
+        placeholder={input}
+        key={input}
+        value={this.state[input]}
+        onChange={this.handleChange}> 
+      </textarea>
     ));
 
     // Function generator that generates onclick functions given a callback
