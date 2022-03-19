@@ -28,6 +28,8 @@ class App extends React.Component {
     this.setState({user: user});
   }
 
+  
+
   render() {
     console.log('app', this.state);
     return (

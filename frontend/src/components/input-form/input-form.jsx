@@ -11,8 +11,9 @@ class InputForm extends React.Component {
 
     // Setup the state to map each input to its current value
     let _state = {};
+    const vals = this.props.values || {};
     for (const input of props.inputs) {
-      _state[input] = this.props.values[input] || '';
+      _state[input] = vals[input] || '';
     }
 
     this.state = _state;
