@@ -32,6 +32,7 @@ class Signup extends React.Component {
     const curForm = this.form.current;
     const userData = {
       ...curForm.state,
+      skills: curForm.state.skills.split(' '),
       employee: this.state.selectedOption === 'employee'
     };
     console.log(userData);
@@ -39,7 +40,7 @@ class Signup extends React.Component {
     if(formValid) {
       axios.post('http://localhost:4201/user', { data: userData }).then(r => {
         if(r.data.success) {
-          this.props.history.push('/feed');
+          this.props.history.push('/'); // Back to login
         }
       });
     }

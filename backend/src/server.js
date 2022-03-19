@@ -68,7 +68,7 @@ app.post('/user', (req, res) => {
     console.log(users);
 
     res.send({
-        user,
+        user: prev | user,
         success: true
     });
 });
