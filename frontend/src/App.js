@@ -5,6 +5,7 @@ import SignUp from './pages/signup/signup';
 import AddListing from './pages/add-listing/add-listing';
 import Test from './pages/test/test';
 import Feed from './pages/feed/feed';
+import Profile from './pages/profile/profile';
 
 import SlideOut from './components/slideout/slideout';
 
@@ -43,6 +44,9 @@ class App extends React.Component {
         </Route>
         <Route exact path="/add-listing">
           <AddListing className="AddListing" />
+        </Route>
+        <Route exact path="/profile">
+          <Profile className="Profile" />
         </Route>
   
         <Route exact path="/testpage">

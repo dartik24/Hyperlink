@@ -27,11 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 // password: string
 let users = [ ];
 let listings = [ ];
-
-// Sample get request
-app.get('/foo:id', (req, res) => {
-    const ID = parseInt(req.params.id.replace(':', ''));
-});
+let minID = 0;
 
 // Sample get request
 app.get('/user', (req, res) => {
@@ -69,7 +65,8 @@ app.post('/user', (req, res) => {
 
     res.send({
         user: prev | user,
-        success: true
+        success: true,
+        id: minID++
     });
 });
 
@@ -88,6 +85,19 @@ app.post('/listing', (req, res) => {
         listing,
         success: true
     });
+});
+
+app.put('/listing', (req, res) => {
+    const oldUser = req.body.data.old;
+    const newUser = req.body.data.new;
+
+    users = users.filter(u => !_.isEqual(u, oldUser));
+    users.push(newUser);
+});
+
+app.delete('/listing', (req, res) => {
+    const user = req.body.data;
+    users = users.filter(u => !_.isEqual(u, user));
 });
 
 app.listen(4201, () => {

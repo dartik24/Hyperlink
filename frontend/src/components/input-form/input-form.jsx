@@ -6,10 +6,13 @@ class InputForm extends React.Component {
   constructor(props) {
     super(props);
 
+    // Handle optional placeholder prop
+    this.placeholders = this.props.placeholders || this.props.inputs.map(el => el);
+
     // Setup the state to map each input to its current value
     let _state = {};
     for (const input of props.inputs) {
-      _state[input] = '';
+      _state[input] = this.props.values[input] || '';
     }
 
     this.state = _state;
@@ -18,7 +21,7 @@ class InputForm extends React.Component {
   handleChange = (event) => {
     const { id, value } = event.target;
     this.setState({
-      [id]: value,
+      [id]: value
     });
   };
 
@@ -30,7 +33,7 @@ class InputForm extends React.Component {
         className="input"
         label={input}
         id={input}
-        placeholder={input}
+        placeholder={this.placeholders[i]}
         key={input}
         value={this.state[input]}
         onChange={this.handleChange}
