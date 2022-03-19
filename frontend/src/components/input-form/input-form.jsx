@@ -24,7 +24,7 @@ class InputForm extends React.Component {
 
   render() {
     // Creates markup for inputs
-    const inputs = this.props.inputs.map((input) => (
+    const inputs = this.props.inputs.map((input, i) => (
       <input
         className="input"
         label={input}
@@ -33,6 +33,7 @@ class InputForm extends React.Component {
         key={input}
         value={this.state[input]}
         onChange={this.handleChange}
+        type={this.props.types[i]}
       />
     ));
 

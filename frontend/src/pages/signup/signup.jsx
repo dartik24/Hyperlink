@@ -9,6 +9,10 @@ class Signup extends React.Component {
   constructor() {
     super();
     this.form = React.createRef();
+    this.employerFields = ['name', 'username', 'password', 'company name'];
+    this.employerTypes = ['text', 'text', 'password', 'text'];
+    this.employeeFields = ['name', 'username', 'password', 'skills'];
+    this.employeeTypes = ['text', 'text', 'password', 'text'];
     this.state = {
       selectedOption: 'employee',
     };
@@ -41,6 +45,10 @@ class Signup extends React.Component {
     }
   };
 
+  isEmployee() {
+    return this.state.selectedOption === 'employee';
+  }
+
   render() {
     // TODO: Style the radio buttons
     return (
@@ -51,7 +59,7 @@ class Signup extends React.Component {
             <input
               type="radio"
               value="employee"
-              checked={this.state.selectedOption === 'employee'}
+              checked={this.isEmployee()}
               onChange={this.radioButtonPressed}
             />
             Employee
@@ -60,7 +68,7 @@ class Signup extends React.Component {
             <input
               type="radio"
               value="employer"
-              checked={this.state.selectedOption === 'employer'}
+              checked={!this.isEmployee()}
               onChange={this.radioButtonPressed}
             />
             Employer
@@ -68,7 +76,8 @@ class Signup extends React.Component {
         </ul>
         <div>
           <InputForm
-            inputs={['name', 'username', 'password']}
+            inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
+            types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
             buttons={[{ name: 'Sign Up', callback: this.signupPressed }]}
             ref={this.form} 
           />

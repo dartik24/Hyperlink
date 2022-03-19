@@ -48,6 +48,7 @@ class Home extends React.Component {
         <InputForm
           ref={this.form} 
           inputs={['username', 'password']}
+          types={['text', 'password']}
           buttons={[
             { name: 'Login', callback: this.loginPressed },
             { name: 'Sign Up', callback: this.signupPressed },
