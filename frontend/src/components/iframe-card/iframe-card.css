@@ -1,0 +1,15 @@
+#iframe-flex-container {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+}
+#iframe-container {
+    min-width: 400px;
+    min-height: 600px;
+    background-color: white;
+}
+  
+#iframe-container {
+    height: 100%;
+    width: 100%;
+}

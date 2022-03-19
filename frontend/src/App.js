@@ -19,7 +19,7 @@ function App() {
       <Route exact path="/signup">
         <SignUp className="SignUp" />
       </Route>
-      <Route exact path="/feedpage">
+      <Route exact path="/feed">
         <Feed className="FeedPage" />
       </Route>
 
