@@ -22,3 +22,9 @@
   min-width: 200px;
   max-width: 500px;
 }
+
+@media only screen and (max-width: 500px) {
+  #slider-content {
+    width: 90vw;
+  }
+}
