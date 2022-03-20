@@ -28,30 +28,21 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('app', this.state);
+    console.log('app', this.state.user);
     return (
       <BrowserRouter id="router">
         <SlideOut />
         <Link to='profile'> <i className="bi bi-person"></i> </Link>
 
-        <Route exact path="/">
-          <Home login={this.setUser} className="Homepage" />
-        </Route>
-        <Route exact path="/signup">
-          <SignUp className="SignUp" />
-        </Route>
+        <Route exact path="/"> <Home login={this.setUser} className="Homepage" /> </Route>
+        <Route exact path="/signup"> <SignUp className="SignUp" /> </Route>
   
         <Authenticator
-          routes={["feed", "add-listing", "profile"]}> 
-          <Route exact path="/feed">
+          routes={["feed", "add-listing", "profile"]}
+          user={this.state.user}> 
             <Feed className="FeedPage" />
-          </Route>
-          <Route exact path="/add-listing">
             <AddListing className="AddListing" />
-          </Route>
-          <Route exact path="/profile">
-            <Profile user={this.state.user} className="Profile" />
-          </Route>
+            <Profile className="Profile" />
         </Authenticator>
 
 

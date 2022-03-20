@@ -13,7 +13,7 @@ class Feed extends React.Component {
   render() {
     console.log("feed");
     const feed = this.state.feeds.map((f) => (
-      <div className="entry">
+      <div className="entry" key={f.download_url}>
         <h4> {f.author} </h4>
         <div className="image-container">
           <img src={f.download_url} alt={f.author} />

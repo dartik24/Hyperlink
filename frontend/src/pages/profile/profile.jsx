@@ -18,7 +18,14 @@ class Profile extends React.Component {
         };
     }
 
-    isEmployee = () => this.state.user.employee === 'employee';
+    static getDerivedStateFromProps = (nextProps) => {
+        console.log('gdsfp', nextProps);
+        return({
+            user: nextProps.user
+        });  
+    }
+
+    isEmployee = () => this.state.user && this.state.user.employee === 'employee';
 
     // TODO
     modifyPressed = () => { }
@@ -27,15 +34,15 @@ class Profile extends React.Component {
     render() {
         return(
             <div id='profile'>
-                <h3>User Profile</h3>
-                <InputForm
-                    inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
-                    types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
-                    values={this.state.user}
-                    buttons={[{ name: 'Modify Profile', callback: this.modifyPressed },
-                                { name: 'Delete Account', callback: this.deletePressed }]}
-                    ref={this.form} 
-                />
+            <h3>User Profile</h3>
+            <InputForm
+                inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
+                types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
+                values={this.state.user}
+                buttons={[{ name: 'Modify Profile', callback: this.modifyPressed },
+                            { name: 'Delete Account', callback: this.deletePressed }]}
+                ref={this.form} 
+            />
             </div>
         );
     }
