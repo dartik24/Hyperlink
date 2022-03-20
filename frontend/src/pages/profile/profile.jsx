@@ -14,13 +14,7 @@ class Profile extends React.Component {
 
         // TODO retrieve users from app.js
         this.state = {
-            user: {
-                name: "test",
-                username: "u123",
-                password: 'test',
-                skills: ['a', 'b'],
-                employee: 'employee' 
-            }
+            user: this.initialUser || null
         };
     }
 
@@ -31,17 +25,29 @@ class Profile extends React.Component {
     deletePressed = () => { }
 
     render() {
-        return(
-            <div>
+        const profile = () =>
+            <>
                 <h3>User Profile</h3>
                 <InputForm
                     inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
                     types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
                     values={this.state.user}
                     buttons={[{ name: 'Modify Profile', callback: this.modifyPressed },
-                              { name: 'Delete Account', callback: this.deletePressed }]}
+                                { name: 'Delete Account', callback: this.deletePressed }]}
                     ref={this.form} 
                 />
+            </>;
+        
+        const error = () => 
+        <>
+            <h3>
+                You must be logged in to view this content
+            </h3>
+        </>
+
+        return(
+            <div id='profile'>
+                {this.state.user !== null ? profile() : error()}
             </div>
         );
     }
