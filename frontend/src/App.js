@@ -9,11 +9,9 @@ import Profile from './pages/profile/profile';
 
 import SlideOut from './components/slideout/slideout';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 import React from 'react';
 
-
-//  <i className="bi bi-person"></i>
 
 class App extends React.Component {
   constructor() {
@@ -28,13 +26,13 @@ class App extends React.Component {
     this.setState({user: user});
   }
 
-  
-
   render() {
     console.log('app', this.state);
     return (
       <BrowserRouter id="router">
         <SlideOut />
+        <Link to='profile'> <i className="bi bi-person"></i> </Link>
+
         <Route exact path="/">
           <Home login={this.setUser} className="Homepage" />
         </Route>
@@ -48,7 +46,7 @@ class App extends React.Component {
           <AddListing className="AddListing" />
         </Route>
         <Route exact path="/profile">
-          <Profile className="Profile" />
+          <Profile user={this.state.user} className="Profile" />
         </Route>
   
         <Route exact path="/testpage">
