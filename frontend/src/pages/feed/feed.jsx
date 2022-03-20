@@ -11,6 +11,7 @@ class Feed extends React.Component {
   }
 
   render() {
+    console.log("feed");
     const feed = this.state.feeds.map((f) => (
       <div className="entry">
         <h4> {f.author} </h4>

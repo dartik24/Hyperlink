@@ -8,6 +8,7 @@ import Feed from './pages/feed/feed';
 import Profile from './pages/profile/profile';
 
 import SlideOut from './components/slideout/slideout';
+import Authenticator from './components/authenticator/authenticator';
 
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import React from 'react';
@@ -39,16 +40,21 @@ class App extends React.Component {
         <Route exact path="/signup">
           <SignUp className="SignUp" />
         </Route>
-        <Route exact path="/feed">
-          <Feed className="FeedPage" />
-        </Route>
-        <Route exact path="/add-listing">
-          <AddListing className="AddListing" />
-        </Route>
-        <Route exact path="/profile">
-          <Profile user={this.state.user} className="Profile" />
-        </Route>
   
+        <Authenticator
+          routes={["feed", "add-listing", "profile"]}> 
+          <Route exact path="/feed">
+            <Feed className="FeedPage" />
+          </Route>
+          <Route exact path="/add-listing">
+            <AddListing className="AddListing" />
+          </Route>
+          <Route exact path="/profile">
+            <Profile user={this.state.user} className="Profile" />
+          </Route>
+        </Authenticator>
+
+
         <Route exact path="/testpage">
           <Test className="TestPage" />
         </Route>

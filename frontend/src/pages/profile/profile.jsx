@@ -25,8 +25,8 @@ class Profile extends React.Component {
     deletePressed = () => { }
 
     render() {
-        const profile = () =>
-            <>
+        return(
+            <div id='profile'>
                 <h3>User Profile</h3>
                 <InputForm
                     inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
@@ -36,18 +36,6 @@ class Profile extends React.Component {
                                 { name: 'Delete Account', callback: this.deletePressed }]}
                     ref={this.form} 
                 />
-            </>;
-        
-        const error = () => 
-        <>
-            <h3>
-                You must be logged in to view this content
-            </h3>
-        </>
-
-        return(
-            <div id='profile'>
-                {this.state.user !== null ? profile() : error()}
             </div>
         );
     }
