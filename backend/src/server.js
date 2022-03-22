@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 import _ from 'lodash';
 
 // Initialize expess
@@ -64,12 +64,39 @@ function addUser(user) {
 
 app.post('/user', (req, res) => {
     const user = req.body.data;
-    const result = addUser(user)
+    const result = addUser(user);
 
     res.send({
         user: result,
         success: true,
         id: minID++
+    });
+});
+
+app.put('/user', (req, res) => {
+    const oldUser = req.body.old;
+    const newUser = req.body.new;
+
+    users = users.filter(u => !_.isEqual(u, oldUser));
+    const result = addUser(newUser)
+
+    res.send({
+        user: result
+    });
+});
+
+app.delete('/user', (req, res) => {
+    console.log(req);
+    const user = req.body.user;
+    const len = users.len;
+    console.log(user);
+
+    users = users.filter(u => !_.isEqual(u, user));
+
+    console.log(users);
+
+    res.send({
+        success: users.len !== len
     });
 });
 
@@ -90,25 +117,6 @@ app.post('/listing', (req, res) => {
     });
 });
 
-app.put('/user', (req, res) => {
-    const oldUser = req.body.old;
-    const newUser = req.body.new;
-
-    console.log('old', oldUser);
-    console.log('new', newUser);
-
-    users = users.filter(u => !_.isEqual(u, oldUser));
-    const result = addUser(newUser)
-
-    res.send({
-        user: result
-    })
-});
-
-app.delete('/user', (req, res) => {
-    const user = req.body.data;
-    users = users.filter(u => !_.isEqual(u, user));
-});
 
 app.listen(4201, () => {
     console.log('App listening on 4201');
