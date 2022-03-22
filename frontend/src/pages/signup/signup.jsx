@@ -35,7 +35,7 @@ class Signup extends React.Component {
       skills: curForm.state.skills.split(' '),
       employee: this.state.selectedOption === 'employee'
     };
-    console.log(userData);
+    //console.log(userData);
 
     if(formValid) {
       axios.post('http://localhost:4201/user', { data: userData }).then(r => {
