@@ -9,18 +9,22 @@ class Signup extends React.Component {
   constructor() {
     super();
     this.form = React.createRef();
+
+    // Constants
     this.employerFields = ['name', 'username', 'password', 'company name'];
     this.employerTypes = ['text', 'text', 'password', 'text'];
     this.employeeFields = ['name', 'username', 'password', 'skills'];
     this.employeeTypes = ['text', 'text', 'password', 'text'];
+
     this.state = {
       selectedOption: 'employee',
     };
   }
 
   radioButtonPressed = (ev) => {
+    ev.preventDefault();
     this.setState({
-      selectedOption: ev.target.value,
+      selectedOption: ev.target.value
     });
   };
 
@@ -31,15 +35,15 @@ class Signup extends React.Component {
     // Gets reference to form
     const curForm = this.form.current;
     const userData = {
-      ...curForm.state,
+      ...curForm.state.user,
+      skills: curForm.state.user.skills.split(' '),
       employee: this.state.selectedOption === 'employee'
     };
-    //console.log(userData);
 
     if(formValid) {
       axios.post('http://localhost:4201/user', { data: userData }).then(r => {
         if(r.data.success) {
-          this.props.history.push('/feed');
+          this.props.history.push('/'); // Back to login
         }
       });
     }
@@ -50,7 +54,9 @@ class Signup extends React.Component {
   }
 
   render() {
-    // TODO: Style the radio buttons
+    const fields = this.isEmployee() ? this.employeeFields : this.employerFields;
+    const types = this.isEmployee() ? this.employeeTypes : this.employerTypes;
+
     return (
       <div className="Signup">
         <h1 className="title"> Create a new account </h1>
@@ -76,8 +82,8 @@ class Signup extends React.Component {
         </ul>
         <div>
           <InputForm
-            inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
-            types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
+            inputs={fields}
+            types={types}
             buttons={[{ name: 'Sign Up', callback: this.signupPressed }]}
             ref={this.form} 
           />

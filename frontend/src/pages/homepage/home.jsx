@@ -8,7 +8,6 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.form = React.createRef();
-
   }
 
   handleChange = (event) => {
@@ -24,19 +23,19 @@ class Home extends React.Component {
   loginPressed = () => {
     const curForm = this.form.current;
     const userData = {
-      username: curForm.state.username,
-      password: curForm.state.password
+      username: curForm.state.user.username,
+      password: curForm.state.user.password
     }
-    console.log(userData);
     axios.get('http://localhost:4201/user', { params: { data: userData }}).then(r => {
       const data = r.data;
+      console.log(data);
       if(data.success) {
+        this.props.login(data.user)
         this.props.history.push('/feed');
       } 
     });
   };
 
-  // TODO: Should re-route user to signup component
   signupPressed = () => {
     this.props.history.push('/signup');
   };

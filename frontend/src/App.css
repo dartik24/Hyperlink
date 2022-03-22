@@ -3,6 +3,17 @@ div {
   background-color: var(--base7);
 }
 
-.Homepage {
+.Homepage, #profile {
   padding-top: 25vh;
+}
+
+.bi-person {
+  font-size: 24px;
+  float: right;
+  color: var(--purple);
+  margiN: 5px 8px 0 0;
+  background: var(--base8);
+  border-radius: 50px;
+  width: 35px;
+  height: 35px;
 }

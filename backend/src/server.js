@@ -25,27 +25,21 @@ app.use(express.urlencoded({ extended: false }));
 // pfp: image link
 // user: string
 // password: string
-const users = [ ];
-
-// Sample get request
-app.get('/foo:id', (req, res) => {
-    const ID = parseInt(req.params.id.replace(':', ''));
-});
+let users = [ ];
+let listings = [ ];
+let minID = 0;
 
 // Sample get request
 app.get('/user', (req, res) => {
     const data = JSON.parse(req.query.data);
     const un = data.username;
     const pw = data.password;
-    console.log("un/pw", un, pw);
 
     const entry = _.find(users, u => u.username === un && u.password === pw)
-    console.log("User data: ", data);
-    console.log("Entry found: ", entry);
 
     if(entry) {
         res.send({
-            ...entry,
+            user: entry,
             success: true
         });
     } else {
@@ -55,8 +49,7 @@ app.get('/user', (req, res) => {
     }
 });
 
-app.post('/user', (req, res) => {
-    const user = req.body.data;
+function addUser(user) {
     const prev = _.find(users, u => _.isEqual(u, user));
     
     if(!prev) {
@@ -66,10 +59,55 @@ app.post('/user', (req, res) => {
     console.log("Current Users: ");
     console.log(users);
 
+    return prev || user;
+}
+
+app.post('/user', (req, res) => {
+    const user = req.body.data;
+    const result = addUser(user)
+
     res.send({
-        user,
+        user: result,
+        success: true,
+        id: minID++
+    });
+});
+
+app.post('/listing', (req, res) => {
+    const listing = req.body.data;
+    const prev = _.find(listings, l => _.isEqual(l, listing));
+    
+    if(!prev) {
+        listings.push(listing);
+    }
+
+    console.log("Current Listings: ");
+    console.log(listings);
+
+    res.send({
+        listing,
         success: true
     });
+});
+
+app.put('/user', (req, res) => {
+    const oldUser = req.body.old;
+    const newUser = req.body.new;
+
+    console.log('old', oldUser);
+    console.log('new', newUser);
+
+    users = users.filter(u => !_.isEqual(u, oldUser));
+    const result = addUser(newUser)
+
+    res.send({
+        user: result
+    })
+});
+
+app.delete('/user', (req, res) => {
+    const user = req.body.data;
+    users = users.filter(u => !_.isEqual(u, user));
 });
 
 app.listen(4201, () => {
