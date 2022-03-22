@@ -28,7 +28,7 @@ class InputForm extends React.Component {
       validPrimaryButton: true,
       [id]: value,
     }, () => {
-      for(var i = 0; i < this.props.inputs.length; i++) {
+      for(let i = 0; i < this.props.inputs.length; i++) {
         console.log(this.props.inputs[i]) //': ' + this.state[this.props.inputs[i]])
         if(this.state[this.props.inputs[i]] === '') {
           this.setState({ 
@@ -75,17 +75,20 @@ class InputForm extends React.Component {
       }
     }
 
-    var onSignUp = false
+    let onSignUp = false
     if(this.props.buttons.length === 1) {
       onSignUp = true
     }
 
     // Creates markup for buttons
-    const buttons = this.props.buttons.map((button) => (
-      <button id={button.name} onClick={onclickGen(button.callback)} key={button.name} disabled={(onSignUp ? !(this.state.validPrimaryButton) : false) || (button.name === 'Login' ?  !(this.state.validPrimaryButton) : false)}>
-        {button.name}
-      </button>
-    ));
+    const buttons = this.props.buttons.map((button) => {
+      const disabled = (onSignUp ? !(this.state.validPrimaryButton) : false) || (button.name === 'Login' ?  !(this.state.validPrimaryButton) : false);
+      return(
+        <button id={button.name} onClick={onclickGen(button.callback)} key={button.name} disabled={disabled}>
+          {button.name}
+        </button>
+      );
+    });
 
     return (
       <div className="InputForm">
