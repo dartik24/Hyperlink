@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import InputForm from '../../components/input-form/input-form'
+import axios from 'axios'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -12,23 +13,33 @@ class Profile extends React.Component {
 
         this.initialUser = this.props.user;
 
-        // TODO retrieve users from app.js
+        this.form = createRef()
         this.state = {
             user: this.initialUser || null
         };
     }
 
     static getDerivedStateFromProps = (nextProps) => {
-        console.log('gdsfp', nextProps);
         return({
             user: nextProps.user
         });  
     }
 
-    isEmployee = () => this.state.user && this.state.user.employee === 'employee';
+    isEmployee = () => this.state.user.employee;
 
     // TODO
-    modifyPressed = () => { }
+    modifyPressed = () => { 
+        const form = this.form;
+        const oldUser = this.state.user;
+        const newUser = {
+            ...oldUser,
+            ...form.current.state.user
+        };
+
+        axios.put('http://localhost:4201/user', {old: oldUser, new: newUser}).then(res => {
+            this.props.login(res.data.user)
+        })
+    }
     deletePressed = () => { }
 
     render() {

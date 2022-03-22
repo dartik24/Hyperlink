@@ -42,7 +42,7 @@ class App extends React.Component {
           user={this.state.user}> 
             <Feed className="FeedPage" />
             <AddListing className="AddListing" />
-            <Profile className="Profile" />
+            <Profile className="Profile" login={this.setUser} />
         </Authenticator>
 
 

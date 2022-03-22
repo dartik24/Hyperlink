@@ -12,7 +12,7 @@ class AddListing extends React.Component {
 
     signupPressed = () => {
         const form = this.form.current;
-        axios.post('http://localhost:4201/listing', { data: form.state }).then(r => {
+        axios.post('http://localhost:4201/listing', { data: form.state.user }).then(r => {
         if(r.data.success) {
             console.log('request succeeded');
         }

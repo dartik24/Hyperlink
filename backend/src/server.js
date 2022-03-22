@@ -34,15 +34,12 @@ app.get('/user', (req, res) => {
     const data = JSON.parse(req.query.data);
     const un = data.username;
     const pw = data.password;
-    console.log("un/pw", un, pw);
 
     const entry = _.find(users, u => u.username === un && u.password === pw)
-    console.log("User data: ", data);
-    console.log("Entry found: ", entry);
 
     if(entry) {
         res.send({
-            ...entry,
+            user: entry,
             success: true
         });
     } else {
@@ -52,8 +49,7 @@ app.get('/user', (req, res) => {
     }
 });
 
-app.post('/user', (req, res) => {
-    const user = req.body.data;
+function addUser(user) {
     const prev = _.find(users, u => _.isEqual(u, user));
     
     if(!prev) {
@@ -63,8 +59,15 @@ app.post('/user', (req, res) => {
     console.log("Current Users: ");
     console.log(users);
 
+    return prev || user;
+}
+
+app.post('/user', (req, res) => {
+    const user = req.body.data;
+    const result = addUser(user)
+
     res.send({
-        user: prev | user,
+        user: result,
         success: true,
         id: minID++
     });
@@ -87,15 +90,22 @@ app.post('/listing', (req, res) => {
     });
 });
 
-app.put('/listing', (req, res) => {
-    const oldUser = req.body.data.old;
-    const newUser = req.body.data.new;
+app.put('/user', (req, res) => {
+    const oldUser = req.body.old;
+    const newUser = req.body.new;
+
+    console.log('old', oldUser);
+    console.log('new', newUser);
 
     users = users.filter(u => !_.isEqual(u, oldUser));
-    users.push(newUser);
+    const result = addUser(newUser)
+
+    res.send({
+        user: result
+    })
 });
 
-app.delete('/listing', (req, res) => {
+app.delete('/user', (req, res) => {
     const user = req.body.data;
     users = users.filter(u => !_.isEqual(u, user));
 });

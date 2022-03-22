@@ -12,7 +12,6 @@ class Authenticator extends React.Component {
     }
 
     static getDerivedStateFromProps = (nextProps) => {
-        console.log('user updated in authenticator');
         return({
             user: nextProps.user
         });  
