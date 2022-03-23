@@ -33,14 +33,13 @@ class Profile extends React.Component {
 
     isEmployee = () => this.state.user.employee;
 
-    // TODO
     modifyPressed = () => { 
         const form = this.form.current;
         const oldUser = this.state.user;
         const newUser = {
             ...oldUser,
             ...form.state.user,
-            skills: form.state.user.skills.split(' ')
+            skills: form.state.user.skills ? form.state.user.skills.split(' ') : []
         };
 
         axios.put('http://localhost:4201/user', {old: oldUser, new: newUser}).then(res => {
