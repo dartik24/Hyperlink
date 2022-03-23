@@ -3,13 +3,22 @@ import React from 'react';
 import axios from 'axios'
 import * as _ from 'lodash';
 class Feed extends React.Component {
-  state = { feeds: [] };
+  constructor(props) {
+    super(props);
+    this.state = { 
+      feeds: [],
+      toDisplay: [],
+      showAll: false,
+      user: this.props.user
+    };
+  }
 
   async componentDidMount() {
     axios.get('http://localhost:4201/listing').then(r => {
       const listings = r.data.listings;
       this.setState({
         feeds: listings,
+        toDisplay: this.filter(),
         showAll: false,
         user: this.props.user
       })
@@ -37,10 +46,11 @@ class Feed extends React.Component {
     const toDisplay = this.filter(this.state.feeds);
 
     const feed = toDisplay.map((f) => (
-      <div className="entry" key={f.download_url}>
-        <h4> {f.name} </h4>
+      <div className="entry" key={f.desc}>
+        <h4> {f.name} <i className="bi bi-hand-thumbs-up-fill"></i> </h4>
         <div className="image-container">
           <p> {f.desc} </p>
+          <hr/>
           <ul>Skills: {
             f.skills.map(skill => <li key={skill}>{skill}</li>)  
           }</ul>

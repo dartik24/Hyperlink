@@ -12,6 +12,12 @@ class Profile extends React.Component {
         this.employeeTypes = ['text', 'text', 'password', 'text'];
 
         this.initialUser = this.props.user;
+        if(this.initialUser) {
+            this.initialUser = {
+                ...this.initialUser,
+                skills: this.initialUser.skills.join(' ')
+            }
+        }
 
         this.form = createRef()
         this.state = {

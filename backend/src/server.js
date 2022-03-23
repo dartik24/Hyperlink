@@ -31,7 +31,7 @@ let listings = _listings;
 let minID = 0;
 
 function addUser(user) {
-    const prev = _.find(users, u => u.username === un && u.password === pw);
+    const prev = _.find(users, u => u.username === user.username && u.password === user.password);
     
     if(!prev) {
         users.push(user);
@@ -110,7 +110,8 @@ app.post('/listing', (req, res) => {
     const prev = _.find(listings, l => _.isEqual(l, listing));
     
     if(!prev) {
-        listings.push(listing);
+        console.log(listings);
+        listings.listings.push(listing);
     }
 
     console.log("Current Listings: ");

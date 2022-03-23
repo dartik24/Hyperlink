@@ -29,11 +29,27 @@ class App extends React.Component {
 
   render() {
     console.log('app', this.state.user);
+
+    const links = () => {
+      const u = this.state.user;
+      if(!u)
+        return <></>
+
+      const l1 = u.employee ? 'feed' : 'add-listing';
+      
+      return (
+        <>
+          <Link to='profile'> <i className="bi bi-person"></i> </Link>
+          <Link to={l1}> <i className="bi bi-rss-fill"></i> </Link>
+        </>
+      );
+    }
+
+
     return (
       <BrowserRouter id="router">
         <SlideOut />
-        <Link to='profile'> <i className="bi bi-person"></i> </Link>
-        <Link to='feed'> <i className="bi bi-rss-fill"></i> </Link>
+        {links()}
 
         <Route exact path="/"> <Home login={this.setUser} className="Homepage" /> </Route>
         <Route exact path="/signup"> <SignUp className="SignUp" /> </Route>
