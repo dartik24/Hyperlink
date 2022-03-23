@@ -15,7 +15,8 @@ class AddListing extends React.Component {
         const newListing = {
             name: form.state.user.Title,
             desc: form.state.user.Description,
-            skills: form.state.user.Skills.split(' ')
+            skills: form.state.user.Skills.split(' '),
+            likes: []
         }
 
         if(!this.props.user.employee) {

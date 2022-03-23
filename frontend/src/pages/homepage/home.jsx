@@ -31,7 +31,8 @@ class Home extends React.Component {
       console.log(data);
       if(data.success) {
         this.props.login(data.user)
-        if(data.user.employee === 'employee')
+        console.log(data.user);
+        if(data.user.employee)
           this.props.history.push('/feed');
         else 
           this.props.history.push('/add-listing');
