@@ -1,5 +1,5 @@
 import express, { response } from 'express';
-import * as listings from './listings.js';
+import * as _listings from './listings.js';
 import _ from 'lodash';
 
 // Initialize expess
@@ -27,10 +27,11 @@ app.use(express.urlencoded({ extended: false }));
 // user: string
 // password: string
 let users = [ ];
+let listings = _listings;
 let minID = 0;
 
 function addUser(user) {
-    const prev = _.find(users, u => _.isEqual(u, user));
+    const prev = _.find(users, u => u.username === un && u.password === pw);
     
     if(!prev) {
         users.push(user);
