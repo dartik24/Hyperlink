@@ -22,7 +22,6 @@ class Signup extends React.Component {
   }
 
   radioButtonPressed = (ev) => {
-    ev.preventDefault();
     this.setState({
       selectedOption: ev.target.value
     });
@@ -49,13 +48,12 @@ class Signup extends React.Component {
     }
   };
 
-  isEmployee() {
-    return this.state.selectedOption === 'employee';
-  }
+  isEmployee = () => this.state.selectedOption === 'employee';
 
   render() {
-    const fields = this.isEmployee() ? this.employeeFields : this.employerFields;
-    const types = this.isEmployee() ? this.employeeTypes : this.employerTypes;
+    const employee = this.isEmployee();
+    const fields = employee ? this.employeeFields : this.employerFields;
+    const types = employee ? this.employeeTypes : this.employerTypes;
 
     return (
       <div className="Signup">
@@ -65,7 +63,7 @@ class Signup extends React.Component {
             <input
               type="radio"
               value="employee"
-              checked={this.isEmployee()}
+              checked={employee}
               onChange={this.radioButtonPressed}
             />
             Employee
@@ -74,7 +72,7 @@ class Signup extends React.Component {
             <input
               type="radio"
               value="employer"
-              checked={!this.isEmployee()}
+              checked={!employee}
               onChange={this.radioButtonPressed}
             />
             Employer

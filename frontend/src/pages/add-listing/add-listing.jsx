@@ -10,13 +10,21 @@ class AddListing extends React.Component {
         this.form = React.createRef();
     }
 
-    signupPressed = () => {
+    submitPressed = () => {
         const form = this.form.current;
-        axios.post('http://localhost:4201/listing', { data: form.state.user }).then(r => {
-        if(r.data.success) {
-            console.log('request succeeded');
+        const newListing = {
+            name: form.state.user.Title,
+            desc: form.state.user.Description,
+            skills: form.state.user.Skills.split(' ')
         }
-      });
+
+        if(!this.props.user.employee) {
+            axios.post('http://localhost:4201/listing', { data: newListing }).then(r => {
+                if(r.data.success) {
+                    console.log('request succeeded');
+                }
+            });
+        }
     }
 
     render() {
@@ -27,7 +35,7 @@ class AddListing extends React.Component {
                     id='add-listing-form' 
                     inputs={["Team", "Title", "Description", "Skills"]}
                     types={["text", "text", "textarea", "text"]}
-                    buttons={[{ name: 'Add Listing', callback: this.signupPressed }]}
+                    buttons={[{ name: 'Add Listing', callback: this.submitPressed }]}
                     ref={this.form} 
                 />
             </div>

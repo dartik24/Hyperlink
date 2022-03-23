@@ -12,6 +12,12 @@ class Profile extends React.Component {
         this.employeeTypes = ['text', 'text', 'password', 'text'];
 
         this.initialUser = this.props.user;
+        if(this.initialUser) {
+            this.initialUser = {
+                ...this.initialUser,
+                skills: this.initialUser.skills.join(' ')
+            }
+        }
 
         this.form = createRef()
         this.state = {
@@ -29,18 +35,26 @@ class Profile extends React.Component {
 
     // TODO
     modifyPressed = () => { 
-        const form = this.form;
+        const form = this.form.current;
         const oldUser = this.state.user;
         const newUser = {
             ...oldUser,
-            ...form.current.state.user
+            ...form.state.user,
+            skills: form.state.user.skills.split(' ')
         };
 
         axios.put('http://localhost:4201/user', {old: oldUser, new: newUser}).then(res => {
-            this.props.login(res.data.user)
-        })
+            this.props.login(res.data.user || {})
+        });
     }
-    deletePressed = () => { }
+    
+    deletePressed = () => { 
+        const user = this.state.user;
+
+        axios.delete('http://localhost:4201/user', {data: {user: user}}).then(res => {
+            this.props.login(null);
+        });
+    }
 
     render() {
         return(

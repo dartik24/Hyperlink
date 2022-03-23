@@ -8,7 +8,7 @@ class InputForm extends React.Component {
 
     // Setup the state to map each input to its current value
     const vals = this.props.values || {};
-    console.log(vals);
+    
     let user = { };
     for (const input of props.inputs) {
       user[input] = vals[input] || '';
@@ -83,7 +83,7 @@ class InputForm extends React.Component {
 
     // Creates markup for buttons
     const buttons = this.props.buttons.map((button) => {
-      const disabled = (onSignUp ? !(this.state.validPrimaryButton) : false) || (button.name === 'Login' ?  !(this.state.validPrimaryButton) : false);
+      const disabled =  false; // (onSignUp ? !(this.state.validPrimaryButton) : false) || (button.name === 'Login' ?  !(this.state.validPrimaryButton) : false);
       
       return(
         <button id={button.name} onClick={onclickGen(button.callback)} key={button.name} disabled={disabled}>

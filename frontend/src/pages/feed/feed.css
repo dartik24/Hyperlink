@@ -4,20 +4,32 @@
   margin-bottom: 15px;
   background-color: #bab6c0;
   border: 1px solid black;
-  border-radius: 12px;
 }
 
 .entry h4 {
   padding: 10px 5px;
+  padding-left: 25px;
+  margin-bottom: 0;
+
   font-weight: bold;
   background-color: #948ae3;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+
+  border-bottom: 1px solid black;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.entry p {
+  padding: 5px;
 }
 
 img {
   width: 50%;
   height: 50%;
+}
+
+hr {
+  color: black !important;
 }
 
 .image-container {
@@ -30,4 +42,14 @@ img {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+}
+
+.bi-hand-thumbs-up-fill {
+  float: right;
+  padding-right: 10px;
+  color: var(--base4);
+}
+
+.bi-hand-thumbs-up-fill .liked {
+  color: white;
 }
