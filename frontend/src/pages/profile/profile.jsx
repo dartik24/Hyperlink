@@ -40,6 +40,7 @@ class Profile extends React.Component {
             this.props.login(res.data.user || {})
         });
     }
+    
     deletePressed = () => { 
         const user = this.state.user;
 

@@ -1,4 +1,5 @@
 import express, { response } from 'express';
+import * as listings from './listings.js';
 import _ from 'lodash';
 
 // Initialize expess
@@ -26,10 +27,21 @@ app.use(express.urlencoded({ extended: false }));
 // user: string
 // password: string
 let users = [ ];
-let listings = [ ];
 let minID = 0;
 
-// Sample get request
+function addUser(user) {
+    const prev = _.find(users, u => _.isEqual(u, user));
+    
+    if(!prev) {
+        users.push(user);
+    }
+
+    console.log("Current Users: ");
+    console.log(users);
+
+    return prev || user;
+}
+
 app.get('/user', (req, res) => {
     const data = JSON.parse(req.query.data);
     const un = data.username;
@@ -48,19 +60,6 @@ app.get('/user', (req, res) => {
         });
     }
 });
-
-function addUser(user) {
-    const prev = _.find(users, u => _.isEqual(u, user));
-    
-    if(!prev) {
-        users.push(user);
-    }
-
-    console.log("Current Users: ");
-    console.log(users);
-
-    return prev || user;
-}
 
 app.post('/user', (req, res) => {
     const user = req.body.data;
@@ -98,6 +97,11 @@ app.delete('/user', (req, res) => {
     res.send({
         success: users.len !== len
     });
+});
+
+app.get('/listing', (req, res) => {
+    //const data = JSON.parse(req.query.data);
+    res.send(listings);
 });
 
 app.post('/listing', (req, res) => {
