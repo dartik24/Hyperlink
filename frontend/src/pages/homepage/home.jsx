@@ -31,7 +31,10 @@ class Home extends React.Component {
       console.log(data);
       if(data.success) {
         this.props.login(data.user)
-        this.props.history.push('/feed');
+        if(data.user.employee === 'employee')
+          this.props.history.push('/feed');
+        else 
+          this.props.history.push('/add-listing');
       } 
     });
   };
