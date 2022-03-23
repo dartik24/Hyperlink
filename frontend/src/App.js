@@ -33,6 +33,7 @@ class App extends React.Component {
       <BrowserRouter id="router">
         <SlideOut />
         <Link to='profile'> <i className="bi bi-person"></i> </Link>
+        <Link to='feed'> <i className="bi bi-rss-fill"></i> </Link>
 
         <Route exact path="/"> <Home login={this.setUser} className="Homepage" /> </Route>
         <Route exact path="/signup"> <SignUp className="SignUp" /> </Route>

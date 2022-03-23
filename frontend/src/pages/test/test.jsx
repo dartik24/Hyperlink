@@ -9,7 +9,6 @@ class Test extends React.Component {
     return (
       <div id="test-content" className='row'>
         <div className='col'> <ProfileCard /> </div>
-        <div className='col'> <IFrameCard url='https://github.com/'/> </div>
       </div>
     );
   }

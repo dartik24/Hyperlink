@@ -20,14 +20,9 @@ class Feed extends React.Component {
   }
 
   filter = () => {
-    const u = this.state.user;
-    if(this.state.showAll) {
+    if(this.state.showAll)
       return this.state.feeds;
-    } else {
-      return this.state.feeds.filter(feed => {
-        return _.intersection(feed.skills, u.skills).length > 0;
-      });
-    }
+    return this.state.feeds.filter(feed => _.intersection(feed.skills, this.state.user.skills).length);
   }
 
   toggle = () => {
