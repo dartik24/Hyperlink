@@ -3,6 +3,7 @@ import InputForm from '../../components/input-form/input-form';
 import axios from 'axios';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import  logInWithEmailAndPassword from '../../../src/firebase'
 
 class Home extends React.Component {
   constructor(props) {
@@ -26,6 +27,10 @@ class Home extends React.Component {
       username: curForm.state.user.username,
       password: curForm.state.user.password
     }
+
+    //firebase login
+    logInWithEmailAndPassword(userData.username, userData.password)
+
     axios.get('http://localhost:4201/user', { params: { data: userData }}).then(r => {
       const data = r.data;
       console.log(data);
