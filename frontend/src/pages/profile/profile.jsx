@@ -44,7 +44,7 @@ class Profile extends React.Component {
         };
 
         axios.put('http://localhost:4201/user', {old: oldUser, new: newUser}).then(res => {
-            this.props.login(res.data.user || {})
+            this.props.login(res.data.user || {});
         });
     }
     

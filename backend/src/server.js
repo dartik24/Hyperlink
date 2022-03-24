@@ -79,13 +79,12 @@ app.put('/user', (req, res) => {
 });
 
 app.delete('/user', (req, res) => {
-    console.log(req);
     const user = req.body.user;
     const len = users.len;
-    console.log(user);
 
     users = users.filter(u => !_.isEqual(u, user));
 
+    console.log('Current users:');
     console.log(users);
 
     res.send({
@@ -94,7 +93,6 @@ app.delete('/user', (req, res) => {
 });
 
 app.get('/listing', (req, res) => {
-    //const data = JSON.parse(req.query.data);
     res.send(listings);
 });
 
@@ -122,15 +120,27 @@ app.post('/listing', (req, res) => {
 
 app.post('/like', (req, res) => {
     const id = req.body.data.id;
-    console.log(id);
     const user = req.body.data.user;
-    console.log(user);
 
     listings = listings.map(listing => {
         if(_.isEqual(listing.id, id)) {
-            console.log('matched: ', listing);
             listing.likes.push(user.id)
             listing.likes = _.uniq(listing.likes);
+            console.log(listing.likes);
+            return listing;
+        }
+        return listing;
+    });
+});
+
+app.post('/dislike', (req, res) => {
+    const id = req.body.data.id;
+    const user = req.body.data.user;
+
+    listings = listings.map(listing => {
+        if(_.isEqual(listing.id, id)) {
+            listing.likes = listing.likes.filter(likeid => likeid !== user.id);
+            console.log(listing.likes);
             return listing;
         }
         return listing;

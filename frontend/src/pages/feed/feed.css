@@ -44,12 +44,25 @@ hr {
   margin: 0 auto;
 }
 
-.bi-hand-thumbs-up-fill {
-  float: right;
-  padding-right: 10px;
+.entry h4 i {
+  padding: none;
+  margin: none;
+  padding-top: 3px;
+  font-size: 24px;
+  float: right;  
   color: var(--base4);
+  background: var(--base8);
+  border-radius: 50px;
+  width: 35px;
+  height: 35px;
 }
 
-.bi-hand-thumbs-up-fill .liked {
-  color: white;
+.entry h4 i:hover {
+  color: var(--purple);
+  transition: .2s all;
+}
+
+.entry h4 .bi-hand-thumbs-down-fill {
+  padding-top: 4px;
+  float: left;
 }

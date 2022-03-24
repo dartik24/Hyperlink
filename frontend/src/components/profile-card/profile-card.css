@@ -59,3 +59,12 @@ ul i {
   font-size: 28px;
   padding: 20px;
 }
+
+#footer ul i {
+  display: inline;
+  font-size: 28px;
+  color: var(--base4);
+  width: fit-content;
+  float: none;
+  padding: 10px;
+}
