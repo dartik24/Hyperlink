@@ -27,7 +27,8 @@ class Profile extends React.Component {
 
     static getDerivedStateFromProps = (nextProps) => {
         return({
-            user: nextProps.user
+            user: nextProps.user,
+            skills: nextProps.user.skills.join(' ')
         });  
     }
 
@@ -39,7 +40,7 @@ class Profile extends React.Component {
         const newUser = {
             ...oldUser,
             ...form.state.user,
-            skills: form.state.user.skills ? form.state.user.skills.split(' ') : []
+            skills: form.state.user.skills.split(' ') || []
         };
 
         axios.put('http://localhost:4201/user', {old: oldUser, new: newUser}).then(res => {

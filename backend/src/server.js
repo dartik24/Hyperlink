@@ -19,13 +19,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Stores an array of users as a mock DB
-// id: number
-// linked: url
-// git: url
-// pfp: image link
-// user: string
-// password: string
 let users = [ ];
 let listings = _listings.listings;
 let minID = 0;

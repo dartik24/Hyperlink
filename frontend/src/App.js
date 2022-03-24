@@ -18,14 +18,17 @@ class App extends React.Component {
   constructor() {
     super();
     this.login = React.createRef();
+    document.title = "Hyperlink";
 
-    let loggedInUser = localStorage.getItem('user');
-    if(loggedInUser) loggedInUser = JSON.parse(loggedInUser);
+    let user = localStorage.getItem('user');
+    if(user) 
+      user = JSON.parse(user);
+    else 
+      user = null;
 
-    console.log(loggedInUser);
     this.state = {
-      user: loggedInUser || null
-    }
+      user: null
+    };
   }
 
   setUser = (user) => {
@@ -33,30 +36,26 @@ class App extends React.Component {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
+  links = () => {
+    if(!this.state.user)
+      return <></>
+
+    const l1 = this.state.user.employee ? 'feed' : 'add-listing';
+    
+    return (
+      <>
+        <Link to='profile'> <i className="bi bi-person"></i> </Link>
+        <Link to={l1}> <i className="bi bi-rss-fill"></i> </Link>
+        <Link to='/'> <i onClick={() => this.setUser(null) } className="bi bi-door-closed"></i> </Link>
+      </>
+    );
+  }
+
   render() {
-    console.log('app', this.state.user);
-
-    const links = () => {
-      const u = this.state.user;
-      if(!u)
-        return <></>
-
-      const l1 = u.employee ? 'feed' : 'add-listing';
-      
-      return (
-        <>
-          <Link to='profile'> <i className="bi bi-person"></i> </Link>
-          <Link to={l1}> <i className="bi bi-rss-fill"></i> </Link>
-          <Link to='/'> <i onClick={() => this.setUser(null) } className="bi bi-door-closed"></i> </Link>
-        </>
-      );
-    }
-
-
     return (
       <BrowserRouter id="router">
         <SlideOut />
-        {links()}
+        {this.links()}
 
         <Route exact path="/"> <Home login={this.setUser} className="Homepage" /> </Route>
         <Route exact path="/signup"> <SignUp className="SignUp" /> </Route>
