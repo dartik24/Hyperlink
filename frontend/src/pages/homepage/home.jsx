@@ -29,7 +29,7 @@ class Home extends React.Component {
     }
 
     //firebase login
-    logInWithEmailAndPassword(userData.username, userData.password)
+    //logInWithEmailAndPassword(userData.username, userData.password)
 
     axios.get('http://localhost:4201/user', { params: { data: userData }}).then(r => {
       const data = r.data;

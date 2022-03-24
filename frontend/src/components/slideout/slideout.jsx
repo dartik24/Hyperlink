@@ -18,7 +18,7 @@ class SlideOut extends React.Component {
           id="slider-content"
           style={{ display: this.state.open ? 'revert' : 'none' }}
         >
-          Put ye content he
+          Messages to go here soon...
         </div>
         <i
           id="openClose"
