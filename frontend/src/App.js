@@ -18,13 +18,19 @@ class App extends React.Component {
   constructor() {
     super();
     this.login = React.createRef();
+
+    let loggedInUser = localStorage.getItem('user');
+    if(loggedInUser) loggedInUser = JSON.parse(loggedInUser);
+
+    console.log(loggedInUser);
     this.state = {
-      user: null
+      user: loggedInUser || null
     }
   }
 
   setUser = (user) => {
     this.setState({user: user});
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   render() {
@@ -41,6 +47,7 @@ class App extends React.Component {
         <>
           <Link to='profile'> <i className="bi bi-person"></i> </Link>
           <Link to={l1}> <i className="bi bi-rss-fill"></i> </Link>
+          <Link to='/'> <i onClick={() => this.setUser(null) } className="bi bi-door-closed"></i> </Link>
         </>
       );
     }

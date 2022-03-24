@@ -28,10 +28,8 @@ class Home extends React.Component {
     }
     axios.get('http://localhost:4201/user', { params: { data: userData }}).then(r => {
       const data = r.data;
-      console.log(data);
       if(data.success) {
         this.props.login(data.user)
-        console.log(data.user);
         if(data.user.employee)
           this.props.history.push('/feed');
         else 

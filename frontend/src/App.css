@@ -7,7 +7,7 @@ div {
   padding-top: 25vh;
 }
 
-.bi-person, .bi-rss-fill {
+a .bi {
   font-size: 24px;
   float: right;
   color: var(--purple);
