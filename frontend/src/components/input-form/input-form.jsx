@@ -46,7 +46,7 @@ class InputForm extends React.Component {
     // Creates markup for inputs
     const inputs = this.props.inputs.map((input, i) => (
       this.props.types[i] !== 'textarea' ?
-      <input
+      <input autoFocus={i === 0}
         className="input"
         label={input}
         id={input}
