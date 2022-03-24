@@ -40,7 +40,7 @@ class App extends React.Component {
       return (
         <>
           <Link to='profile'> <i className="bi bi-person"></i> </Link>
-          <Link to={l1}> <i className="bi bi-rss-fill"></i> </Link>
+          <Link to={l1}> <i className="bi bi-rss"></i> </Link>
         </>
       );
     }
