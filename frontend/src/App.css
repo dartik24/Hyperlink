@@ -7,11 +7,11 @@ div {
   padding-top: 25vh;
 }
 
-.bi-person, .bi-rss, .bi-rss-fill {
+a .bi {
   font-size: 24px;
   float: right;
   color: var(--purple);
-  margiN: 5px 8px 0 0;
+  margin: 5px 8px 0 0;
   background: var(--base8);
   border-radius: 50px;
   width: 35px;

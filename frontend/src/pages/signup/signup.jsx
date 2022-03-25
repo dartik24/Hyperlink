@@ -40,7 +40,7 @@ class Signup extends React.Component {
     };
 
     if(formValid) {
-      axios.post('http://localhost:4201/user', { data: userData }).then(r => {
+      axios.post(process.env.REACT_APP_BACKEND_URL + '/user', { data: userData }).then(r => {
         if(r.data.success) {
           this.props.history.push('/'); // Back to login
         }

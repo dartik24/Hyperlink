@@ -1,9 +1,13 @@
-import express, { response } from 'express';
-import * as _listings from './listings.js';
-import _ from 'lodash';
+const _listings = require('./listings.js');
+const express = require('express');
+const serverless = require("serverless-http");
+const _ = require('lodash')
+
 
 // Initialize expess
 const app = express();
+const router = express.Router();
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -19,22 +23,15 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Stores an array of users as a mock DB
-// id: number
-// linked: url
-// git: url
-// pfp: image link
-// user: string
-// password: string
 let users = [ ];
-let listings = _listings;
+let listings = _listings.listings;
 let minID = 0;
 
 function addUser(user) {
     const prev = _.find(users, u => u.username === user.username && u.password === user.password);
     
     if(!prev) {
-        users.push(user);
+        users.push({...user, id: minID});
     }
 
     console.log("Current Users: ");
@@ -43,7 +40,7 @@ function addUser(user) {
     return prev || user;
 }
 
-app.get('/user', (req, res) => {
+router.get('/user', (req, res) => {
     const data = JSON.parse(req.query.data);
     const un = data.username;
     const pw = data.password;
@@ -62,7 +59,7 @@ app.get('/user', (req, res) => {
     }
 });
 
-app.post('/user', (req, res) => {
+router.post('/user', (req, res) => {
     const user = req.body.data;
     const result = addUser(user);
 
@@ -73,7 +70,7 @@ app.post('/user', (req, res) => {
     });
 });
 
-app.put('/user', (req, res) => {
+router.put('/user', (req, res) => {
     const oldUser = req.body.old;
     const newUser = req.body.new;
 
@@ -85,14 +82,13 @@ app.put('/user', (req, res) => {
     });
 });
 
-app.delete('/user', (req, res) => {
-    console.log(req);
+router.delete('/user', (req, res) => {
     const user = req.body.user;
     const len = users.len;
-    console.log(user);
 
     users = users.filter(u => !_.isEqual(u, user));
 
+    console.log('Current users:');
     console.log(users);
 
     res.send({
@@ -100,18 +96,21 @@ app.delete('/user', (req, res) => {
     });
 });
 
-app.get('/listing', (req, res) => {
-    //const data = JSON.parse(req.query.data);
+router.get('/listing', (req, res) => {
     res.send(listings);
 });
 
-app.post('/listing', (req, res) => {
+router.post('/listing', (req, res) => {
     const listing = req.body.data;
-    const prev = _.find(listings, l => _.isEqual(l, listing));
+    const id = _.max(listings.map(l => l.id)) + 1;
+
+    // Can't have two listings with the same name description and skills
+    const prev = _.find(listings, l => {
+        return _.isEqual(l.name, listing.name) && _.isEqual(l.skills, listing.skills) && _.isEqual(l.desc, listing.desc)
+    });
     
     if(!prev) {
-        console.log(listings);
-        listings.listings.push(listing);
+        listings.push({...listing, id});
     }
 
     console.log("Current Listings: ");
@@ -123,7 +122,41 @@ app.post('/listing', (req, res) => {
     });
 });
 
+router.post('/like', (req, res) => {
+    const id = req.body.data.id;
+    const user = req.body.data.user;
+
+    listings = listings.map(listing => {
+        if(_.isEqual(listing.id, id)) {
+            listing.likes.push(user.id)
+            listing.likes = _.uniq(listing.likes);
+            console.log(listing.likes);
+            return listing;
+        }
+        return listing;
+    });
+});
+
+router.post('/dislike', (req, res) => {
+    const id = req.body.data.id;
+    const user = req.body.data.user;
+
+    listings = listings.map(listing => {
+        if(_.isEqual(listing.id, id)) {
+            listing.likes = listing.likes.filter(likeid => likeid !== user.id);
+            console.log(listing.likes);
+            return listing;
+        }
+        return listing;
+    });
+});
+
 
 app.listen(4201, () => {
     console.log('App listening on 4201');
 });
+
+app.use('/.netlify/functions/server', router);
+
+module.exports = app;
+module.exports.handler = serverless(app);

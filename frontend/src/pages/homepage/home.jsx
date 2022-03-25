@@ -29,14 +29,13 @@ class Home extends React.Component {
     }
 
     //firebase login
-    logInWithEmailAndPassword(userData.username, userData.password)
+    //logInWithEmailAndPassword(userData.username, userData.password)
 
-    axios.get('http://localhost:4201/user', { params: { data: userData }}).then(r => {
+    axios.get(process.env.REACT_APP_BACKEND_URL + '/user', { params: { data: userData }}).then(r => {
       const data = r.data;
-      console.log(data);
       if(data.success) {
         this.props.login(data.user)
-        if(data.user.employee === 'employee')
+        if(data.user.employee)
           this.props.history.push('/feed');
         else 
           this.props.history.push('/add-listing');

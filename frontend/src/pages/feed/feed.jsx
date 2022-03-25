@@ -14,8 +14,8 @@ class Feed extends React.Component {
   }
 
   async componentDidMount() {
-    axios.get('http://localhost:4201/listing').then(r => {
-      const listings = r.data.listings;
+    axios.get(process.env.REACT_APP_BACKEND_URL + '/listing').then(r => {
+      const listings = r.data;
       this.setState({
         feeds: listings,
         toDisplay: this.filter(),
@@ -40,6 +40,19 @@ class Feed extends React.Component {
     })
   }
 
+  dislike = (id) => {
+    const user = this.state.user;
+    axios.post(process.env.REACT_APP_BACKEND_URL + '/dislike', { data: {id, user} }).then(r => {
+      console.log(r);
+    });
+  }
+
+  like = (id) => {
+    const user = this.state.user;
+    axios.post(process.env.REACT_APP_BACKEND_URL + '/like', { data: {id, user} }).then(r => {
+      console.log(r);
+    });
+  }
 
   render() {
     //<img src={f.download_url} alt={f.author} />
@@ -47,7 +60,10 @@ class Feed extends React.Component {
 
     const feed = toDisplay.map((f) => (
       <div className="entry" key={f.desc}>
-        <h4> {f.name} <i className="bi bi-hand-thumbs-up-fill"></i> </h4>
+        <h4> 
+          <i className="bi bi-hand-thumbs-down-fill" onClick={() => this.dislike(f.id)}></i>
+          {f.name} 
+          <i className="bi bi-hand-thumbs-up-fill" onClick={() => this.like(f.id)}></i> </h4>
         <div className="image-container">
           <p> {f.desc} </p>
           <hr/>

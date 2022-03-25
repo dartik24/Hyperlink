@@ -27,7 +27,8 @@ class Profile extends React.Component {
 
     static getDerivedStateFromProps = (nextProps) => {
         return({
-            user: nextProps.user
+            user: nextProps.user,
+            skills: nextProps.user.skills.join(' ')
         });  
     }
 
@@ -39,18 +40,18 @@ class Profile extends React.Component {
         const newUser = {
             ...oldUser,
             ...form.state.user,
-            skills: form.state.user.skills ? form.state.user.skills.split(' ') : []
+            skills: form.state.user.skills.split(' ') || []
         };
 
-        axios.put('http://localhost:4201/user', {old: oldUser, new: newUser}).then(res => {
-            this.props.login(res.data.user || {})
+        axios.put(process.env.REACT_APP_BACKEND_URL + '/user', {old: oldUser, new: newUser}).then(res => {
+            this.props.login(res.data.user || {});
         });
     }
     
     deletePressed = () => { 
         const user = this.state.user;
 
-        axios.delete('http://localhost:4201/user', {data: {user: user}}).then(res => {
+        axios.delete(process.env.REACT_APP_BACKEND_URL + '/user', {data: {user: user}}).then(res => {
             this.props.login(null);
         });
     }
