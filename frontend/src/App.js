@@ -31,6 +31,14 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    let user = localStorage.getItem('user');
+    if(user) {
+      user = JSON.parse(user);
+      this.setState({user})
+    }
+  }
+
   setUser = (user) => {
     this.setState({user: user});
     localStorage.setItem('user', JSON.stringify(user));
