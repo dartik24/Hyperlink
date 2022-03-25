@@ -3,8 +3,12 @@ div {
   background-color: var(--base7);
 }
 
-.Homepage, #profile {
+.Homepage {
   padding-top: 25vh;
+}
+
+#profile {
+  padding-top: 10vh;
 }
 
 a .bi {
