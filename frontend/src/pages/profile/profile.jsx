@@ -8,8 +8,8 @@ class Profile extends React.Component {
 
         this.employerFields = ['name', 'username', 'password', 'company name'];
         this.employerTypes = ['text', 'text', 'password', 'text'];
-        this.employeeFields = ['name', 'username', 'password', 'skills'];
-        this.employeeTypes = ['text', 'text', 'password', 'text'];
+        this.employeeFields = ['name', 'username', 'password', 'skills', 'aboutme'];
+        this.employeeTypes = ['text', 'text', 'password', 'text', 'textarea'];
 
         this.form = createRef();
         this.state = {
