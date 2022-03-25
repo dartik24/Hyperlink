@@ -28,9 +28,6 @@ class Home extends React.Component {
       password: curForm.state.user.password
     }
 
-    //firebase login
-    //logInWithEmailAndPassword(userData.username, userData.password)
-
     axios.get(process.env.REACT_APP_BACKEND_URL + '/user', { params: { data: userData }}).then(r => {
       const data = r.data;
       if(data.success) {
