@@ -43,7 +43,7 @@ class Profile extends React.Component {
             skills: form.state.user.skills.split(' ') || []
         };
 
-        axios.put('http://localhost:4201/user', {old: oldUser, new: newUser}).then(res => {
+        axios.put(process.env.REACT_APP_BACKEND_URL + '/user', {old: oldUser, new: newUser}).then(res => {
             this.props.login(res.data.user || {});
         });
     }
@@ -51,7 +51,7 @@ class Profile extends React.Component {
     deletePressed = () => { 
         const user = this.state.user;
 
-        axios.delete('http://localhost:4201/user', {data: {user: user}}).then(res => {
+        axios.delete(process.env.REACT_APP_BACKEND_URL + '/user', {data: {user: user}}).then(res => {
             this.props.login(null);
         });
     }

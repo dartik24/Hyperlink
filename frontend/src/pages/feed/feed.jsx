@@ -14,7 +14,7 @@ class Feed extends React.Component {
   }
 
   async componentDidMount() {
-    axios.get('http://localhost:4201/listing').then(r => {
+    axios.get(process.env.REACT_APP_BACKEND_URL + '/listing').then(r => {
       const listings = r.data;
       this.setState({
         feeds: listings,
@@ -42,14 +42,14 @@ class Feed extends React.Component {
 
   dislike = (id) => {
     const user = this.state.user;
-    axios.post('http://localhost:4201/dislike', { data: {id, user} }).then(r => {
+    axios.post(process.env.REACT_APP_BACKEND_URL + '/dislike', { data: {id, user} }).then(r => {
       console.log(r);
     });
   }
 
   like = (id) => {
     const user = this.state.user;
-    axios.post('http://localhost:4201/like', { data: {id, user} }).then(r => {
+    axios.post(process.env.REACT_APP_BACKEND_URL + '/like', { data: {id, user} }).then(r => {
       console.log(r);
     });
   }

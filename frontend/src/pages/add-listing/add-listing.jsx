@@ -17,10 +17,10 @@ class AddListing extends React.Component {
             desc: form.state.user.Description,
             skills: form.state.user.Skills.split(' '),
             likes: []
-        }
+        };
 
         if(!this.props.user.employee) {
-            axios.post('http://localhost:4201/listing', { data: newListing }).then(r => {
+            axios.post(process.env.REACT_APP_BACKEND_URL + '/listing', { data: newListing }).then(r => {
                 if(r.data.success) {
                     console.log('request succeeded');
                 }
