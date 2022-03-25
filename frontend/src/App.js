@@ -62,7 +62,7 @@ class App extends React.Component {
   
         <Authenticator
           routes={["feed", "add-listing", "profile"]}
-          user={this.state.user}> 
+          user={this.state.user}>
             <Feed className="FeedPage" />
             <AddListing className="AddListing" />
             <Profile className="Profile" login={this.setUser} />

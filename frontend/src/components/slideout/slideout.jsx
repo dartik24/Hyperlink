@@ -2,7 +2,7 @@ import './slideout.css';
 import React from 'react';
 
 // TODO: There is padding at the top of the slider that I can't figure out how to get rid of
-// Also the icon should probably reverse when the slider is open
+// Also the icon should probably reverse when the slider is open | This works - @Vrej
 class SlideOut extends React.Component {
   constructor() {
     super();
@@ -18,7 +18,7 @@ class SlideOut extends React.Component {
           id="slider-content"
           style={{ display: this.state.open ? 'revert' : 'none' }}
         >
-          Messages to go here soon...
+          Content goes here
         </div>
         <i
           id="openClose"
