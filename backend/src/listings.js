@@ -1,4 +1,4 @@
-export const listings = [
+const listings = [
     {id: 0, name: 'listing a', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', skills: ['frontend'], likes: []},
     {id: 1, name: 'listing b', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Ullamcorper morbi tincidunt ornare massa eget egestas purus viverra accumsan. Duis at tellus at urna condimentum. Lectus proin nibh nisl condimentum id venenatis a condimentum vitae. Hac habitasse platea dictumst quisque.', skills: ['frontend', 'backend'], likes: []},
     {id: 2, name: 'listing c', desc: 'Enim ut tellus elementum sagittis vitae et leo duis ut. Vitae tempus quam pellentesque nec nam aliquam sem et tortor. Suscipit adipiscing bibendum est ultricies integer quis auctor elit. Suspendisse interdum consectetur libero id. Sit amet volutpat consequat mauris nunc congue nisi vitae. ', skills: ['backend'], likes: []},
@@ -7,3 +7,5 @@ export const listings = [
     {id: 5, name: 'listing f', desc: 'Quam nulla porttitor massa id neque aliquam vestibulum. Netus et malesuada fames ac turpis. Fringilla est ullamcorper eget nulla facilisi.', skills: ['backend', 'frontend'], likes: []},
     {id: 6, name: 'listing g', desc: ' Hac habitasse platea dictumst quisque sagittis purus sit amet volutpat. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin. ', skills: ['backend'], likes: []}
 ]
+
+exports.listings = listings;

@@ -1,9 +1,13 @@
-import express, { response } from 'express';
-import * as _listings from './listings.js';
-import _ from 'lodash';
+const _listings = require('./listings.js');
+const express = require('express');
+const serverless = require("serverless-http");
+const _ = require('lodash')
+
 
 // Initialize expess
 const app = express();
+const router = express.Router();
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -36,7 +40,7 @@ function addUser(user) {
     return prev || user;
 }
 
-app.get('/user', (req, res) => {
+router.get('/user', (req, res) => {
     const data = JSON.parse(req.query.data);
     const un = data.username;
     const pw = data.password;
@@ -55,7 +59,7 @@ app.get('/user', (req, res) => {
     }
 });
 
-app.post('/user', (req, res) => {
+router.post('/user', (req, res) => {
     const user = req.body.data;
     const result = addUser(user);
 
@@ -66,7 +70,7 @@ app.post('/user', (req, res) => {
     });
 });
 
-app.put('/user', (req, res) => {
+router.put('/user', (req, res) => {
     const oldUser = req.body.old;
     const newUser = req.body.new;
 
@@ -78,7 +82,7 @@ app.put('/user', (req, res) => {
     });
 });
 
-app.delete('/user', (req, res) => {
+router.delete('/user', (req, res) => {
     const user = req.body.user;
     const len = users.len;
 
@@ -92,11 +96,11 @@ app.delete('/user', (req, res) => {
     });
 });
 
-app.get('/listing', (req, res) => {
+router.get('/listing', (req, res) => {
     res.send(listings);
 });
 
-app.post('/listing', (req, res) => {
+router.post('/listing', (req, res) => {
     const listing = req.body.data;
     const id = _.max(listings.map(l => l.id)) + 1;
 
@@ -118,7 +122,7 @@ app.post('/listing', (req, res) => {
     });
 });
 
-app.post('/like', (req, res) => {
+router.post('/like', (req, res) => {
     const id = req.body.data.id;
     const user = req.body.data.user;
 
@@ -133,7 +137,7 @@ app.post('/like', (req, res) => {
     });
 });
 
-app.post('/dislike', (req, res) => {
+router.post('/dislike', (req, res) => {
     const id = req.body.data.id;
     const user = req.body.data.user;
 
@@ -151,3 +155,8 @@ app.post('/dislike', (req, res) => {
 app.listen(4201, () => {
     console.log('App listening on 4201');
 });
+
+app.use('/.netlify/functions/server', router);
+
+module.exports = app;
+module.exports.handler = serverless(app);
