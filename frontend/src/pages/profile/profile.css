@@ -1,0 +1,24 @@
+#profileImage { 
+    margin: 0 auto;
+    height: 200px;
+    width: 200px;
+    border-image-width: 10px;
+}
+
+#uploadInput { 
+    height: 50px;
+}
+
+#profile {
+    height: 100px;
+}
+
+#profileImageDiv { 
+    margin: 0 auto;
+    position: relative;
+    height: 250px;
+    width: 200px;
+}
+
+
+
