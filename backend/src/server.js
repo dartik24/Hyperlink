@@ -74,7 +74,7 @@ router.put('/user', (req, res) => {
     const oldUser = req.body.old;
     const newUser = req.body.new;
 
-    users = users.filter(u => !_.isEqual(u, oldUser));
+    users = users.filter(u => !_.isEqual(u.username, oldUser.username) && !_.isEqual(u.password, oldUser.password));
     const result = addUser(newUser)
 
     res.send({
@@ -86,7 +86,7 @@ router.delete('/user', (req, res) => {
     const user = req.body.user;
     const len = users.len;
 
-    users = users.filter(u => !_.isEqual(u, user));
+    users = users.filter(u => !_.isEqual(u.username, oldUser.username) && !_.isEqual(u.password, oldUser.password));
 
     console.log('Current users:');
     console.log(users);
