@@ -2,6 +2,10 @@ import './signup.css';
 import React from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
+import firebase from '../../firebase'
+import {db} from '../../firebase'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc} from 'firebase/firestore'
 
 import InputForm from '../../components/input-form/input-form';
 
@@ -39,12 +43,32 @@ class Signup extends React.Component {
       employee: this.state.selectedOption === 'employee'
     };
 
+    const signupData = {
+      username: curForm.state.user.username,
+      password: curForm.state.user.password
+    }
+
     if(formValid) {
-      axios.post(process.env.REACT_APP_BACKEND_URL + '/user', { data: userData }).then(r => {
-        if(r.data.success) {
-          this.props.history.push('/'); // Back to login
-        }
+      createUserWithEmailAndPassword(getAuth(firebase.app), signupData.username, signupData.password)
+      .then((userCredential) => {
+       //Signed in 
+        const user = userCredential.user;
+       //...
+       // Create user in database to store name, skills, type, etc..
+       setDoc(doc(firebase.db, "users", user.uid), userData);
+       this.props.history.push('/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage)
       });
+
+      // axios.post(process.env.REACT_APP_BACKEND_URL + '/user', { data: userData }).then(r => {
+        // if(r.data.success) {
+          // this.props.history.push('/'); // Back to login
+        // }
+      // });
     }
   };
 
