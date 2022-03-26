@@ -3,7 +3,10 @@ import InputForm from '../../components/input-form/input-form';
 import axios from 'axios';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import  logInWithEmailAndPassword from '../../../src/firebase'
+import firebase from '../../firebase'
+import {db} from '../../firebase'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import {doc, getDoc} from 'firebase/firestore'
 
 class Home extends React.Component {
   constructor(props) {
@@ -27,17 +30,42 @@ class Home extends React.Component {
       username: curForm.state.user.username,
       password: curForm.state.user.password
     }
+    const auth = getAuth(firebase.app)
 
-    axios.get(process.env.REACT_APP_BACKEND_URL + '/user', { params: { data: userData }}).then(r => {
-      const data = r.data;
-      if(data.success) {
-        this.props.login(data.user)
-        if(data.user.employee)
+    signInWithEmailAndPassword(auth, userData.username, userData.password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      
+      const docRef = doc(firebase.db, 'users', user.uid);
+      const docSnapshot = getDoc(docRef).then (result => {
+        const user = result.data()
+        this.props.login(user)
+        // This will always goto add-listing since firebase user is different structure. fix it later
+        if(user.employee) {
           this.props.history.push('/feed');
-        else 
+        } else { 
           this.props.history.push('/add-listing');
-      } 
+        }
+      })
+    })
+    .catch((error) => {
+      // Couldn't sign in, so show alert with error message
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage)
     });
+
+    // axios.get(process.env.REACT_APP_BACKEND_URL + '/user', { params: { data: userData }}).then(r => {
+      // const data = r.data;
+      // if(data.success) {
+        // this.props.login(data.user)
+        // if(data.user.employee)
+          // this.props.history.push('/feed');
+        // else 
+          // this.props.history.push('/add-listing');
+      // } 
+    // });
   };
 
   signupPressed = () => {
