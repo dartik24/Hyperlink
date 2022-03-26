@@ -4,7 +4,9 @@ import axios from 'axios';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import firebase from '../../firebase'
+import {db} from '../../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import {doc, getDoc} from 'firebase/firestore'
 
 class Home extends React.Component {
   constructor(props) {
@@ -34,15 +36,18 @@ class Home extends React.Component {
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;
-      console.log(user)
-      // Push feed page or add-listing page
-      this.props.login(user)
-      // This will always goto add-listing since firebase user is different structure. fix it later
-      if(curForm.state.user.employee) {
-        this.props.history.push('/feed');
-      } else { 
-        this.props.history.push('/add-listing');
-      }
+      
+      const docRef = doc(firebase.db, 'users', user.uid);
+      const docSnapshot = getDoc(docRef).then (result => {
+        const user = result.data()
+        this.props.login(user)
+        // This will always goto add-listing since firebase user is different structure. fix it later
+        if(user.employee) {
+          this.props.history.push('/feed');
+        } else { 
+          this.props.history.push('/add-listing');
+        }
+      })
     })
     .catch((error) => {
       // Couldn't sign in, so show alert with error message
