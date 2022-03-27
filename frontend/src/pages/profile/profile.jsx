@@ -30,14 +30,12 @@ class Profile extends React.Component {
     modifyPressed = () => { 
         const form = this.form.current;
         const oldUser = this.state.user;
-        console.log(form.state.user.skills);
+        
         const newUser = {
             ...oldUser,
             ...form.state.user,
             skills: form.state.user.skills.split(' ')
         };
-
-        console.log(newUser);
 
         axios.put(process.env.REACT_APP_BACKEND_URL + '/user', {old: oldUser, new: newUser}).then(res => {
             this.props.login(res.data.user || {});
@@ -59,7 +57,6 @@ class Profile extends React.Component {
     }
 
     render() {
-        console.log(this.state.user);
         const user = {
             ...this.state.user,
             skills: this.state.user.skills.join(' ')

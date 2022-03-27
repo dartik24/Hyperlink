@@ -2,7 +2,7 @@ import './feed.css';
 import React from 'react';
 import axios from 'axios'
 import * as _ from 'lodash';
-import { getListings } from '../../firebase/fb-listing-functions';
+import { getCollection } from '../../firebase/fb-generic';
 class Feed extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +15,7 @@ class Feed extends React.Component {
 
   async componentDidMount() {
     this.setState({
-      feeds: await getListings(),
+      feeds: await getCollection('listings'),
       showAll: false,
       user: this.props.user
     });
