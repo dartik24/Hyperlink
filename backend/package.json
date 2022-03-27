@@ -6,9 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "nodemon ./src/server.js",
-    "start:prod": "./node_modules/.bin/netlify-lambda serve src",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/netlify-lambda build src"
+    "start:prod": "./node_modules/.bin/netlify-lambda build src",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
