@@ -1,12 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword
-} from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
+import "firebase/firestore"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,15 +15,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-const logInWithEmailAndPassword = async (email, password) => {
-    console.log('try sigin ')
-    try {
-      await signInWithEmailAndPassword(getAuth(app), email, password);
-      console.log('logged in')
-    } catch (err) {
-      console.error(err);
-      alert(err.message);
-    }
-};
-export default logInWithEmailAndPassword;
+const db = getFirestore(app)
+export default {app, db};

@@ -1,9 +1,9 @@
 import './signup.css';
 import React from 'react';
-import axios from 'axios';
 import { withRouter } from 'react-router-dom'
 
 import InputForm from '../../components/input-form/input-form';
+import { signup } from '../../firebase/fb-functions';
 
 class Signup extends React.Component {
   constructor() {
@@ -39,11 +39,14 @@ class Signup extends React.Component {
       employee: this.state.selectedOption === 'employee'
     };
 
+    const signupData = {
+      username: curForm.state.user.username,
+      password: curForm.state.user.password
+    }
+
     if(formValid) {
-      axios.post(process.env.REACT_APP_BACKEND_URL + '/user', { data: userData }).then(r => {
-        if(r.data.success) {
-          this.props.history.push('/'); // Back to login
-        }
+      signup(signupData, userData).then(() => {
+        this.props.history.push('/');
       });
     }
   };

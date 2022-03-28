@@ -1,9 +1,8 @@
 import './home.css';
 import InputForm from '../../components/input-form/input-form';
-import axios from 'axios';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import  logInWithEmailAndPassword from '../../../src/firebase'
+import { login } from '../../firebase/fb-user-functions';
 
 class Home extends React.Component {
   constructor(props) {
@@ -19,8 +18,6 @@ class Home extends React.Component {
     }));
   };
 
-  // TODO: Should make a call to our backend that validates that the user exists in our database
-  // Should login them in if successful, should display errors otherwise
   loginPressed = () => {
     const curForm = this.form.current;
     const userData = {
@@ -28,15 +25,13 @@ class Home extends React.Component {
       password: curForm.state.user.password
     }
 
-    axios.get(process.env.REACT_APP_BACKEND_URL + '/user', { params: { data: userData }}).then(r => {
-      const data = r.data;
-      if(data.success) {
-        this.props.login(data.user)
-        if(data.user.employee)
-          this.props.history.push('/feed');
-        else 
-          this.props.history.push('/add-listing');
-      } 
+    login(userData).then(user => {
+      this.props.login(user);
+      if(user.employee) {
+        this.props.history.push('/feed');
+      } else { 
+        this.props.history.push('/add-listing');
+      }
     });
   };
 

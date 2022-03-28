@@ -17,8 +17,16 @@
     margin: 0 auto;
     position: relative;
     height: 250px;
-    width: 200px;
+    width: 100%;
+    background: none;
 }
 
+#profileImageDiv * {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
 
-
+#profileImageDiv img {
+    width: 200px;
+} 
