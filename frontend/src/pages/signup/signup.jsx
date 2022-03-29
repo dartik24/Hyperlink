@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom'
 
 import InputForm from '../../components/input-form/input-form';
-import { signup } from '../../firebase/fb-functions';
+import { signup } from '../../firebase/fb-user-functions';
 
 class Signup extends React.Component {
   constructor() {
