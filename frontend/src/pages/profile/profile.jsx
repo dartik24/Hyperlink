@@ -1,6 +1,7 @@
 import React, { createRef } from 'react';
 import InputForm from '../../components/input-form/input-form'
-import axios from 'axios'
+import { modifyUser, uploadImage} from '../../firebase/fb-user-functions';
+import { getStorage, ref, getDownloadURL} from 'firebase/storage'
 import './profile.css'
 
 class Profile extends React.Component {
@@ -15,8 +16,19 @@ class Profile extends React.Component {
         this.form = createRef();
         this.state = {
             user: this.props.user || null,
-            file: null
+            file: null,
+            imageFile: null
         };
+    }
+
+    componentDidMount() {
+        const storage = getStorage()
+        const imageFolderRef = ref(storage, this.state.user.uid + '/profile_pic')
+        getDownloadURL(imageFolderRef).then((fileURL) => {
+            this.setState({
+                file: fileURL
+            })
+        })
     }
 
     static getDerivedStateFromProps = (nextProps) => {
@@ -37,22 +49,32 @@ class Profile extends React.Component {
             skills: form.state.user.skills.split(' ')
         };
 
-        axios.put(process.env.REACT_APP_BACKEND_URL + '/user', {old: oldUser, new: newUser}).then(res => {
-            this.props.login(res.data.user || {});
-        });
+        // update user document 
+        modifyUser(this.state.user, newUser).then((success) => {
+            if(success) { 
+                console.log('updated user')
+                this.props.login(newUser || {})
+            }
+        })
     }
     
     deletePressed = () => { 
         const user = this.state.user;
-
-        axios.delete(process.env.REACT_APP_BACKEND_URL + '/user', {data: {user: user}}).then(res => {
-            this.props.login(null);
-        });
+        // axios.delete(process.env.REACT_APP_BACKEND_URL + '/user', {data: {user: user}}).then(res => {
+            // this.props.login(null);
+        // });
     }
 
     handleUploadImage = (event) => { 
-        this.setState({
-            file: URL.createObjectURL(event.target.files[0])
+        // upload photo. Only change privew of photo if success uploading.
+        uploadImage(this.state.user, event.target.files[0]).then((success) => {
+            if(success) { 
+                console.log('updated profile pic')
+                this.setState({
+                    file: URL.createObjectURL(event.target.files[0]),
+                    imageFile: event.target.files[0]
+                })
+            }
         })
     }
 
