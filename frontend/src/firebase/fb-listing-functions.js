@@ -2,9 +2,9 @@ import { doc, setDoc} from 'firebase/firestore'
 
 import firebase from './firebase';
 
-export async function addListing(listingData) {
+export async function addListing(user, listingData) {
     try {
-        setDoc(doc(firebase.db, "listings", listingData.name), listingData);
+        setDoc(doc(firebase.db, "listings", listingData.employerID + '-' + listingData.name), listingData);
     } catch(error) {
         console.error(error);
         return -1;
@@ -15,4 +15,15 @@ export async function addListing(listingData) {
 // TODO
 export async function getListings() { }
 export async function deleteListing() { }
-export async function modifyListing() { }
+export async function modifyListing(listing) { 
+    console.log(' try mod lisiting')
+
+    try {
+        setDoc(doc(firebase.db, 'listings', listing.employerID + '-' + listing.name), listing, {merge: true})
+        return true
+    } catch(error) {
+        console.log('error ')
+        console.error(error.code + ": " + error.message)
+        return false
+    }
+}
