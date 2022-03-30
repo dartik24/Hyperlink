@@ -16,7 +16,7 @@ class Profile extends React.Component {
         this.form = createRef();
         this.state = {
             user: this.props.user || null,
-            file: null,
+            imageURL: null,
             imageFile: null
         };
     }
@@ -24,9 +24,9 @@ class Profile extends React.Component {
     componentDidMount() {
         const storage = getStorage()
         const imageFolderRef = ref(storage, this.state.user.uid + '/profile_pic')
-        getDownloadURL(imageFolderRef).then((fileURL) => {
+        getDownloadURL(imageFolderRef).then((downloadFileURL) => {
             this.setState({
-                file: fileURL
+                imageURL: downloadFileURL
             })
         })
     }
@@ -71,7 +71,7 @@ class Profile extends React.Component {
             if(success) { 
                 console.log('updated profile pic')
                 this.setState({
-                    file: URL.createObjectURL(event.target.files[0]),
+                    imageURL: URL.createObjectURL(event.target.files[0]),
                     imageFile: event.target.files[0]
                 })
             }
@@ -88,7 +88,7 @@ class Profile extends React.Component {
             <h3>User Profile</h3>
             <div id='profileImageDiv'>
                 <input name='title' id='uploadInput' type='file' onChange={this.handleUploadImage}/>
-                <img id='profileImage' src={this.state.file} />
+                <img id='profileImage' src={this.state.imageURL} />
             </div>
             
             <InputForm

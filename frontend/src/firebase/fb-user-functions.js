@@ -40,7 +40,7 @@ export async function modifyUser(user, userData) {
         setDoc(doc(firebase.db, 'users', user.uid), userData, {merge: true})
         return true
     } catch(error) {
-        console.log(error.code + ": " + error.message)
+        console.error(error.code + ": " + error.message)
         return false
     }
 }
@@ -52,7 +52,7 @@ export async function uploadImage(user, image) {
         uploadBytes(imageFolderRef, image)
         return true
     } catch(error) { 
-        console.log(error.code + ": " + error.message)
+        console.error(error.code + ": " + error.message)
         return false
     }
 }
