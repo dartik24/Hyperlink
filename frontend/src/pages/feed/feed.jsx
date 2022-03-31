@@ -16,7 +16,7 @@ class Feed extends React.Component {
 
   async componentDidMount() {
     this.setState({
-      feeds: await getCollection('listings'),
+      feeds: await getCollection(this.props.user, 'listings', false),
       showAll: false,
       user: this.props.user
     });
@@ -56,20 +56,19 @@ class Feed extends React.Component {
     const toDisplay = this.filter(this.state.feeds);
 
     const feed = toDisplay.map((f) => (
-      <div className="entry" key={f.desc}>
-        <h4> 
-          <i className="bi bi-hand-thumbs-down-fill" onClick={() => this.dislike(f)}></i>
-          {f.name} 
-          <i className="bi bi-hand-thumbs-up-fill" onClick={() => this.like(f)}></i> </h4>
-        <div className="image-container">
-          <p> {f.desc} </p>
-          <hr/>
-          <ul>Skills: {
-            f.skills.map(skill => <li key={skill}>{skill}</li>)  
-          }</ul>
+        <div className="entry" key={f.desc}>
+          <h4> 
+            <i className="bi bi-hand-thumbs-down-fill" onClick={() => this.dislike(f)}></i>
+            {f.name} 
+            <i className="bi bi-hand-thumbs-up-fill" onClick={() => this.like(f)}></i> </h4>
+          <div className="image-container">
+            <p> {f.desc} </p>
+            <hr/>
+            <ul>Skills: {
+              f.skills.map(skill => <li key={skill}>{skill}</li>)  
+            }</ul>
+          </div>
         </div>
-      </div>
-
     ));
 
     return (
