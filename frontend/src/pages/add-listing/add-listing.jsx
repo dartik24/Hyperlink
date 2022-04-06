@@ -3,6 +3,7 @@ import InputForm from '../../components/input-form/input-form';
 import axios from 'axios';
 
 import './add-listing.css'
+import { addListing } from '../../firebase/fb-listing-functions';
 
 class AddListing extends React.Component {
     constructor() {
@@ -16,16 +17,12 @@ class AddListing extends React.Component {
             name: form.state.user.Title,
             desc: form.state.user.Description,
             skills: form.state.user.Skills.split(' '),
-            likes: []
+            likes: [],
+            dislikes:[],
+            employerID: this.props.user.uid
         };
 
-        if(!this.props.user.employee) {
-            axios.post(process.env.REACT_APP_BACKEND_URL + '/listing', { data: newListing }).then(r => {
-                if(r.data.success) {
-                    console.log('request succeeded');
-                }
-            });
-        }
+        addListing(this.props.user, newListing);
     }
 
     render() {
