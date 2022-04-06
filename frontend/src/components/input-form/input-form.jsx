@@ -16,7 +16,8 @@ class InputForm extends React.Component {
     
     this.state ={
       validPrimaryButton: false,
-      user: user
+      user: user,
+      isProfilePage: this.props.isProfilePage
     };
   }
 
@@ -52,6 +53,7 @@ class InputForm extends React.Component {
         id={input}
         placeholder={this.placeholders[i]}
         key={input}
+        disabled = {(input === 'username' && this.state.isProfilePage)}
         value={this.state.user[input]}
         onChange={this.handleChange}
         type={this.props.types[i]}
