@@ -8,10 +8,10 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
 
-        this.employerFields = ['name', 'username', 'password', 'company name'];
-        this.employerTypes = ['text', 'text', 'password', 'text'];
-        this.employeeFields = ['name', 'username', 'password', 'skills', 'aboutme', 'github', 'linked'];
-        this.employeeTypes = ['text', 'text', 'password', 'text', 'textarea', 'text', 'text'];
+        this.employerFields = ['name', 'username', 'company name'];
+        this.employerTypes = ['text', 'text', 'text'];
+        this.employeeFields = ['name', 'username', 'skills', 'aboutme', 'github', 'linked'];
+        this.employeeTypes = ['text', 'text', 'text', 'textarea', 'text', 'text'];
 
         this.form = createRef();
         this.state = {
@@ -92,6 +92,7 @@ class Profile extends React.Component {
             </div>
             
             <InputForm
+                isProfilePage={true}
                 inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
                 types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
                 values={user}
