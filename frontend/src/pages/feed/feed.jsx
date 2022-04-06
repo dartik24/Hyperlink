@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios'
 import * as _ from 'lodash';
 import { getCollection } from '../../firebase/fb-generic';
+import { modifyListing } from '../../firebase/fb-listing-functions'
 class Feed extends React.Component {
   constructor(props) {
     super(props);
@@ -33,18 +34,22 @@ class Feed extends React.Component {
     })
   }
 
-  dislike = (id) => {
+  dislike = (feed) => {
     const user = this.state.user;
-    axios.post(process.env.REACT_APP_BACKEND_URL + '/dislike', { data: {id, user} }).then(r => {
-      console.log(r);
-    });
+    // prevent duplicate entires
+    if(feed.dislikes.indexOf(user.uid) === -1) {
+      feed.dislikes.push(user.uid)
+      modifyListing(feed)
+    }
   }
 
-  like = (id) => {
+  like = (feed) => {
     const user = this.state.user;
-    axios.post(process.env.REACT_APP_BACKEND_URL + '/like', { data: {id, user} }).then(r => {
-      console.log(r);
-    });
+    // prevent duplicate entries
+    if(feed.likes.indexOf(user.uid) === -1) {
+      feed.likes.push(user.uid)
+      modifyListing(feed)
+    }
   }
 
   render() {
@@ -53,9 +58,9 @@ class Feed extends React.Component {
     const feed = toDisplay.map((f) => (
       <div className="entry" key={f.desc}>
         <h4> 
-          <i className="bi bi-hand-thumbs-down-fill" onClick={() => this.dislike(f.id)}></i>
+          <i className="bi bi-hand-thumbs-down-fill" onClick={() => this.dislike(f)}></i>
           {f.name} 
-          <i className="bi bi-hand-thumbs-up-fill" onClick={() => this.like(f.id)}></i> </h4>
+          <i className="bi bi-hand-thumbs-up-fill" onClick={() => this.like(f)}></i> </h4>
         <div className="image-container">
           <p> {f.desc} </p>
           <hr/>
