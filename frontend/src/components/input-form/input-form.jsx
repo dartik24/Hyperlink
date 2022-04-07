@@ -77,15 +77,10 @@ class InputForm extends React.Component {
         f();
       }
     }
-
-    let onSignUp = false
-    if(this.props.buttons.length === 1) {
-      onSignUp = true
-    }
-
+    
     // Creates markup for buttons
     const buttons = this.props.buttons.map((button) => {
-      const disabled =  false; // (onSignUp ? !(this.state.validPrimaryButton) : false) || (button.name === 'Login' ?  !(this.state.validPrimaryButton) : false);
+      const disabled =  false;
       
       return(
         <button id={button.name} onClick={onclickGen(button.callback)} key={button.name} disabled={disabled}>

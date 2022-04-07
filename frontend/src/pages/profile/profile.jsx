@@ -59,10 +59,8 @@ class Profile extends React.Component {
     }
     
     deletePressed = () => { 
-        const user = this.state.user;
-        // axios.delete(process.env.REACT_APP_BACKEND_URL + '/user', {data: {user: user}}).then(res => {
-            // this.props.login(null);
-        // });
+        //const user = this.state.user;
+        this.props.login(null);
     }
 
     handleUploadImage = (event) => { 
@@ -88,7 +86,7 @@ class Profile extends React.Component {
             <h3>User Profile</h3>
             <div id='profileImageDiv'>
                 <input name='title' id='uploadInput' type='file' onChange={this.handleUploadImage}/>
-                <img id='profileImage' src={this.state.imageURL} />
+                <img id='profileImage' src={this.state.imageURL} alt='profile_picture'/>
             </div>
             
             <InputForm

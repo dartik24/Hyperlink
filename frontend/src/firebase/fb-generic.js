@@ -7,7 +7,7 @@ export async function getCollection(user, name, getLiked) {
     try {
         const querySnapshot = await getDocs(collection(firebase.db, name));
         const listings = [];
-        const res = querySnapshot.forEach((doc) => { 
+        querySnapshot.forEach((doc) => { 
             const lst = doc.data()
             if(getLiked === true) { 
                 if(lst.likes.indexOf(user.uid) === 0) {
