@@ -1,6 +1,5 @@
 import './feed.css';
 import React from 'react';
-import axios from 'axios'
 import * as _ from 'lodash';
 import { getCollection } from '../../firebase/fb-generic';
 import { modifyListing } from '../../firebase/fb-listing-functions'
@@ -16,7 +15,7 @@ class Feed extends React.Component {
 
   async componentDidMount() {
     this.setState({
-      feeds: await getCollection('listings'),
+      feeds: await getCollection('listings', (doc) => doc.dislikes.indexOf(this.props.user.uid) === -1),
       showAll: false,
       user: this.props.user
     });
@@ -56,20 +55,19 @@ class Feed extends React.Component {
     const toDisplay = this.filter(this.state.feeds);
 
     const feed = toDisplay.map((f) => (
-      <div className="entry" key={f.desc}>
-        <h4> 
-          <i className="bi bi-hand-thumbs-down-fill" onClick={() => this.dislike(f)}></i>
-          {f.name} 
-          <i className="bi bi-hand-thumbs-up-fill" onClick={() => this.like(f)}></i> </h4>
-        <div className="image-container">
-          <p> {f.desc} </p>
-          <hr/>
-          <ul>Skills: {
-            f.skills.map(skill => <li key={skill}>{skill}</li>)  
-          }</ul>
+        <div className="entry" key={f.desc}>
+          <h4> 
+            <i className="bi bi-hand-thumbs-down-fill" onClick={() => this.dislike(f)}></i>
+            {f.name} 
+            <i className="bi bi-hand-thumbs-up-fill" onClick={() => this.like(f)}></i> </h4>
+          <div className="image-container">
+            <p> {f.desc} </p>
+            <hr/>
+            <ul>Skills: {
+              f.skills.map(skill => <li key={skill}>{skill}</li>)  
+            }</ul>
+          </div>
         </div>
-      </div>
-
     ));
 
     return (

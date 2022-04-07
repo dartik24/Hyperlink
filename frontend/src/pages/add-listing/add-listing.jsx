@@ -1,6 +1,5 @@
 import React from 'react';
 import InputForm from '../../components/input-form/input-form';
-import axios from 'axios';
 
 import './add-listing.css'
 import { addListing } from '../../firebase/fb-listing-functions';

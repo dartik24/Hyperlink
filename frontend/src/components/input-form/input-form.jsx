@@ -16,7 +16,8 @@ class InputForm extends React.Component {
     
     this.state ={
       validPrimaryButton: false,
-      user: user
+      user: user,
+      isProfilePage: this.props.isProfilePage
     };
   }
 
@@ -52,6 +53,7 @@ class InputForm extends React.Component {
         id={input}
         placeholder={this.placeholders[i]}
         key={input}
+        disabled = {(input === 'username' && this.state.isProfilePage)}
         value={this.state.user[input]}
         onChange={this.handleChange}
         type={this.props.types[i]}
@@ -75,15 +77,10 @@ class InputForm extends React.Component {
         f();
       }
     }
-
-    let onSignUp = false
-    if(this.props.buttons.length === 1) {
-      onSignUp = true
-    }
-
+    
     // Creates markup for buttons
     const buttons = this.props.buttons.map((button) => {
-      const disabled =  false; // (onSignUp ? !(this.state.validPrimaryButton) : false) || (button.name === 'Login' ?  !(this.state.validPrimaryButton) : false);
+      const disabled =  false;
       
       return(
         <button id={button.name} onClick={onclickGen(button.callback)} key={button.name} disabled={disabled}>

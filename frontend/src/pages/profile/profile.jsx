@@ -8,10 +8,10 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
 
-        this.employerFields = ['name', 'username', 'password', 'company name'];
-        this.employerTypes = ['text', 'text', 'password', 'text'];
-        this.employeeFields = ['name', 'username', 'password', 'skills', 'aboutme', 'github', 'linked'];
-        this.employeeTypes = ['text', 'text', 'password', 'text', 'textarea', 'text', 'text'];
+        this.employerFields = ['name', 'username', 'company name'];
+        this.employerTypes = ['text', 'text', 'text'];
+        this.employeeFields = ['name', 'username', 'skills', 'aboutme', 'github', 'linked'];
+        this.employeeTypes = ['text', 'text', 'text', 'textarea', 'text', 'text'];
 
         this.form = createRef();
         this.state = {
@@ -59,10 +59,8 @@ class Profile extends React.Component {
     }
     
     deletePressed = () => { 
-        const user = this.state.user;
-        // axios.delete(process.env.REACT_APP_BACKEND_URL + '/user', {data: {user: user}}).then(res => {
-            // this.props.login(null);
-        // });
+        //const user = this.state.user;
+        this.props.login(null);
     }
 
     handleUploadImage = (event) => { 
@@ -88,10 +86,11 @@ class Profile extends React.Component {
             <h3>User Profile</h3>
             <div id='profileImageDiv'>
                 <input name='title' id='uploadInput' type='file' onChange={this.handleUploadImage}/>
-                <img id='profileImage' src={this.state.imageURL} />
+                <img id='profileImage' src={this.state.imageURL} alt='profile_picture'/>
             </div>
             
             <InputForm
+                isProfilePage={true}
                 inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
                 types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
                 values={user}
