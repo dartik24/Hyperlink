@@ -1,12 +1,12 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'react-responsive-carousel/lib/styles/carousel.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'react-responsive-carousel/lib/styles/carousel.css';
 
 ReactDOM.render(
   <React.StrictMode>

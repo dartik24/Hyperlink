@@ -21,3 +21,82 @@ a .bi {
   width: 35px;
   height: 35px;
 }
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+p, i, li, label, td, th, button {
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+}
+
+h1 {
+	color: #9002FF;
+	font-weight: bold;
+}
+
+button {
+	display: inline-flex;
+	flex: auto;
+	min-width: 150px;
+	max-width: 150px;
+	min-height: 50px;
+	max-height: 50px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	font-size: 25px;
+	background-color: white;
+	color: #9002FF;
+	transition-duration: 0.4s;
+	margin: 10px;
+	border: none;
+	border-radius: 2px;
+}
+button:hover {
+	background-color: #9002FF;
+	color: white;
+}
+button:active {
+	background-color: #948AE3;
+	color: white;
+	transform: translateY(2px);
+}
+
+input[type="radio"] {
+	display: inline-flex;
+	flex: auto;
+	min-width: 20px;
+	max-width: 20px;
+	min-height: 20px;
+	max-height: 20px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	font-size: 25px;
+	background-color: white;
+	color: #9002FF;
+	transition-duration: 0.4s;
+	margin: 10px;
+	border: none;
+	border-radius: 2px;
+}
+input[type="radio"]:hover {
+	background-color: #9002FF;
+	color: #9002FF;
+}
+input[type="radio"]:active {
+	background-color: #948AE3;
+	color: #948AE3;
+	transform: scale(0.8);
+}
+input[type='radio']:checked:after {
+	width: 20px;
+	height: 20px;
+	border-radius: 15px;
+	position: center;
+	background-color: #9002FF;
+	content: '';
+	display: inline-block;
+	visibility: visible;
+	border: 2px solid white;
+}

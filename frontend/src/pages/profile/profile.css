@@ -3,10 +3,20 @@
     height: 200px;
     width: 200px;
     border-image-width: 10px;
+	border: 2px dashed white;
 }
 
-#uploadInput { 
-    height: 50px;
+#uploadInput {
+    display: inline-flex;
+	flex: auto;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	color: #9002FF;
+	transition-duration: 0.4s;
+	border: none;
+	border-radius: 2px;
+	padding: 10px;
 }
 
 #profile {
@@ -29,4 +39,8 @@
 
 #profileImageDiv img {
     width: 200px;
-} 
+}
+
+button {
+	font-size: 20px;
+}

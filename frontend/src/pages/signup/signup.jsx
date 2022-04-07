@@ -61,7 +61,7 @@ class Signup extends React.Component {
     return (
       <div className="Signup">
         <h1 className="title"> Create a new account </h1>
-        <ul>
+        <ul id="radioSelector">
           <label>
             <input
               type="radio"
