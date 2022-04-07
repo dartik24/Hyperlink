@@ -1,6 +1,5 @@
 import './feed.css';
 import React from 'react';
-import axios from 'axios'
 import * as _ from 'lodash';
 import { getCollection } from '../../firebase/fb-generic';
 import { modifyListing } from '../../firebase/fb-listing-functions'
