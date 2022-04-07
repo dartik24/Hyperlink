@@ -3,30 +3,18 @@
   display: block;
   background: none;
   border: none;
-  border-bottom: 1px solid var(--purple);
+  border-bottom: 1.8px solid var(--purple);
   padding-top: 20px;
   font-size: 18px;
 }
 .input:focus {
   outline: none;
+  border-color: #9002FF;
 }
 
 .title {
-  color: var(--purple);
   margin: 0;
   padding-bottom: 8px;
-}
-
-button {
-  margin: 12px;
-  margin-top: 30px;
-  padding: 8px 15px 8px 15px;
-  border: none;
-  border-radius: 2px;
-}
-
-#login {
-  background-color: var(--purple);
 }
 
 .Homepage {
