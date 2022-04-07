@@ -15,7 +15,7 @@ class Feed extends React.Component {
 
   async componentDidMount() {
     this.setState({
-      feeds: await getCollection(this.props.user, 'listings', false),
+      feeds: await getCollection('listings', (doc) => doc.dislikes.indexOf(this.props.user.uid) === -1),
       showAll: false,
       user: this.props.user
     });
