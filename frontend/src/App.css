@@ -1,6 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@700&display=swap');
 div {
   text-align: center;
-  background-color: var(--base7);
+  background-color: var(--white);
 }
 
 .Homepage {
@@ -22,7 +23,7 @@ a .bi {
   height: 35px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h2, h3, h4, h5, h6 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 p, i, li, label, td, th, button {
@@ -32,6 +33,8 @@ p, i, li, label, td, th, button {
 h1 {
 	color: #9002FF;
 	font-weight: bold;
+	font-family: 'Readex Pro', sans-serif;
+	font-size: 70px;
 }
 
 button {
@@ -51,6 +54,7 @@ button {
 	margin: 10px;
 	border: none;
 	border-radius: 2px;
+	filter: drop-shadow(2.5px 2px 2px grey)
 }
 button:hover {
 	background-color: #9002FF;

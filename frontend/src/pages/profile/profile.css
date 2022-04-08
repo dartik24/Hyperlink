@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@700&display=swap');
+
 #profileImage { 
     margin: 0 auto;
     height: 200px;
@@ -42,5 +44,10 @@
 }
 
 button {
-	font-size: 20px;
+	font-size: 18px;
+}
+
+h3 {
+    font-family: 'Readex Pro', sans-serif;
+    font-size: 35px;
 }
