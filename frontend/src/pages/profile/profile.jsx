@@ -8,9 +8,9 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
 
-        this.employerFields = ['name', 'username', 'company name'];
+        this.employerFields = ['Name', 'Email', 'Company name'];
         this.employerTypes = ['text', 'text', 'text'];
-        this.employeeFields = ['name', 'username', 'skills', 'aboutme', 'github', 'linked'];
+        this.employeeFields = ['Name', 'Email', 'Skills', 'About me', 'Github', 'Linkedin'];
         this.employeeTypes = ['text', 'text', 'text', 'textarea', 'text', 'text'];
 
         this.form = createRef();
@@ -43,11 +43,20 @@ class Profile extends React.Component {
         const form = this.form.current;
         const oldUser = this.state.user;
         
-        const newUser = {
-            ...oldUser,
-            ...form.state.user,
-            skills: form.state.user.skills.split(' ')
-        };
+        var newUser = {}
+
+        if(this.isEmployee()) {
+            newUser = {
+                ...oldUser,
+                ...form.state.user,
+                Skills: form.state.user.Skills.split(' ')
+            };
+        } else { 
+            newUser = {
+                ...oldUser,
+                ...form.state.user,
+            };
+        }
 
         // update user document 
         modifyUser(this.state.user, newUser).then((success) => {
@@ -79,7 +88,7 @@ class Profile extends React.Component {
     render() {
         const user = {
             ...this.state.user,
-            skills: this.state.user.skills.join(' ')
+            Skills: this.state.user.Skills.join(' ')
         };
         return(
             <div id='profile'>
@@ -90,7 +99,7 @@ class Profile extends React.Component {
             </div>
             
             <InputForm
-                isProfilePage={true}
+                pageType={'PROFILE'}
                 inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
                 types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
                 values={user}

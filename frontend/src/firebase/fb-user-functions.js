@@ -8,6 +8,8 @@ import { getStorage, ref, uploadBytes} from 'firebase/storage'
 import firebase from './firebase';
 
 export async function signup(signupData, userData) {
+    console.log(signupData)
+    console.log(userData)
     console.log('hello from fb functions');
     try {
         const userCredential = await createUserWithEmailAndPassword(getAuth(firebase.app), signupData.username, signupData.password);

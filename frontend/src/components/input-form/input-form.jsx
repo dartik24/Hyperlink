@@ -1,5 +1,7 @@
 import './input-form.css';
 import React from 'react';
+import isURL from 'validator/lib/isURL';
+
 
 // Accepts props: Array<InputNames>
 class InputForm extends React.Component {
@@ -12,12 +14,13 @@ class InputForm extends React.Component {
     let user = { };
     for (const input of props.inputs) {
       user[input] = vals[input] || '';
+
     }
-    
     this.state ={
       validPrimaryButton: false,
       user: user,
-      isProfilePage: this.props.isProfilePage
+      pageType: this.props.pageType,
+      inputErrors: {'password':''}
     };
   }
 
@@ -40,6 +43,108 @@ class InputForm extends React.Component {
     }));
   };
 
+  validateForm = () => {
+    var noErrors = true
+    var errMessage = ''
+
+    for (const inp of this.props.inputs) {
+      const inpValue = this.state.user[inp]
+      
+      switch(inp){ 
+        case 'Email': 
+          let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          if(inpValue.length <= 0) { // no email typed
+            errMessage = 'Email cannot be blank'
+            noErrors = false
+          } else if (!re.test(inpValue) ) {  // invalid email, maybe show an error to the user.
+            errMessage = 'Invalid email format'
+            noErrors = false
+          } else { 
+            errMessage = ''
+          }
+          this.updateErrorState('Email', errMessage)
+        break;
+       
+        case 'Password':
+          if(inpValue.length <= 0) { // no password typed
+            errMessage = 'Password cannot be blank'
+            noErrors = false
+          } else if(inpValue.length < 6) { // password too short
+            errMessage = 'Password must be more than 6 character'
+            noErrors = false
+          } else {
+            errMessage = ''
+          }
+          this.updateErrorState('Password', errMessage)
+        break;
+
+        case 'Github':
+          if(!isURL(inpValue) && inpValue.length > 0) {
+            errMessage = 'Invalid github URL'
+            noErrors = false
+          } else { 
+            errMessage = ''
+          }     
+          
+          this.updateErrorState('Github', errMessage)
+        break;
+
+        case 'Linkedin':
+          if(!isURL(inpValue) && inpValue.length > 0) {
+            errMessage = 'Invalid linkedin URL'
+            noErrors = false
+          } else { 
+            errMessage = ''
+          }
+          this.updateErrorState('Linkedin', errMessage)
+        break;
+
+        case 'Name':
+          if(inpValue.length <= 0) { 
+            errMessage = 'Name cannot be blank'
+            noErrors = false
+          } else { 
+            errMessage = ''
+          }
+          this.updateErrorState('Name', errMessage)
+          break;
+
+        case 'Company name':
+          if(inpValue <= 0){ 
+            errMessage = 'Company name cannot be blank'
+            noErrors = false
+          } else {
+            errMessage = ''
+          }
+          this.updateErrorState('Company name', errMessage)
+          break;
+
+        case 'Skills':
+          if(inpValue <= 0){
+            errMessage = 'Skills cannot be blank'
+            noErrors = false
+          } else { 
+            errMessage = ''
+          }
+          this.updateErrorState('Skills', errMessage)
+          break;
+
+        default:
+          break;
+      }
+    }
+    return noErrors
+  }
+
+  updateErrorState = (inputType, message) => {
+    var newInputErrors = this.state.inputErrors // use to append
+    newInputErrors[inputType] = message
+    this.setState((prevState) => ({
+    ...prevState,
+    inputErrors: newInputErrors
+    }))
+  }
+
   render() {
     // Handle optional placeholder prop
     this.placeholders = this.props.placeholders || this.props.inputs.map(el => el);
@@ -47,34 +152,58 @@ class InputForm extends React.Component {
     // Creates markup for inputs
     const inputs = this.props.inputs.map((input, i) => (
       this.props.types[i] !== 'textarea' ?
-      <input autoFocus={i === 0}
-        className="input"
-        label={input}
-        id={input}
-        placeholder={this.placeholders[i]}
-        key={input}
-        disabled = {(input === 'username' && this.state.isProfilePage)}
-        value={this.state.user[input]}
-        onChange={this.handleChange}
-        type={this.props.types[i]}
-      />
+      <div>
+        <input autoFocus={i === 0}
+          className="input"
+          label={input}
+          id={input}
+          placeholder={this.placeholders[i]}
+          key={input}
+          disabled = {(input === 'Email' && this.state.pageType === 'PROFILE')}
+          value={this.state.user[input]}
+          onChange={this.handleChange}
+          type={this.props.types[i]}
+        />
+        {/* Disable error lable if error is empty or key for input doesn't exist in dictionary */}
+        <label className="inputError" hidden={this.state.inputErrors[input] === '' || !this.state.inputErrors.hasOwnProperty(input)}>
+          {this.state.inputErrors[input]}
+        </label>     
+      </div>
       : // Allows for creation of multiline text field
-      <textarea
-        className="input"
-        label={input}
-        id={input}
-        placeholder={input}
-        key={input}
-        value={this.state.user[input]}
-        onChange={this.handleChange}> 
-      </textarea>
+      <div>
+        <textarea
+          className="input"
+          label={input}
+          id={input}
+          placeholder={input}
+          key={input}
+          value={this.state.user[input]}
+          onChange={this.handleChange}> 
+        </textarea>
+        <label className="inputError" hidden={this.state.inputErrors[input] === '' || !this.state.inputErrors.hasOwnProperty(input)} >
+          {this.state.inputErrors[input]}
+        </label>     
+      </div>
     ));
 
     // Function generator that generates onclick functions given a callback
-    const onclickGen = (f) => {
+    const onclickGen = (f, buttonName) => {
+      const self = this
+      const pgType = this.state.pageType
+  
       return function(e) {
         e.preventDefault();
-        f();
+        if(buttonName === 'Login' || buttonName === 'Modify Profile' || (buttonName === 'Sign Up' && pgType === 'SIGNUP')) { 
+          console.log('validate form')
+          if(self.validateForm()) {
+            console.log('valid entries')
+            f();
+          } else {
+            console.log('invalid entries')
+          }
+        } else {
+          f();
+        }
       }
     }
     
@@ -83,7 +212,7 @@ class InputForm extends React.Component {
       const disabled =  false;
       
       return(
-        <button id={button.name} onClick={onclickGen(button.callback)} key={button.name} disabled={disabled}>
+        <button id={button.name} onClick={onclickGen(button.callback, button.name)} key={button.name} disabled={disabled}>
           {button.name}
         </button>
       );

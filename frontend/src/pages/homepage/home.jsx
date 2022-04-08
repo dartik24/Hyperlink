@@ -21,8 +21,8 @@ class Home extends React.Component {
   loginPressed = () => {
     const curForm = this.form.current;
     const userData = {
-      username: curForm.state.user.username,
-      password: curForm.state.user.password
+      username: curForm.state.user.Email,
+      password: curForm.state.user.Password
     }
 
     login(userData).then(user => {
@@ -45,7 +45,7 @@ class Home extends React.Component {
         <h1 className="title"> Hyperlink </h1>
         <InputForm
           ref={this.form} 
-          inputs={['username', 'password']}
+          inputs={['Email', 'Password']}
           types={['text', 'password']}
           buttons={[
             { name: 'Login', callback: this.loginPressed },

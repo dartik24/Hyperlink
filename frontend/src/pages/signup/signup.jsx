@@ -11,9 +11,9 @@ class Signup extends React.Component {
     this.form = React.createRef();
 
     // Constants
-    this.employerFields = ['name', 'username', 'password', 'company name'];
+    this.employerFields = ['Name', 'Email', 'Password', 'Company name'];
     this.employerTypes = ['text', 'text', 'password', 'text'];
-    this.employeeFields = ['name', 'username', 'password', 'skills'];
+    this.employeeFields = ['Name', 'Email', 'Password', 'Skills'];
     this.employeeTypes = ['text', 'text', 'password', 'text'];
 
     this.state = {
@@ -35,13 +35,13 @@ class Signup extends React.Component {
     const curForm = this.form.current;
     const userData = {
       ...curForm.state.user,
-      skills: curForm.state.user.skills.split(' '),
+      Skills: curForm.state.user.Skills.split(' '),
       employee: this.state.selectedOption === 'employee'
     };
 
     const signupData = {
-      username: curForm.state.user.username,
-      password: curForm.state.user.password
+      username: curForm.state.user.Email,
+      password: curForm.state.user.Password
     }
 
     if(formValid) {
@@ -87,6 +87,7 @@ class Signup extends React.Component {
             types={types}
             buttons={[{ name: 'Sign Up', callback: this.signupPressed }]}
             ref={this.form} 
+            pageType={'SIGNUP'}
           />
         </div>
       </div>
