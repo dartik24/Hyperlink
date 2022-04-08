@@ -24,7 +24,7 @@ class Feed extends React.Component {
   filter = () => {
     if(this.state.showAll)
       return this.state.feeds;
-    return this.state.feeds.filter(feed => _.intersection(feed.Skills, this.state.user.Skills).length);
+    return this.state.feeds.filter(feed => _.intersection(feed.skills, this.state.user.skills).length);
   }
 
   toggle = () => {
@@ -64,7 +64,7 @@ class Feed extends React.Component {
             <p> {f.desc} </p>
             <hr/>
             <ul>Skills: {
-              f.Skills.map(skill => <li key={skill}>{skill}</li>)  
+              f.skills.map(skill => <li key={skill}>{skill}</li>)  
             }</ul>
           </div>
         </div>

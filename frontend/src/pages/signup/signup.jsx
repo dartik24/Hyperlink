@@ -11,9 +11,9 @@ class Signup extends React.Component {
     this.form = React.createRef();
 
     // Constants
-    this.employerFields = ['Name', 'Email', 'Password', 'Company name'];
+    this.employerFields = ['name', 'email', 'password', 'company name'];
     this.employerTypes = ['text', 'text', 'password', 'text'];
-    this.employeeFields = ['Name', 'Email', 'Password', 'Skills'];
+    this.employeeFields = ['name', 'email', 'password', 'skills'];
     this.employeeTypes = ['text', 'text', 'password', 'text'];
 
     this.state = {
@@ -35,13 +35,13 @@ class Signup extends React.Component {
     const curForm = this.form.current;
     const userData = {
       ...curForm.state.user,
-      Skills: curForm.state.user.Skills.split(' '),
+      skills: curForm.state.user.skills.split(' '),
       employee: this.state.selectedOption === 'employee'
     };
 
     const signupData = {
-      username: curForm.state.user.Email,
-      password: curForm.state.user.Password
+      username: curForm.state.user.email,
+      password: curForm.state.user.password
     }
 
     if(formValid) {

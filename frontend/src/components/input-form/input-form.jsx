@@ -51,7 +51,7 @@ class InputForm extends React.Component {
       const inpValue = this.state.user[inp]
       
       switch(inp){ 
-        case 'Email': 
+        case 'email': 
           let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           if(inpValue.length <= 0) { // no email typed
             errMessage = 'Email cannot be blank'
@@ -62,10 +62,10 @@ class InputForm extends React.Component {
           } else { 
             errMessage = ''
           }
-          this.updateErrorState('Email', errMessage)
+          this.updateErrorState('email', errMessage)
         break;
        
-        case 'Password':
+        case 'password':
           if(inpValue.length <= 0) { // no password typed
             errMessage = 'Password cannot be blank'
             noErrors = false
@@ -75,10 +75,10 @@ class InputForm extends React.Component {
           } else {
             errMessage = ''
           }
-          this.updateErrorState('Password', errMessage)
+          this.updateErrorState('password', errMessage)
         break;
 
-        case 'Github':
+        case 'github':
           if(!isURL(inpValue) && inpValue.length > 0) {
             errMessage = 'Invalid github URL'
             noErrors = false
@@ -86,47 +86,47 @@ class InputForm extends React.Component {
             errMessage = ''
           }     
           
-          this.updateErrorState('Github', errMessage)
+          this.updateErrorState('github', errMessage)
         break;
 
-        case 'Linkedin':
+        case 'linkedin':
           if(!isURL(inpValue) && inpValue.length > 0) {
             errMessage = 'Invalid linkedin URL'
             noErrors = false
           } else { 
             errMessage = ''
           }
-          this.updateErrorState('Linkedin', errMessage)
+          this.updateErrorState('linkedin', errMessage)
         break;
 
-        case 'Name':
+        case 'name':
           if(inpValue.length <= 0) { 
             errMessage = 'Name cannot be blank'
             noErrors = false
           } else { 
             errMessage = ''
           }
-          this.updateErrorState('Name', errMessage)
+          this.updateErrorState('name', errMessage)
           break;
 
-        case 'Company name':
+        case 'company name':
           if(inpValue <= 0){ 
             errMessage = 'Company name cannot be blank'
             noErrors = false
           } else {
             errMessage = ''
           }
-          this.updateErrorState('Company name', errMessage)
+          this.updateErrorState('company name', errMessage)
           break;
 
-        case 'Skills':
+        case 'skills':
           if(inpValue <= 0){
             errMessage = 'Skills cannot be blank'
             noErrors = false
           } else { 
             errMessage = ''
           }
-          this.updateErrorState('Skills', errMessage)
+          this.updateErrorState('skills', errMessage)
           break;
 
         default:

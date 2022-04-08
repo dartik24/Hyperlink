@@ -8,9 +8,9 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
 
-        this.employerFields = ['Name', 'Email', 'Company name'];
+        this.employerFields = ['name', 'username', 'company name'];
         this.employerTypes = ['text', 'text', 'text'];
-        this.employeeFields = ['Name', 'Email', 'Skills', 'About me', 'Github', 'Linkedin'];
+        this.employeeFields = ['name', 'email', 'skills', 'about me', 'github', 'linkedin'];
         this.employeeTypes = ['text', 'text', 'text', 'textarea', 'text', 'text'];
 
         this.form = createRef();
@@ -49,7 +49,7 @@ class Profile extends React.Component {
             newUser = {
                 ...oldUser,
                 ...form.state.user,
-                Skills: form.state.user.Skills.split(' ')
+                skills: form.state.user.skills.split(' ')
             };
         } else { 
             newUser = {
@@ -88,7 +88,7 @@ class Profile extends React.Component {
     render() {
         const user = {
             ...this.state.user,
-            Skills: this.state.user.Skills.join(' ')
+            skills: this.state.user.skills.join(' ')
         };
         return(
             <div id='profile'>
