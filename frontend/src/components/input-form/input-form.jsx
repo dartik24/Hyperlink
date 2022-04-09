@@ -2,7 +2,6 @@ import './input-form.css';
 import React from 'react';
 import isURL from 'validator/lib/isURL';
 
-
 // Accepts props: Array<InputNames>
 class InputForm extends React.Component {
   constructor(props) {
@@ -20,7 +19,7 @@ class InputForm extends React.Component {
       validPrimaryButton: false,
       user: user,
       pageType: this.props.pageType,
-      inputErrors: {'password':''}
+      inputErrors: {},// dictionary to store errors
     };
   }
 
@@ -44,12 +43,14 @@ class InputForm extends React.Component {
   };
 
   validateForm = () => {
-    var noErrors = true
-    var errMessage = ''
+    let noErrors = true
+    let errMessage = ''
 
     for (const inp of this.props.inputs) {
-      const inpValue = this.state.user[inp]
-      
+      let inpValue = this.state.user[inp]
+      if(inpValue === undefined) {
+        inpValue = ''
+      }
       switch(inp){ 
         case 'email': 
           let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -110,7 +111,7 @@ class InputForm extends React.Component {
           break;
 
         case 'company name':
-          if(inpValue <= 0){ 
+          if(inpValue.length <= 0){ 
             errMessage = 'Company name cannot be blank'
             noErrors = false
           } else {
@@ -120,7 +121,7 @@ class InputForm extends React.Component {
           break;
 
         case 'skills':
-          if(inpValue <= 0){
+          if(inpValue.length <= 0){
             errMessage = 'Skills cannot be blank'
             noErrors = false
           } else { 
@@ -128,6 +129,48 @@ class InputForm extends React.Component {
           }
           this.updateErrorState('skills', errMessage)
           break;
+
+        case 'Title':
+         if(inpValue.length <= 0){
+           errMessage = 'Title cannot be blank'
+           noErrors = false
+         } else { 
+           errMessage = ''
+         }
+         this.updateErrorState('Title', errMessage)
+         break;
+
+        case 'Team':
+         if(inpValue.length <= 0){
+           errMessage = 'Team name cannot be blank'
+           noErrors = false
+         } else { 
+           errMessage = ''
+         }
+         this.updateErrorState('Team', errMessage)
+         break;
+
+        case 'Description':
+         if(inpValue.length <= 0){
+          errMessage = 'Description cannot be blank'
+          noErrors = false
+         } else if(inpValue.length < 50) {
+          errMessage = 'Description must be more than 50 words'
+        } else { 
+           errMessage = ''
+         }
+         this.updateErrorState('Description', errMessage)
+         break;
+
+        case 'Skills':
+         if(inpValue.length <= 0){
+           errMessage = 'Skills cannot be empty'
+           noErrors = false
+         } else { 
+           errMessage = ''
+         }
+         this.updateErrorState('Skills', errMessage)
+         break;
 
         default:
           break;
@@ -137,7 +180,7 @@ class InputForm extends React.Component {
   }
 
   updateErrorState = (inputType, message) => {
-    var newInputErrors = this.state.inputErrors // use to append
+    let newInputErrors = this.state.inputErrors // use to append
     newInputErrors[inputType] = message
     this.setState((prevState) => ({
     ...prevState,
@@ -147,40 +190,40 @@ class InputForm extends React.Component {
 
   render() {
     // Handle optional placeholder prop
-    this.placeholders = this.props.placeholders || this.props.inputs.map(el => el);
+    this.placeholders = this.props.placeholders || this.props.inputs.map((el) => el.charAt(0).toUpperCase() + el.slice(1));
 
     // Creates markup for inputs
     const inputs = this.props.inputs.map((input, i) => (
       this.props.types[i] !== 'textarea' ?
-      <div>
+      <div key={Math.random()}>
         <input autoFocus={i === 0}
           className="input"
           label={input}
           id={input}
           placeholder={this.placeholders[i]}
           key={input}
-          disabled = {(input === 'Email' && this.state.pageType === 'PROFILE')}
-          value={this.state.user[input]}
+          disabled = {(input === 'email' && this.state.pageType === 'PROFILE')}
+          value={this.props.clearInputForm ? '' : this.state.user[input]}
           onChange={this.handleChange}
           type={this.props.types[i]}
         />
         {/* Disable error lable if error is empty or key for input doesn't exist in dictionary */}
-        <label className="inputError" hidden={this.state.inputErrors[input] === '' || !this.state.inputErrors.hasOwnProperty(input)}>
+        <label  key={Math.random()} className="inputError" hidden={this.state.inputErrors[input] === '' || !this.state.inputErrors.hasOwnProperty(input)}>
           {this.state.inputErrors[input]}
         </label>     
       </div>
       : // Allows for creation of multiline text field
-      <div>
+      <div  key={Math.random()}>
         <textarea
           className="input"
           label={input}
           id={input}
           placeholder={input}
           key={input}
-          value={this.state.user[input]}
+          value={this.props.clearInputForm ? '' : this.state.user[input]}
           onChange={this.handleChange}> 
         </textarea>
-        <label className="inputError" hidden={this.state.inputErrors[input] === '' || !this.state.inputErrors.hasOwnProperty(input)} >
+        <label key={Math.random()} className="inputError" hidden={this.state.inputErrors[input] === '' || !this.state.inputErrors.hasOwnProperty(input)} >
           {this.state.inputErrors[input]}
         </label>     
       </div>
@@ -190,17 +233,12 @@ class InputForm extends React.Component {
     const onclickGen = (f, buttonName) => {
       const self = this
       const pgType = this.state.pageType
-  
       return function(e) {
         e.preventDefault();
-        if(buttonName === 'Login' || buttonName === 'Modify Profile' || (buttonName === 'Sign Up' && pgType === 'SIGNUP')) { 
-          console.log('validate form')
+        if(buttonName === 'Login' || buttonName === 'Modify Profile' || (buttonName === 'Sign Up' && pgType === 'SIGNUP') || (pgType === 'ADD-LISTING')) { 
           if(self.validateForm()) {
-            console.log('valid entries')
             f();
-          } else {
-            console.log('invalid entries')
-          }
+          } 
         } else {
           f();
         }

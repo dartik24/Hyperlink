@@ -8,6 +8,9 @@ class AddListing extends React.Component {
     constructor() {
         super();
         this.form = React.createRef();
+        this.state = {
+            clearInputForm: false
+        }
     }
 
     submitPressed = () => {
@@ -21,7 +24,12 @@ class AddListing extends React.Component {
             employerID: this.props.user.uid
         };
 
-        addListing(this.props.user, newListing);
+        if(addListing(this.props.user, newListing)) {
+            this.setState((prevState) => ({
+                ...prevState,
+                clearInputForm: true
+            }))
+        }
     }
 
     render() {
@@ -29,11 +37,13 @@ class AddListing extends React.Component {
             <div id='add-listing-form'> 
                 <h2> Add a listing </h2>
                 <InputForm
+                    clearInputForm = {this.state.clearInputForm}
                     id='add-listing-form' 
                     inputs={["Team", "Title", "Description", "Skills"]}
                     types={["text", "text", "textarea", "text"]}
                     buttons={[{ name: 'Add Listing', callback: this.submitPressed }]}
                     ref={this.form} 
+                    pageType={'ADD-LISTING'}
                 />
             </div>
             
