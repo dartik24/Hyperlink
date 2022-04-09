@@ -53,6 +53,7 @@ class InputForm extends React.Component {
       }
       switch(inp){ 
         case 'email': 
+          // Regex source: https://stackoverflow.com/questions/39356826/how-to-check-if-it-a-text-input-has-a-valid-email-format-in-reactjs
           let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           if(inpValue.length <= 0) { // no email typed
             errMessage = 'Email cannot be blank'
@@ -195,7 +196,7 @@ class InputForm extends React.Component {
     // Creates markup for inputs
     const inputs = this.props.inputs.map((input, i) => (
       this.props.types[i] !== 'textarea' ?
-      <div key={Math.random()}>
+      <div key={'div1'+String(input)+String(i)}>
         <input autoFocus={i === 0}
           className="input"
           label={input}
@@ -213,7 +214,7 @@ class InputForm extends React.Component {
         </label>     
       </div>
       : // Allows for creation of multiline text field
-      <div  key={Math.random()}>
+      <div key={'div1'+String(input)+String(i)}>
         <textarea
           className="input"
           label={input}
