@@ -260,6 +260,7 @@ class InputForm extends React.Component {
     return (
       <div className="InputForm">
         <form>
+          <label key={'firebaseError'} hidden={this.props.firebaseError === '' ? true : false}> {this.props.firebaseError} </label>
           <ul> {inputs} </ul>
           <ul> {buttons} </ul>
         </form>

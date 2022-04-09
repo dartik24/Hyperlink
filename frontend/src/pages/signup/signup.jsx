@@ -18,6 +18,7 @@ class Signup extends React.Component {
 
     this.state = {
       selectedOption: 'employee',
+      firebaseError: ''
     };
   }
 
@@ -47,10 +48,18 @@ class Signup extends React.Component {
     }
 
     if(formValid) {
-      signup(signupData, userData).then(() => {
-        this.props.history.push('/');
-      });
+      signup(signupData, userData).then(response => {
+        if(response instanceof Array) {
+          this.setState((prevState) => ({
+            ...prevState,
+            firebaseError: 'Account already exists'
+          }))
+        } else { 
+          this.props.history.push('/');
+        }
+      })
     }
+    
   };
 
   isEmployee = () => this.state.selectedOption === 'employee';
@@ -85,6 +94,7 @@ class Signup extends React.Component {
         </ul>
         <div>
           <InputForm
+            firebaseError={this.state.firebaseError}
             inputs={fields}
             types={types}
             buttons={[{ name: 'Sign Up', callback: this.signupPressed }]}
