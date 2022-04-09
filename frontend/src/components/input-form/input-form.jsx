@@ -53,6 +53,7 @@ class InputForm extends React.Component {
       }
       switch(inp){ 
         case 'email': 
+          // Regex source: https://stackoverflow.com/questions/39356826/how-to-check-if-it-a-text-input-has-a-valid-email-format-in-reactjs
           let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           if(inpValue.length <= 0) { // no email typed
             errMessage = 'Email cannot be blank'
