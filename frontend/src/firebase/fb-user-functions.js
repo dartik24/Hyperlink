@@ -55,3 +55,15 @@ export async function uploadImage(user, image) {
         return false
     }
 }
+
+export async function getFromUID(uid) {
+    try {
+        const docRef = doc(firebase.db, 'users', uid);
+        const snap = await getDoc(docRef);
+        if(snap.exists) {
+            return snap.data();
+        }
+    } catch(error) {
+        console.error(error);
+    } 
+}
