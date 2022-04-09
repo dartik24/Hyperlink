@@ -34,7 +34,7 @@ class Feed extends React.Component {
   }
 
   filter = () => {
-    if(this.state.showAll)
+    if(this.state.showAll || !this.state.user.employer)
       return this.state.feeds;
     return this.state.feeds.filter(feed => _.intersection(feed.skills, this.state.user.skills).length);
   }
@@ -150,8 +150,10 @@ class Feed extends React.Component {
     return (
       <div id="feed-container">
         <h1 className="title"> Hyperlink </h1>
-        <label> <input type="radio" value="showAll" checked={this.state.showAll} onChange={this.toggle} /> Show All? </label>
-        <label> <input type="radio" value="showMine" checked={!this.state.showAll} onChange={this.toggle} /> Show Related? </label>
+        <div hidden = {!this.state.user.employee}>
+          <label> <input type="radio" value="showAll" checked={this.state.showAll} onChange={this.toggle} /> Show All? </label>
+          <label> <input type="radio" value="showMine" checked={!this.state.showAll} onChange={this.toggle} /> Show Related? </label>
+        </div >  
         {feed}
 
         <ReactModal 
