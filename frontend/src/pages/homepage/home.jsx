@@ -8,6 +8,9 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.form = React.createRef();
+    this.state =  {
+      firebaseError: ''
+    }
   }
 
   handleChange = (event) => {
@@ -26,11 +29,18 @@ class Home extends React.Component {
     }
 
     login(userData).then(user => {
-      this.props.login(user);
-      if(user.employee) {
-        this.props.history.push('/feed');
-      } else { 
-        this.props.history.push('/add-listing');
+      if(user.error) { 
+        this.setState((prevState) => ({
+          ...prevState,
+          firebaseError: 'Invalid login information'
+        }))
+      } else {
+        this.props.login(user);
+        if(user.employee) {
+          this.props.history.push('/feed');
+        } else { 
+          this.props.history.push('/add-listing');
+        }
       }
     });
   };
@@ -44,6 +54,7 @@ class Home extends React.Component {
       <div className="Homepage">
         <h1 className="title"> Hyperlink </h1>
         <InputForm
+          firebaseError={this.state.firebaseError}
           ref={this.form} 
           inputs={['email', 'password']}
           types={['text', 'password']}

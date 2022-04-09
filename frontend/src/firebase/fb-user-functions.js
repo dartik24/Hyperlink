@@ -18,7 +18,7 @@ export async function signup(signupData, userData) {
         setDoc(doc(firebase.db, "users", user.uid), userData);
     } catch(error) {
         console.error(error.code + ": " + error.message)
-        return null;
+        return {error};
     }
 }
 
@@ -30,7 +30,7 @@ export async function login(userData) {
         return (await getDoc(docRef)).data();
     } catch(error) {
         console.error(error.code + ": " + error.message)
-        return null;
+        return {error};
     }
 }
 
