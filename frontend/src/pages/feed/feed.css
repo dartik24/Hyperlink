@@ -66,3 +66,40 @@ hr {
   padding-top: 4px;
   float: left;
 }
+
+#skills li {
+  list-style: none;
+  display: inline-block;
+  padding: 6px 10px 6px 10px;
+  margin: 5px;
+  background: var(--base8);
+  border-radius: 5px;
+}
+
+.liked {
+  color: var(--green) !important;
+}
+
+.disliked {
+  color: var(--red) !important;
+}
+
+.userData {
+  margin: 10px;
+  padding: 10px;
+  border-bottom: 1px solid black;
+  background-color: var(--purple);
+}
+
+.userData p {
+  padding: 0;
+  margin: 5px;
+}
+
+.bi-hand-thumbs-up-fill {
+  width: fit-content  !important;
+}
+
+.bi-hand-thumbs-up-fill p {
+  display: inline;
+}

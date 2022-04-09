@@ -14,7 +14,6 @@ div {
 
 a .bi {
   font-size: 24px;
-  float: right;
   color: var(--purple);
   margin: 5px 8px 0 0;
   background: var(--base8);
@@ -103,4 +102,40 @@ input[type='radio']:checked:after {
 	display: inline-block;
 	visibility: visible;
 	border: 2px solid white;
+}
+
+#navbar {
+	width: 100%;
+	height: 50px;
+	background-color: var(--base7);
+	align-content: center;
+}
+
+#navbar i {
+	border-radius: 0;
+	margin: auto;
+	width: fit-content;
+	height: 40px;
+	display: inline-block;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+#navbar i p {
+	display: inline;
+	font-size: 14px;
+}
+
+#navbar a {
+	padding-left: 1px;
+	padding-top: 4px;
+	margin: auto;
+	height: 40px;
+	display: inline-block;
+}
+
+@media (max-width: 450px) 
+{ 
+	#navbar a i p {
+		display: none;
+	}
 }

@@ -21,7 +21,6 @@ export async function modifyListing(listing) {
         setDoc(doc(firebase.db, 'listings', listing.employerID + '-' + listing.name), listing, {merge: true})
         return true
     } catch(error) {
-        console.log('error ')
         console.error(error.code + ": " + error.message)
         return false
     }

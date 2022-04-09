@@ -48,21 +48,20 @@ class App extends React.Component {
     if(!this.state.user)
       return <></>
 
-    const l1 = this.state.user.employee ? 'feed' : 'add-listing';
-    
     return (
-      <>
-        <Link to='profile'> <i className="bi bi-person"></i> </Link>
-        <Link to={l1}> <i className="bi bi-rss"></i> </Link>
-        <Link to='/'> <i onClick={() => this.setUser(null) } className="bi bi-door-closed"></i> </Link>
-      </>
+      <div id="navbar">
+        <Link to='feed'> <i className="bi bi-rss"> <p> Feed </p> </i> </Link>
+        {!this.state.user.employee ? <Link to='add-listing'> <i className="bi bi-plus-lg"> <p> Add Listing </p> </i> </Link>: <> </> }
+        <Link className='right' to='/'> <i onClick={() => this.setUser(null) } className="bi bi-door-closed"> <p> Log Out </p> </i> </Link>
+        <Link className='right' to='profile'> <i className="bi bi-person"> <p> Profile </p> </i> </Link>
+      </div>
     );
   }
 
+  // <SlideOut />
   render() {
     return (
       <BrowserRouter id="router">
-        <SlideOut />
         {this.links()}
 
         <Route exact path="/"> <Home login={this.setUser} className="Homepage" /> </Route>

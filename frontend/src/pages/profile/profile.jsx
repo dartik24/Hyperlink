@@ -61,7 +61,6 @@ class Profile extends React.Component {
         // update user document 
         modifyUser(this.state.user, newUser).then((success) => {
             if(success) { 
-                console.log('updated user')
                 this.props.login(newUser || {})
             }
         })
@@ -76,7 +75,6 @@ class Profile extends React.Component {
         // upload photo. Only change privew of photo if success uploading.
         uploadImage(this.state.user, event.target.files[0]).then((success) => {
             if(success) { 
-                console.log('updated profile pic')
                 this.setState({
                     imageURL: URL.createObjectURL(event.target.files[0]),
                     imageFile: event.target.files[0]
