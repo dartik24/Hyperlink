@@ -10,7 +10,7 @@ class Profile extends React.Component {
 
         this.employerFields = ['name', 'username', 'company name'];
         this.employerTypes = ['text', 'text', 'text'];
-        this.employeeFields = ['name', 'username', 'skills', 'aboutme', 'github', 'linked'];
+        this.employeeFields = ['name', 'email', 'skills', 'about me', 'github', 'linkedin'];
         this.employeeTypes = ['text', 'text', 'text', 'textarea', 'text', 'text'];
 
         this.form = createRef();
@@ -43,11 +43,20 @@ class Profile extends React.Component {
         const form = this.form.current;
         const oldUser = this.state.user;
         
-        const newUser = {
-            ...oldUser,
-            ...form.state.user,
-            skills: form.state.user.skills.split(' ')
-        };
+        var newUser = {}
+
+        if(this.isEmployee()) {
+            newUser = {
+                ...oldUser,
+                ...form.state.user,
+                skills: form.state.user.skills.split(' ')
+            };
+        } else { 
+            newUser = {
+                ...oldUser,
+                ...form.state.user,
+            };
+        }
 
         // update user document 
         modifyUser(this.state.user, newUser).then((success) => {
@@ -90,7 +99,7 @@ class Profile extends React.Component {
             </div>
             
             <InputForm
-                isProfilePage={true}
+                pageType={'PROFILE'}
                 inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
                 types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
                 values={user}

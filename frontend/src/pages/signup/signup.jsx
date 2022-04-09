@@ -11,9 +11,9 @@ class Signup extends React.Component {
     this.form = React.createRef();
 
     // Constants
-    this.employerFields = ['name', 'username', 'password', 'company name'];
+    this.employerFields = ['name', 'email', 'password', 'company name'];
     this.employerTypes = ['text', 'text', 'password', 'text'];
-    this.employeeFields = ['name', 'username', 'password', 'skills'];
+    this.employeeFields = ['name', 'email', 'password', 'skills'];
     this.employeeTypes = ['text', 'text', 'password', 'text'];
 
     this.state = {
@@ -38,9 +38,11 @@ class Signup extends React.Component {
       skills: curForm.state.user.skills.split(' '),
       employee: this.state.selectedOption === 'employee'
     };
-
+    delete(userData['password'])
+    console.log(userData)
+    
     const signupData = {
-      username: curForm.state.user.username,
+      username: curForm.state.user.email,
       password: curForm.state.user.password
     }
 
@@ -87,6 +89,7 @@ class Signup extends React.Component {
             types={types}
             buttons={[{ name: 'Sign Up', callback: this.signupPressed }]}
             ref={this.form} 
+            pageType={'SIGNUP'}
           />
         </div>
       </div>
