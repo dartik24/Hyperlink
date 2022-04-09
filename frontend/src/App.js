@@ -48,12 +48,11 @@ class App extends React.Component {
     if(!this.state.user)
       return <></>
 
-    const l1 = this.state.user.employee ? 'feed' : 'add-listing';
-    
     return (
       <>
         <Link to='profile'> <i className="bi bi-person"></i> </Link>
-        <Link to={l1}> <i className="bi bi-rss"></i> </Link>
+        <Link to='feed'> <i className="bi bi-rss"></i> </Link>
+        {!this.state.user.employee ? <Link to='add-listing'> <i className="bi bi-plus-lg"></i> </Link>: <> </> }
         <Link to='/'> <i onClick={() => this.setUser(null) } className="bi bi-door-closed"></i> </Link>
       </>
     );

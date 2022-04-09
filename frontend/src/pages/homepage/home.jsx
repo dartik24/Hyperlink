@@ -36,11 +36,7 @@ class Home extends React.Component {
         }))
       } else {
         this.props.login(user);
-        if(user.employee) {
-          this.props.history.push('/feed');
-        } else { 
-          this.props.history.push('/add-listing');
-        }
+        this.props.history.push('/feed');
       }
     });
   };
