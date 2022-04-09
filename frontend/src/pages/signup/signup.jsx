@@ -40,7 +40,6 @@ class Signup extends React.Component {
       employee: this.state.selectedOption === 'employee'
     };
     delete(userData['password'])
-    console.log(userData)
     
     const signupData = {
       username: curForm.state.user.email,
@@ -49,7 +48,7 @@ class Signup extends React.Component {
 
     if(formValid) {
       signup(signupData, userData).then(response => {
-        if(response instanceof Array) {
+        if(response.error) {
           this.setState((prevState) => ({
             ...prevState,
             firebaseError: 'Account already exists'
