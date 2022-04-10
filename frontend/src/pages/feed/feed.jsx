@@ -34,7 +34,8 @@ class Feed extends React.Component {
   }
 
   filter = () => {
-    if(this.state.showAll || !this.state.user.employer)
+    console.log(this.state.user);
+    if(this.state.showAll || !this.state.user.employee)
       return this.state.feeds;
     return this.state.feeds.filter(feed => _.intersection(feed.skills, this.state.user.skills).length);
   }
