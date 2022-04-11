@@ -10,10 +10,9 @@
   padding: 10px 5px;
   padding-left: 25px;
   margin-bottom: 0;
-
   font-weight: bold;
-  background-color: #948ae3;
-
+  background-color: #6e5def;
+  color: white;
   border-bottom: 1px solid black;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -49,22 +48,27 @@ hr {
   margin: none;
   padding-top: 3px;
   font-size: 24px;
-  float: right;  
+  float: right;
   color: var(--base4);
   background: var(--base8);
-  border-radius: 50px;
+  border-radius: 15px;
   width: 35px;
   height: 35px;
-}
-
-.entry h4 i:hover {
-  color: var(--purple);
-  transition: .2s all;
+  transition-duration: 0.4s;
+  filter: drop-shadow(2.5px 2px 2px black);
 }
 
 .entry h4 .bi-hand-thumbs-down-fill {
-  padding-top: 4px;
+  padding-top: 5px;
   float: left;
+}
+.entry h4 .bi-hand-thumbs-down-fill:hover {
+	color: white;
+	background-color: var(--red);
+}
+.entry h4 .bi-hand-thumbs-down-fill:active {
+	background-color: var(--red);
+	transform: scale(0.9);
 }
 
 #skills li {
@@ -74,14 +78,34 @@ hr {
   margin: 5px;
   background: var(--base8);
   border-radius: 5px;
+  transition-duration: 0.4s;
+}
+#skills li:hover {
+	filter: drop-shadow(0 0 2px black);
 }
 
 .liked {
   color: var(--green) !important;
 }
+.liked:hover {
+	color: white !important;
+	background-color: var(--green);
+}
+.liked:active {
+	background-color: var(--green);
+	transform: scale(0.9);
+}
 
 .disliked {
   color: var(--red) !important;
+}
+.disliked:hover {
+	color: white !important;
+	background-color: var(--red);
+}
+.disliked:active {
+	background-color: var(--red);
+	transform: scale(0.9);
 }
 
 .userData {
@@ -102,4 +126,13 @@ hr {
 
 .bi-hand-thumbs-up-fill p {
   display: inline;
+}
+
+.entry h4 .bi-hand-thumbs-up-fill:hover {
+	color: white;
+	background-color: var(--green);
+}
+.entry h4 .bi-hand-thumbs-up-fill:active {
+	background-color: var(--green);
+	transform: scale(0.9);
 }
