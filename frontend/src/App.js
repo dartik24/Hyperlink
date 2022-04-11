@@ -35,7 +35,7 @@ class App extends React.Component {
     if(user) {
       user = JSON.parse(user);
       this.setState({user});
-      this.props.history.push('/feed');
+      // this.props.history.push('/feed');
     }
   }
 
