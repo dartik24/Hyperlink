@@ -26,8 +26,12 @@ class Feed extends React.Component {
   }
 
   async componentDidMount() {
+    const employeeFilter = (doc) => doc.dislikes.indexOf(this.props.user.uid) === -1;
+    const employerFilter = (doc) => doc.employerID === this.props.user.uid;
+    const filter = this.props.user.employee ? employeeFilter : employerFilter;
+
     this.setState({
-      feeds: await getCollection('listings', (doc) => doc.dislikes.indexOf(this.props.user.uid) === -1),
+      feeds: await getCollection('listings', filter),
       showAll: false,
       user: this.props.user
     });
@@ -130,7 +134,7 @@ class Feed extends React.Component {
             <p> {f.desc} </p>
             <hr/>
             <ul id='skills'><h5>Skills: </h5> {
-              f.skills.map(skill => skill ? <li key={skill}>{skill}</li> : <></>)  
+              f.skills.map(skill => skill ? <li key={skill}>{skill}</li> : null )  
             }</ul>
           </div>
         </div>

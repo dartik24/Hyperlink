@@ -5,3 +5,10 @@
 ul {
   display: block !important;
 }
+
+.inputError {
+  background-color: var(--red);
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: 5px;
+}
