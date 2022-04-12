@@ -109,6 +109,7 @@ input[type='radio']:checked:after {
 	height: 50px;
 	background-color: var(--base7);
 	align-content: center;
+	filter: drop-shadow(2.5px 2px 2px grey)
 }
 #navbar i {
 	margin: auto;
