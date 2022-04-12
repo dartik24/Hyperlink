@@ -29,7 +29,7 @@ class Home extends React.Component {
     }
 
     login(userData).then(user => {
-      if(user.error) { 
+      if(user instanceof Array) { 
         this.setState((prevState) => ({
           ...prevState,
           firebaseError: 'Invalid login information'
