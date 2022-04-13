@@ -91,6 +91,7 @@ class Profile extends React.Component {
         return(
             <div id='profile'>
             <h3>User Profile</h3>
+            <h6>{this.state.user.name}</h6>
             <div id='profileImageDiv'>
                 <input name='title' id='uploadInput' type='file' onChange={this.handleUploadImage}/>
                 <img id='profileImage' src={this.state.imageURL} alt='profile_picture'/>

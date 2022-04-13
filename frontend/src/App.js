@@ -52,8 +52,8 @@ class App extends React.Component {
       <div id="navbar">
         <Link to='feed'> <i className="bi bi-rss"> <p> Feed </p> </i> </Link>
         {!this.state.user.employee ? <Link to='add-listing'> <i className="bi bi-plus-lg"> <p> Add Listing </p> </i> </Link>: <p className="hidden_item"> </p> }
-        <Link className='right' to='/'> <i onClick={() => this.setUser(null) } className="bi bi-door-closed"> <p> Log Out </p> </i> </Link>
         <Link className='right' to='profile'> <i className="bi bi-person"> <p> Profile </p> </i> </Link>
+        <Link className='right' to='/'> <i onClick={() => this.setUser(null) } className="bi bi-door-closed"> <p> Log Out </p> </i> </Link>
       </div>
     );
   }
