@@ -135,9 +135,15 @@ hr {
   margin: 0 auto;
   padding: 15px;
   overflow: auto;
+  font-size: 20px;
 }
 
 hr {
   margin-top: 0 !important;
   margin-bottom: 15px;
+}
+
+.loading {
+  margin: 0 auto;
+  padding-top: 20px;
 }

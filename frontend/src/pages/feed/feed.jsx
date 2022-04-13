@@ -21,8 +21,10 @@ class Feed extends React.Component {
       feeds: [],
       showAll: false,
       user: this.props.user,
-      likeModal: null
+      likeModal: null,
+      loading: true
     };
+    console.log("loading feed");
   }
 
   async componentDidMount() {
@@ -34,6 +36,11 @@ class Feed extends React.Component {
       feeds: await getCollection('listings', filter),
       showAll: false,
       user: this.props.user
+    }, () => {
+      console.log("done loading feed");
+      this.setState({
+        loading: false
+      })
     });
   }
 
@@ -137,7 +144,7 @@ class Feed extends React.Component {
             <hr/>
             <ul id='skills'><h5>Skills: </h5> {
               f.skills.map(skill => skill ? 
-                <li className={this.isMatch(skill) ? "match" : "" }key={skill}>{skill}</li> 
+                <li className={this.isMatch(skill) ? "match" : "" } key={skill}>{skill}</li> 
                 : null )  
             }</ul>
           </div>
@@ -162,7 +169,10 @@ class Feed extends React.Component {
           <label> <input type="radio" value="showAll" checked={this.state.showAll} onChange={this.toggle} /> Show All? </label>
           <label> <input type="radio" value="showMine" checked={!this.state.showAll} onChange={this.toggle} /> Show Related? </label>
         </div >  
-        {feed}
+        {
+          this.state.loading ? 
+            <h2 className="loading"> Loading... </h2> : feed
+        }
 
         <ReactModal 
           isOpen={this.state.likeModal !== null} 

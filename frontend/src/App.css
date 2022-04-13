@@ -156,9 +156,12 @@ input[type='radio']:checked:after {
 	display: inline-block;
 	padding-right: 8px;
 }
-
 .hidden_item{
 	display: none;
+}
+.loading {
+	color: #9002FF;
+	margin: 0 auto;
 }
 
 @media (max-width: 540px) {
