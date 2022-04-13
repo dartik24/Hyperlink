@@ -109,6 +109,8 @@ class Feed extends React.Component {
     }
   }
 
+  isMatch = (skill) =>  _.intersection([skill], this.state.user.skills).length;
+
   render() {
     const toDisplay = this.filter(this.state.feeds);
     
@@ -134,7 +136,9 @@ class Feed extends React.Component {
             <p> {f.desc} </p>
             <hr/>
             <ul id='skills'><h5>Skills: </h5> {
-              f.skills.map(skill => skill ? <li key={skill}>{skill}</li> : null )  
+              f.skills.map(skill => skill ? 
+                <li className={this.isMatch(skill) ? "match" : "" }key={skill}>{skill}</li> 
+                : null )  
             }</ul>
           </div>
         </div>
