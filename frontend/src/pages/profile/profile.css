@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@700&display=swap');
 
+#profile {
+    height: fit-content;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid var(--purple);
+    border-radius: 3px;
+	filter: drop-shadow(2.5px 2px 2px grey);
+    margin-bottom: 50px;
+    margin-top: 10px;
+}
 #profileImage { 
     margin: 0 auto;
     height: 200px;
@@ -22,10 +33,6 @@
 	border: none;
 	border-radius: 2px;
 	padding: 10px;
-}
-
-#profile {
-    height: 100px;
 }
 
 #profileImageDiv { 
@@ -53,4 +60,9 @@ button {
 h3 {
     font-family: 'Readex Pro', sans-serif;
     font-size: 35px;
+}
+
+input[type='file'] {
+    width: 94px !important;
+    color: transparent !important;
 }

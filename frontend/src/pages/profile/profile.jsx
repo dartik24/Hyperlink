@@ -17,7 +17,8 @@ class Profile extends React.Component {
         this.state = {
             user: this.props.user || null,
             imageURL: null,
-            imageFile: null
+            imageFile: null,
+            loading: true
         };
     }
 
@@ -27,6 +28,10 @@ class Profile extends React.Component {
         getDownloadURL(imageFolderRef).then((downloadFileURL) => {
             this.setState({
                 imageURL: downloadFileURL
+            }, () => {
+                this.setState({
+                    loading: false
+                });
             })
         })
     }
@@ -89,23 +94,31 @@ class Profile extends React.Component {
             skills: this.state.user.skills.join(' ')
         };
         return(
-            <div id='profile'>
-            <h3>User Profile</h3>
-            <div id='profileImageDiv'>
-                <input name='title' id='uploadInput' type='file' onChange={this.handleUploadImage}/>
-                <img id='profileImage' src={this.state.imageURL} alt='profile_picture'/>
-            </div>
-            
-            <InputForm
-                pageType={'PROFILE'}
-                inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
-                types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
-                values={user}
-                buttons={[{ name: 'Modify Profile', callback: this.modifyPressed },
-                            { name: 'Delete Account', callback: this.deletePressed }]}
-                ref={this.form} 
-            />
-            </div>
+            <> 
+                <h1 className="title"> Hyperlink </h1>
+                <div id='profile'>
+                    <h3>User Profile</h3>
+                    <h6>{this.state.user.name}</h6>
+                    <div id='profileImageDiv'>
+                        <input name='title' id='uploadInput' type='file' onChange={this.handleUploadImage}/>
+                        {
+                            this.state.loading ?  
+                                <h2 className="loading"> Loading... </h2> : 
+                                <img id='profileImage' src={this.state.imageURL} alt='profile_picture'/>
+                        }
+                    </div>
+                    
+                    <InputForm
+                        pageType={'PROFILE'}
+                        inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
+                        types={this.isEmployee() ? this.employeeTypes : this.employerTypes}
+                        values={user}
+                        buttons={[{ name: 'Modify Profile', callback: this.modifyPressed },
+                                    { name: 'Delete Account', callback: this.deletePressed }]}
+                        ref={this.form} 
+                    />
+                </div>
+            </>
         );
     }
 }
