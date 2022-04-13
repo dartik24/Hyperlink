@@ -134,6 +134,7 @@ hr {
 .image-container p {
   margin: 0 auto;
   padding: 15px;
+  overflow: auto;
 }
 
 hr {

@@ -5,10 +5,11 @@
     width: fit-content;
     margin: 0 auto;
     padding: 20px;
-    margin-top: 80px;
     border: 2px solid var(--purple);
     border-radius: 3px;
-	filter: drop-shadow(2.5px 2px 2px grey)
+	filter: drop-shadow(2.5px 2px 2px grey);
+    margin-bottom: 50px;
+    margin-top: 10px;
 }
 #profileImage { 
     margin: 0 auto;
