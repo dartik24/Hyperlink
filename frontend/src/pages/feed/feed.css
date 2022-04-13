@@ -147,3 +147,16 @@ hr {
   margin: 0 auto;
   padding-top: 20px;
 }
+
+/* Modal Styles */
+.userData img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.userInfo {
+  display: inline-block;
+  background: none;
+  text-align: left;
+}

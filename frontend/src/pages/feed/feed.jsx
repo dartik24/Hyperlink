@@ -6,6 +6,7 @@ import ReactModal from 'react-modal';
 import { getCollection } from '../../firebase/fb-generic';
 import { modifyListing } from '../../firebase/fb-listing-functions';
 import { getFromUID } from '../../firebase/fb-user-functions';
+import ModalEntry from './modal-entry';
 
 ReactModal.setAppElement('#root');
 const modalStyles = {
@@ -22,9 +23,9 @@ class Feed extends React.Component {
       showAll: false,
       user: this.props.user,
       likeModal: null,
-      loading: true
+      loading: true,
+      imageURL: null
     };
-    console.log("loading feed");
   }
 
   async componentDidMount() {
@@ -37,7 +38,6 @@ class Feed extends React.Component {
       showAll: false,
       user: this.props.user
     }, () => {
-      console.log("done loading feed");
       this.setState({
         loading: false
       })
@@ -108,7 +108,6 @@ class Feed extends React.Component {
             users.push(data);
         }).then(() => {
           if(users.length) {
-            console.log(users);
             this.setState({likeModal: users});
           }
         });
@@ -144,23 +143,12 @@ class Feed extends React.Component {
             <hr/>
             <ul id='skills'><h5>Skills: </h5> {
               f.skills.map(skill => skill ? 
-                <li className={this.isMatch(skill) ? "match" : "" } key={skill}>{skill}</li> 
+                <li className={this.isMatch(skill) ? "match" : "" } key={skill}>{skill[0].toUpperCase() + skill.slice(1)}</li> 
                 : null )  
             }</ul>
           </div>
         </div>
     )});
-
-    const userData = () => {
-      const users = this.state.likeModal;
-      return users.map(u => 
-        <div className='userData' key={u.email}>
-          <p>Name: {u.name}</p>
-          <p>Email: {u.email}</p>
-          <p>Skills: {u.skills.join(' ')}</p>
-        </div>
-      );
-    } 
 
     return (
       <div id="feed-container">
@@ -179,7 +167,10 @@ class Feed extends React.Component {
           parentSelector={() => document.querySelector('#root')} 
           style={modalStyles}>
             <i className="bi bi-x-lg" onClick={() => this.setState({likeModal: null})}></i>
-            {this.state.likeModal ? userData() : <> </>}
+            {
+              this.state.likeModal ? 
+                this.state.likeModal.map(user => <ModalEntry user={user} likes={this.state.likeModal}/>)
+            : <> </>}
         </ReactModal>
       </div>
     );
