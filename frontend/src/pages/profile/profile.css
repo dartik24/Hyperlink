@@ -5,7 +5,10 @@
     height: 200px;
     width: 200px;
     border-image-width: 10px;
-	border: 2px dashed white;
+	border: 3px solid var(--purple);
+}
+#profileImage:hover {
+	border: 3px solid #9002FF;
 }
 
 #uploadInput {
