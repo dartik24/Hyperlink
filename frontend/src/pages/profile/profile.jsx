@@ -1,7 +1,8 @@
 import React, { createRef } from 'react';
 import InputForm from '../../components/input-form/input-form'
-import { modifyUser, uploadImage} from '../../firebase/fb-user-functions';
+import { modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
 import { getStorage, ref, getDownloadURL} from 'firebase/storage'
+import defProfilePic from '../profile/Default_Profile_Pic.jpeg'
 import './profile.css'
 
 class Profile extends React.Component {
@@ -18,7 +19,8 @@ class Profile extends React.Component {
             user: this.props.user || null,
             imageURL: null,
             imageFile: null,
-            loading: true
+            loading: true,
+            modifyError: ''
         };
     }
 
@@ -33,6 +35,11 @@ class Profile extends React.Component {
                     loading: false
                 });
             })
+        }).catch((error) => {
+            this.setState({
+                loading: false,
+                imageURL: defProfilePic
+            });
         })
     }
 
@@ -78,13 +85,55 @@ class Profile extends React.Component {
 
     handleUploadImage = (event) => { 
         // upload photo. Only change privew of photo if success uploading.
-        uploadImage(this.state.user, event.target.files[0]).then((success) => {
+        uploadFileToStorage(this.state.user, event.target.files[0], 'profile_pic').then((success) => {
             if(success) { 
                 this.setState({
                     imageURL: URL.createObjectURL(event.target.files[0]),
-                    imageFile: event.target.files[0]
+                    imageFile: event.target.files[0],
+                    modifyError: 'Success uploading profile picture'
                 })
+            } else { 
+                this.setState((prevState) => ({
+                    ...prevState,
+                    modifyError: 'Error uploading profile picture'
+                }))
             }
+        })
+    }
+
+    handleUploadResume = (event) => { 
+        uploadFileToStorage(this.state.user, event.target.files[0], 'resume').then((success) => {
+            if(success) { 
+                this.setState((prevState) => ({
+                    ...prevState,
+                    modifyError: 'Success uploading resume'
+                }))
+            } else { 
+                this.setState((prevState) => ({
+                    ...prevState,
+                    modifyError: 'Error uploading resume'
+                }))
+            }
+        })
+    }
+
+    openTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+    }
+
+
+    downloadResume = () => {
+        const storage = getStorage()
+        const imageFolderRef = ref(storage, this.state.user.uid + '/resume')
+    
+        getDownloadURL(imageFolderRef).then((downloadFileURL) => {
+            this.openTab(downloadFileURL)
+         }).catch((error) => {
+            this.setState((prevState) => ({
+                ...prevState,
+                modifyError: 'No resume on file'
+            }))
         })
     }
 
@@ -98,14 +147,21 @@ class Profile extends React.Component {
                 <h1 className="title"> Hyperlink </h1>
                 <div id='profile'>
                     <h3>User Profile</h3>
+                    <label id='modifyProfile' hidden={this.state.modifyError === ''}> {this.state.modifyError} </label>
                     <h6>{this.state.user.name}</h6>
                     <div id='profileImageDiv'>
                         <input name='title' id='uploadInput' type='file' onChange={this.handleUploadImage}/>
                         {
                             this.state.loading ?  
                                 <h2 className="loading"> Loading... </h2> : 
-                                <img id='profileImage' src={this.state.imageURL} alt='profile_picture'/>
+                                <img id='profileImage' src={this.state.imageURL} alt={defProfilePic}/>
                         }
+                    </div>
+
+                    <div id='resumeDiv'>
+                        <h6>Resume</h6>
+                        <input id='resUpload' type='file' accept='' onChange = {this.handleUploadResume}></input>
+                        <button id='downloadResume' onClick={this.downloadResume}> Open resume</button>
                     </div>
                     
                     <InputForm
