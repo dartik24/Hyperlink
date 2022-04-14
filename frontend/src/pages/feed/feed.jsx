@@ -3,7 +3,7 @@ import React from 'react';
 import * as _ from 'lodash';
 import ReactModal from 'react-modal';
 
-import { getCollection } from '../../firebase/fb-generic';
+import { deleteDocument, getCollection } from '../../firebase/fb-generic';
 import { modifyListing } from '../../firebase/fb-listing-functions';
 import { getFromUID } from '../../firebase/fb-user-functions';
 import ModalEntry from './modal-entry';
@@ -78,13 +78,15 @@ class Feed extends React.Component {
       });
       modifyListing(feed);
     } else {
-      console.log("attempted to remove", feed);
+      const feedID = feed.employerID + '-' + feed.name;
       // TODO Remove from database
-
+      const success = deleteDocument('listings', feedID);
       // Remove locally
-      this.setState({
-        feeds: this.state.feeds.filter(f => !_.isEqual(f, feed))
-      });
+      if(success) {
+        this.setState({
+          feeds: this.state.feeds.filter(f => !_.isEqual(f, feed))
+        });
+      }
     }
   }
 
