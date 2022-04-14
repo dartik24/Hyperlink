@@ -142,7 +142,7 @@ class Profile extends React.Component {
 
             <div id='resumeDiv'>
                 <h6>Resume</h6>
-                <input type = 'file' accept='' onChange = {this.handleUploadResume}></input>
+                <input id='resUpload'type = 'file' accept='' onChange = {this.handleUploadResume}></input>
                 <button id='downloadResume' onClick={this.downloadResume}> Open resume</button>
             </div>
             

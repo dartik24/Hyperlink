@@ -58,19 +58,29 @@ button {
 }
 
 #downloadResume {
-   
+   margin-left: 10px;
 }
 
-#openResume {
-  
+
+#resumeDiv {
+    padding-top: 20px;
 }
+
+#uploadInput { 
+    width: 110px !important;
+    color: transparent !important;
+}
+#resUpload {
+    width:  100px!important;
+    color: transparent !important;
+}
+
 
 h3 {
     font-family: 'Readex Pro', sans-serif;
     font-size: 35px;
 }
 
-input[type='file'] {
-    width: 94px !important;
-    color: transparent !important;
-}
+
+
+
