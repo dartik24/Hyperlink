@@ -251,7 +251,7 @@ class InputForm extends React.Component {
       const disabled =  false;
       
       return(
-        <button id={button.name} onClick={onclickGen(button.callback, button.name)} key={button.name} disabled={disabled}>
+        <button id={button.name} className='formButton' onClick={onclickGen(button.callback, button.name)} key={button.name} disabled={disabled}>
           {button.name}
         </button>
       );

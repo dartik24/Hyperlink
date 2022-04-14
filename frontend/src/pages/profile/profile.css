@@ -57,12 +57,25 @@ button {
 	font-size: 18px;
 }
 
+#downloadResume {
+    margin-left: 5px;
+ }
+ 
+ 
+ #resumeDiv {
+     padding-top: 20px;
+ }
+ 
+ #uploadInput { 
+     width: 110px !important;
+     color: transparent !important;
+ }
+ #resUpload {
+     width:  105px!important;
+     color: transparent !important;
+ }
+
 h3 {
     font-family: 'Readex Pro', sans-serif;
     font-size: 35px;
-}
-
-input[type='file'] {
-    width: 94px !important;
-    color: transparent !important;
 }
