@@ -45,15 +45,15 @@ export async function modifyUser(user, userData) {
     }
 }
 
-export async function uploadImage(user, image) { 
+export async function uploadFileToStorage(user, file, fileName) { 
     const storage = getStorage()
-    const imageFolderRef = ref(storage, user.uid + '/profile_pic')
+    const imageFolderRef = ref(storage, user.uid + '/' + fileName)
     try { 
-        uploadBytes(imageFolderRef, image);
-        return true;
+        uploadBytes(imageFolderRef, file)
+        return true
     } catch(error) { 
-        console.error(error.code + ": " + error.message);
-        return false;
+        console.error(error.code + ": " + error.message)
+        return false
     }
 }
 
