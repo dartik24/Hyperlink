@@ -16,9 +16,8 @@ export async function signup(signupData, userData) {
             uid: user.uid
         }
         setDoc(doc(firebase.db, "users", user.uid), userData);
-        return {error: false};
     } catch(error) {
-        console.error(error.code + ": " + error.message);
+        console.error(error.code + ": " + error.message)
         return {error};
     }
 }
@@ -37,23 +36,23 @@ export async function login(userData) {
 
 export async function modifyUser(user, userData) { 
     try {
-        setDoc(doc(firebase.db, 'users', user.uid), userData, {merge: true});
-        return true;
+        setDoc(doc(firebase.db, 'users', user.uid), userData, {merge: true})
+        return true
     } catch(error) {
-        console.error(error.code + ": " + error.message);
-        return false;
+        console.error(error.code + ": " + error.message)
+        return false
     }
 }
 
-export async function uploadImage(user, image) { 
+export async function uploadFileToStorage(user, file, fileName) { 
     const storage = getStorage()
-    const imageFolderRef = ref(storage, user.uid + '/profile_pic')
+    const imageFolderRef = ref(storage, user.uid + '/' + fileName)
     try { 
-        uploadBytes(imageFolderRef, image);
-        return true;
+        uploadBytes(imageFolderRef, file)
+        return true
     } catch(error) { 
-        console.error(error.code + ": " + error.message);
-        return false;
+        console.error(error.code + ": " + error.message)
+        return false
     }
 }
 

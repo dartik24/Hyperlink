@@ -36,7 +36,7 @@ h1 {
 	font-size: 70px;
 }
 
-button {
+.formButton {
 	display: inline-flex;
 	flex: auto;
 	min-width: 150px;
@@ -46,7 +46,7 @@ button {
 	text-align: center;
 	justify-content: center;
 	align-items: center;
-	font-size: 25px;
+	font-size: 17px;
 	background-color: white;
 	color: #9002FF;
 	transition-duration: 0.4s;
