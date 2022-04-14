@@ -33,7 +33,7 @@
   transition-duration: 0.4s;
   filter: drop-shadow(2.5px 2px 2px black);
 }
-.entry h4 .bi-hand-thumbs-down-fill {
+.entry h4 .bi-hand-thumbs-down-fill, .entry h4 .bi-x-lg {
   padding-top: 5px;
   float: left;
 }

@@ -1,9 +1,11 @@
 import React, { createRef } from 'react';
-import InputForm from '../../components/input-form/input-form'
-import { modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
-import { getStorage, ref, getDownloadURL} from 'firebase/storage'
-import defProfilePic from '../profile/Default_Profile_Pic.jpeg'
-import './profile.css'
+import { delUser, modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
+import { getStorage, ref, getDownloadURL} from 'firebase/storage';
+import { withRouter } from 'react-router-dom';
+
+import InputForm from '../../components/input-form/input-form';
+import defProfilePic from '../profile/Default_Profile_Pic.jpeg';
+import './profile.css';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -78,13 +80,15 @@ class Profile extends React.Component {
         })
     }
     
+    // Deletes the user and re-routes to home page
     deletePressed = () => { 
-        //const user = this.state.user;
+        delUser();
         this.props.login(null);
+        this.props.history.push('/');
     }
 
+    // Upload photo. Only change privew of photo if success uploading.
     handleUploadImage = (event) => { 
-        // upload photo. Only change privew of photo if success uploading.
         uploadFileToStorage(this.state.user, event.target.files[0], 'profile_pic').then((success) => {
             if(success) { 
                 this.setState({
@@ -119,7 +123,8 @@ class Profile extends React.Component {
 
     openTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-        if (newWindow) newWindow.opener = null
+        if (newWindow) 
+            newWindow.opener = null;
     }
 
 
@@ -179,4 +184,4 @@ class Profile extends React.Component {
     }
 }
 
-export default Profile;
+export default withRouter(Profile);

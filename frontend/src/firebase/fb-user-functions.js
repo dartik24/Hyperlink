@@ -82,16 +82,3 @@ export async function delUser() {
         return false
     });
 }
-
-// Delete listing: for document name pass in listing.employeID-listing.name and collectionName as 'listings'
-// Delete user: for document name pass in user.uid and collection name as 'users'
-export async function deleteDocument(collectionName, documentName) { 
-    try { 
-        deleteDoc(firebase.db, collectionName, documentName).then(() => { 
-            return true
-        })
-    } catch(error) { 
-        console.error(error.code + ": " + error.message)
-        return false
-    }
-}
