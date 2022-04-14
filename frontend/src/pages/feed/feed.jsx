@@ -18,6 +18,11 @@ const modalStyles = {
 class Feed extends React.Component {
   constructor(props) {
     super(props);
+    
+    this.employeeFilter = (doc) => doc.dislikes.indexOf(this.props.user.uid) === -1;
+    this.employerFilter = (doc) => doc.employerID === this.props.user.uid;
+    this._filter = this.props.user.employee ? this.employeeFilter : this.employerFilter;
+
     this.state = { 
       feeds: [],
       showAll: false,
@@ -29,12 +34,8 @@ class Feed extends React.Component {
   }
 
   async componentDidMount() {
-    const employeeFilter = (doc) => doc.dislikes.indexOf(this.props.user.uid) === -1;
-    const employerFilter = (doc) => doc.employerID === this.props.user.uid;
-    const filter = this.props.user.employee ? employeeFilter : employerFilter;
-
     this.setState({
-      feeds: await getCollection('listings', filter),
+      feeds: await getCollection('listings', this._filter),
       showAll: false,
       user: this.props.user
     }, () => {
@@ -76,6 +77,14 @@ class Feed extends React.Component {
         ...this.state.feeds.slice(idx + 1)
       });
       modifyListing(feed);
+    } else {
+      console.log("attempted to remove", feed);
+      // TODO Remove from database
+
+      // Remove locally
+      this.setState({
+        feeds: this.state.feeds.filter(f => !_.isEqual(f, feed))
+      });
     }
   }
 
@@ -129,12 +138,14 @@ class Feed extends React.Component {
       let dislikeClasses = "bi bi-hand-thumbs-down-fill";
       if(f.dislikes.indexOf(this.state.user.uid) !== -1) {
         dislikeClasses += " disliked";
+      } else if(!this.state.user.employee) {
+        dislikeClasses = "bi bi-x-lg"; 
       }
 
       return (
         <div className="entry" key={f.desc}>
           <h4> 
-            <i className={dislikeClasses} onClick={() => this.dislike(f)} hidden={!this.state.user.employee}></i>
+            <i className={dislikeClasses} onClick={() => this.dislike(f)}></i>
             {f.name} 
             <i className={likeClasses} onClick={() => this.like(f)}><p>{f.likes.length}</p></i>
           </h4>
@@ -153,24 +164,20 @@ class Feed extends React.Component {
     return (
       <div id="feed-container">
         <h1 className="title"> Hyperlink </h1>
+
         <div hidden = {!this.state.user.employee}>
           <label> <input type="radio" value="showAll" checked={this.state.showAll} onChange={this.toggle} /> Show All? </label>
           <label> <input type="radio" value="showMine" checked={!this.state.showAll} onChange={this.toggle} /> Show Related? </label>
         </div >  
-        {
-          this.state.loading ? 
-            <h2 className="loading"> Loading... </h2> : feed
-        }
+
+        { this.state.loading ? <h2 className="loading"> Loading... </h2> : feed }
 
         <ReactModal 
           isOpen={this.state.likeModal !== null} 
           parentSelector={() => document.querySelector('#root')} 
           style={modalStyles}>
             <i className="bi bi-x-lg" onClick={() => this.setState({likeModal: null})}></i>
-            {
-              this.state.likeModal ? 
-                this.state.likeModal.map(user => <ModalEntry user={user} likes={this.state.likeModal}/>)
-            : <> </>}
+            { this.state.likeModal ? this.state.likeModal.map(user => <ModalEntry user={user} likes={this.state.likeModal}/>) : <> </> }
         </ReactModal>
       </div>
     );

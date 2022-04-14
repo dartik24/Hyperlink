@@ -1,9 +1,11 @@
 import React, { createRef } from 'react';
-import InputForm from '../../components/input-form/input-form'
-import { modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
-import { getStorage, ref, getDownloadURL} from 'firebase/storage'
-import defProfilePic from '../profile/Default_Profile_Pic.jpeg'
-import './profile.css'
+import { delUser, modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
+import { getStorage, ref, getDownloadURL} from 'firebase/storage';
+import { withRouter } from 'react-router-dom';
+
+import InputForm from '../../components/input-form/input-form';
+import defProfilePic from '../profile/Default_Profile_Pic.jpeg';
+import './profile.css';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -80,7 +82,9 @@ class Profile extends React.Component {
     
     deletePressed = () => { 
         //const user = this.state.user;
+        delUser();
         this.props.login(null);
+        this.props.history.push('/');
     }
 
     handleUploadImage = (event) => { 
@@ -179,4 +183,4 @@ class Profile extends React.Component {
     }
 }
 
-export default Profile;
+export default withRouter(Profile);
