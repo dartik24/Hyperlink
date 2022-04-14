@@ -184,7 +184,7 @@ class Profile extends React.Component {
                                     { name: 'Delete Account', callback: this.deletePressed }]}
                         ref={this.form} 
                     />
-                    <label id='modifyProfile' hidden={this.state.modifying === false && this.state.finishModify === false}> {this.state.finishModify === false ? "Updating profile..." : "Profile updated"} </label>
+                    <label id='modifyProfile' hidden={this.state.modifying === false  && this.state.finishModify === false}> {this.state.finishModify === true ? "Proile updated" : "Updating profile..."} </label>
                 </div>
             </>
         );
