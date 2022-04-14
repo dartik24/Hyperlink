@@ -1,9 +1,9 @@
 import { 
     getAuth, 
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword } from "firebase/auth";
+    signInWithEmailAndPassword, deleteUser, deleteDoc} from "firebase/auth";
 import { doc, getDoc, setDoc} from 'firebase/firestore'
-import { getStorage, ref, uploadBytes} from 'firebase/storage'
+import { getStorage, list, ref, uploadBytes} from 'firebase/storage'
 
 import firebase from './firebase';
 
@@ -67,4 +67,28 @@ export async function getFromUID(uid) {
     } catch(error) {
         console.error(error);
     } 
+}
+
+export async function deleteUser(uid) { 
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    deleteUser(user).then(() => {
+        return true
+    }).catch((error) => {
+        console.error(error.code + ": " + error.message)
+        return false
+    });
+}
+
+export async function deleteListing(listing) { 
+    const docName = listing.employerID + '-' + listing.name
+    try { 
+        deleteDoc(firebase.db, 'listings', docName).then(() => { 
+            return true
+        })
+    } catch(error) { 
+        console.error(error.code + ": " + error.message)
+        return false
+    }
 }
