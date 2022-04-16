@@ -16,6 +16,7 @@ class ForgotPassword extends React.Component {
 
     goToLogin = () => {
         // send user back to home page
+        this.props.history.push('/');
     }
 
     sendResetLink = () => { 
