@@ -39,7 +39,6 @@ class ForgotPassword extends React.Component {
     render() {
         return (
           <div className="resetPage">
-            <button id='backButton' onClick={this.goToLogin}> Back </button>
             <h1> Forgot password? </h1>
             <h6> Enter the email associated with your account and we will send you a password reset link</h6>
             <InputForm

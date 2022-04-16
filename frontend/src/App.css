@@ -112,7 +112,7 @@ input[type='radio']:checked:after {
 	filter: drop-shadow(2.5px 2px 2px grey);
 	min-height: fit-content;
 }
-#navbar i {
+#navbar i, .back {
 	margin: auto;
 	width: fit-content;
 	height: 95%;
@@ -160,8 +160,14 @@ input[type='radio']:checked:after {
 	display: none;
 }
 .loading {
-	color: #9002FF;
+	color: #a383bb;
 	margin: 0 auto;
+}
+
+#navbar .back, .back {
+	width: 30px;
+	margin-right: 12px;
+	min-width: fit-content;
 }
 
 @media (max-width: 540px) {

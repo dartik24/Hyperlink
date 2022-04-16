@@ -28,3 +28,8 @@
 form {
   height: 100%;
 }
+
+.Forgotpassword  {
+  height: 30px;
+  min-height: fit-content;
+}

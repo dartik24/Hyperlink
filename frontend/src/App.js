@@ -48,11 +48,17 @@ class App extends React.Component {
 
   links = () => {
     const curPage = window.location.pathname.replaceAll('/', '');
-    if(!this.state.user)
+    const linksAllowed = curPage === 'forgotPassword' || curPage === 'signup' 
+    if(!this.state.user && !linksAllowed)
       return <></>
 
     return (
+      linksAllowed ? 
       <div id="navbar">
+        <Link> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </Link>
+      </div> :
+      <div id="navbar">
+        <Link> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </Link>
         <Link to='feed'> 
           <i className={curPage ==='feed' ? "bi bi-rss active-link" : "bi bi-rss"}> <p> Feed </p> </i>
         </Link>
