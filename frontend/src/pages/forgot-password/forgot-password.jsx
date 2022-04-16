@@ -10,7 +10,7 @@ class ForgotPassword extends React.Component {
         super(props)
         this.form = React.createRef()
         this.state = { 
-            statusLabel: ''
+            statusLabel: null
         }
     }
 
@@ -42,8 +42,8 @@ class ForgotPassword extends React.Component {
             <button id='backButton' onClick={this.goToLogin}> Back </button>
             <h1> Forgot password? </h1>
             <h6> Enter the email associated with your account and we will send you a password reset link</h6>
-            <label id='status' hidden={this.state.statusLabel === ''}> {this.state.statusLabel} </label>
             <InputForm
+              firebaseError={this.state.statusLabel}
               ref={this.form}
               inputs={['email']}
               types={['text']}

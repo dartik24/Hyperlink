@@ -12,13 +12,3 @@ ul {
   padding: 5px;
   margin-top: 5px;
 }
-
-.forgotPasswordBtn { 
-    background:none;
-    border:none;
-    margin:0;
-    padding:0;
-    cursor: pointer;
-    margin-left: 145px;
-    font-size: small;
-}

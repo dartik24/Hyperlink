@@ -245,29 +245,21 @@ class InputForm extends React.Component {
     }
     
     // Creates markup for buttons
-    let forgotPasswordButton = null
     const buttons = this.props.buttons.map((button) => {
       const disabled =  false;
-      if(button.name === 'Forgot password?') {
-        forgotPasswordButton =  
-        <button id={button.name} className='forgotPasswordBtn' onClick={onclickGen(button.callback, button.name)} key={button.name} disabled={disabled}>
-          {button.name}
-        </button>
-      } else {
+      const className = button.name.replaceAll(' ', '').replaceAll('?', '')
       return(
-        <button id={button.name} className='formButton' onClick={onclickGen(button.callback, button.name)} key={button.name} disabled={disabled}>
+        <button id={button.name} className={className + ' formButton'} onClick={onclickGen(button.callback, button.name)} key={button.name} disabled={disabled}>
           {button.name}
         </button>
       );
-      }
     });
 
     return (
       <div className="InputForm">
         <form>
-          <label key={'firebaseError'} hidden={this.props.firebaseError === '' ? true : false}> {this.props.firebaseError} </label>
+          <label key={'firebaseError'} className={'inputError firebaseError'}hidden={!this.props.firebaseError}> {this.props.firebaseError} </label>
           <ul> {inputs} </ul>
-          <ul> {forgotPasswordButton} </ul>
           <ul> {buttons} </ul>
         </form>
       </div>
