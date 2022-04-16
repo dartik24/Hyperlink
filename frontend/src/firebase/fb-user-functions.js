@@ -1,8 +1,8 @@
 import { 
     getAuth, 
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc, setDoc} from 'firebase/firestore'
+    signInWithEmailAndPassword, deleteUser} from "firebase/auth";
+import { doc, getDoc, setDoc, deleteDoc} from 'firebase/firestore'
 import { getStorage, ref, uploadBytes} from 'firebase/storage'
 
 import firebase from './firebase';
@@ -67,4 +67,18 @@ export async function getFromUID(uid) {
     } catch(error) {
         console.error(error);
     } 
+}
+
+// delete currently authenticated user
+// then call the deleteDoucment function below to delete that user's document in Firestore
+export async function delUser() { 
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    deleteUser(user).then(() => {
+        return true
+    }).catch((error) => {
+        console.error(error.code + ": " + error.message)
+        return false
+    });
 }
