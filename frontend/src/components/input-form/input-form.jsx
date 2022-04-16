@@ -232,9 +232,10 @@ class InputForm extends React.Component {
     const onclickGen = (f, buttonName) => {
       const self = this
       const pgType = this.state.pageType
+      const shouldValidateForm = buttonName === 'Login' || buttonName === 'Modify Profile'|| (buttonName === 'Reset' && pgType === 'FORGOT-PASSWORD') || (buttonName === 'Sign Up' && pgType === 'SIGNUP') || (pgType === 'ADD-LISTING')
       return function(e) {
         e.preventDefault();
-        if(buttonName === 'Login' || buttonName === 'Modify Profile'|| (buttonName === 'Reset' && pgType === 'FORGOT-PASSWORD') || (buttonName === 'Sign Up' && pgType === 'SIGNUP') || (pgType === 'ADD-LISTING')) { 
+        if(shouldValidateForm) { 
           if(self.validateForm()) {
             f();
           } 
