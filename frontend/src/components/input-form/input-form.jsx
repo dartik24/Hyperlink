@@ -155,9 +155,7 @@ class InputForm extends React.Component {
          if(inpValue.length <= 0){
           errMessage = 'Description cannot be blank'
           noErrors = false
-         } else if(inpValue.length < 50) {
-          errMessage = 'Description must be more than 50 words'
-        } else { 
+         } else { 
            errMessage = ''
          }
          this.updateErrorState('Description', errMessage)
