@@ -4,7 +4,6 @@ import { getStorage, ref, getDownloadURL} from 'firebase/storage';
 import { withRouter } from 'react-router-dom';
 
 import InputForm from '../../components/input-form/input-form';
-import defProfilePic from '../profile/Default_Profile_Pic.jpeg';
 import './profile.css';
 
 class Profile extends React.Component {
@@ -40,7 +39,7 @@ class Profile extends React.Component {
         }).catch((error) => {
             this.setState({
                 loading: false,
-                imageURL: defProfilePic
+                imageURL: 'https://firebasestorage.googleapis.com/v0/b/hyperlink-5987b.appspot.com/o/Hyperlink%2FDefault_Profile_Pic.jpeg?alt=media&token=7189e8c5-07e0-45fe-a185-17ae79112bde'
             });
         })
     }
@@ -159,7 +158,7 @@ class Profile extends React.Component {
                         {
                             this.state.loading ?  
                                 <h2 className="loading"> Loading... </h2> : 
-                                <img id='profileImage' src={this.state.imageURL} alt={defProfilePic}/>
+                                <img id='profileImage' src={this.state.imageURL} alt={this.state.imageURL}/>
                         }
                     </div>
 
