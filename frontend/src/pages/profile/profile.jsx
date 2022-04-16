@@ -1,15 +1,17 @@
 import React, { createRef } from 'react';
-import InputForm from '../../components/input-form/input-form'
-import { modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
-import { getStorage, ref, getDownloadURL} from 'firebase/storage'
-import defProfilePic from '../profile/Default_Profile_Pic.jpeg'
-import './profile.css'
+import { delUser, modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
+import { getStorage, ref, getDownloadURL} from 'firebase/storage';
+import { withRouter } from 'react-router-dom';
+
+import InputForm from '../../components/input-form/input-form';
+import defProfilePic from '../profile/Default_Profile_Pic.jpeg';
+import './profile.css';
 
 class Profile extends React.Component {
     constructor(props) {
         super(props);
 
-        this.employerFields = ['name', 'email', 'company name'];
+        this.employerFields = ['name', 'username', 'company name'];
         this.employerTypes = ['text', 'text', 'text'];
         this.employeeFields = ['name', 'email', 'skills', 'about me', 'github', 'linkedin'];
         this.employeeTypes = ['text', 'text', 'text', 'textarea', 'text', 'text'];
@@ -20,9 +22,7 @@ class Profile extends React.Component {
             imageURL: null,
             imageFile: null,
             loading: true,
-            modifyError: '',
-            modifying: false,
-            finishModify: false,
+            modifyError: ''
         };
     }
 
@@ -73,29 +73,22 @@ class Profile extends React.Component {
         }
 
         // update user document 
-        this.setState((prevState) => ({
-            ...prevState,
-            modifying: true,
-            finishModify: false
-        }))
         modifyUser(this.state.user, newUser).then((success) => {
             if(success) { 
-                this.setState((prevState) => ({
-                    ...prevState,
-                    modifying: false,
-                    finishModify: true
-                }))
                 this.props.login(newUser || {})
             }
         })
     }
     
+    // Deletes the user and re-routes to home page
     deletePressed = () => { 
+        delUser();
         this.props.login(null);
+        this.props.history.push('/');
     }
 
+    // Upload photo. Only change privew of photo if success uploading.
     handleUploadImage = (event) => { 
-        // upload photo. Only change privew of photo if success uploading.
         uploadFileToStorage(this.state.user, event.target.files[0], 'profile_pic').then((success) => {
             if(success) { 
                 this.setState({
@@ -130,7 +123,8 @@ class Profile extends React.Component {
 
     openTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-        if (newWindow) newWindow.opener = null
+        if (newWindow) 
+            newWindow.opener = null;
     }
 
 
@@ -169,12 +163,12 @@ class Profile extends React.Component {
                         }
                     </div>
 
-                    <div id='resumeDiv' hidden={!this.isEmployee()}>
+                    <div id='resumeDiv'>
                         <h6>Resume</h6>
                         <input id='resUpload' type='file' accept='' onChange = {this.handleUploadResume}></input>
                         <button id='downloadResume' onClick={this.downloadResume}> Open resume</button>
                     </div>
-                                        
+                    
                     <InputForm
                         pageType={'PROFILE'}
                         inputs={this.isEmployee() ? this.employeeFields : this.employerFields}
@@ -184,11 +178,10 @@ class Profile extends React.Component {
                                     { name: 'Delete Account', callback: this.deletePressed }]}
                         ref={this.form} 
                     />
-                    <label id='modifyProfile' hidden={this.state.modifying === false  && this.state.finishModify === false}> {this.state.finishModify === true ? "Proile updated" : "Updating profile..."} </label>
                 </div>
             </>
         );
     }
 }
 
-export default Profile;
+export default withRouter(Profile);

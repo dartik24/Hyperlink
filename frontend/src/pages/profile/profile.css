@@ -10,6 +10,8 @@
 	filter: drop-shadow(2.5px 2px 2px grey);
     margin-bottom: 50px;
     margin-top: 10px;
+	padding-left: 50px;
+	padding-right: 50px;
 }
 #profileImage { 
     margin: 0 auto;
@@ -77,4 +79,18 @@ button {
 h3 {
     font-family: 'Readex Pro', sans-serif;
     font-size: 35px;
+}
+
+ul {
+	padding: 0px;
+}
+
+.input {
+	min-width: 250px;
+	max-width: 250px;
+	min-height: 50px;
+	max-height: 500px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
 }
