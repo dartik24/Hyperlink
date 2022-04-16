@@ -6,11 +6,13 @@ import AddListing from './pages/add-listing/add-listing';
 import Test from './pages/test/test';
 import Feed from './pages/feed/feed';
 import Profile from './pages/profile/profile';
+import ForgotPassword from './pages/forgot-password/forgot-password'
 
 import Authenticator from './components/authenticator/authenticator';
 
 import { withRouter, Route, Link } from 'react-router-dom';
 import React from 'react';
+
 
 
 class App extends React.Component {
@@ -66,6 +68,7 @@ class App extends React.Component {
 
         <Route exact path="/"> <Home login={this.setUser} className="Homepage" /> </Route>
         <Route exact path="/signup"> <SignUp className="SignUp" /> </Route>
+        <Route exact path="/forgotPassword"> <ForgotPassword className="ForgotPassword"/> </Route>
   
         <Authenticator
           routes={["feed", "add-listing", "profile"]}

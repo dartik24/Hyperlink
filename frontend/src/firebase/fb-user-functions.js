@@ -1,7 +1,8 @@
 import { 
     getAuth, 
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword, deleteUser} from "firebase/auth";
+    signInWithEmailAndPassword, 
+    deleteUser} from "firebase/auth";
 import { doc, getDoc, setDoc, deleteDoc} from 'firebase/firestore'
 import { getStorage, ref, uploadBytes} from 'firebase/storage'
 
