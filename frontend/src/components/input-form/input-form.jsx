@@ -232,9 +232,10 @@ class InputForm extends React.Component {
     const onclickGen = (f, buttonName) => {
       const self = this
       const pgType = this.state.pageType
+      const shouldValidateForm = buttonName === 'Login' || buttonName === 'Modify Profile'|| (buttonName === 'Reset' && pgType === 'FORGOT-PASSWORD') || (buttonName === 'Sign Up' && pgType === 'SIGNUP') || (pgType === 'ADD-LISTING')
       return function(e) {
         e.preventDefault();
-        if(buttonName === 'Login' || buttonName === 'Modify Profile' || (buttonName === 'Sign Up' && pgType === 'SIGNUP') || (pgType === 'ADD-LISTING')) { 
+        if(shouldValidateForm) { 
           if(self.validateForm()) {
             f();
           } 
@@ -247,9 +248,9 @@ class InputForm extends React.Component {
     // Creates markup for buttons
     const buttons = this.props.buttons.map((button) => {
       const disabled =  false;
-      
+      const className = button.name.replaceAll(' ', '').replaceAll('?', '')
       return(
-        <button id={button.name} className='formButton' onClick={onclickGen(button.callback, button.name)} key={button.name} disabled={disabled}>
+        <button id={button.name} className={className + ' formButton'} onClick={onclickGen(button.callback, button.name)} key={button.name} disabled={disabled}>
           {button.name}
         </button>
       );
@@ -258,7 +259,7 @@ class InputForm extends React.Component {
     return (
       <div className="InputForm">
         <form>
-          <label key={'firebaseError'} hidden={this.props.firebaseError === '' ? true : false}> {this.props.firebaseError} </label>
+          <label key={'firebaseError'} className={'inputError firebaseError'}hidden={!this.props.firebaseError}> {this.props.firebaseError} </label>
           <ul> {inputs} </ul>
           <ul> {buttons} </ul>
         </form>

@@ -41,6 +41,10 @@ class Home extends React.Component {
     });
   };
 
+  forgotPassword = () => {
+    this.props.history.push('/forgotPassword')
+  }
+
   signupPressed = () => {
     this.props.history.push('/signup');
   };
@@ -55,6 +59,7 @@ class Home extends React.Component {
           inputs={['email', 'password']}
           types={['text', 'password']}
           buttons={[
+            {name: 'Forgot password?', callback: this.forgotPassword},
             { name: 'Login', callback: this.loginPressed },
             { name: 'Sign Up', callback: this.signupPressed },
           ]}
