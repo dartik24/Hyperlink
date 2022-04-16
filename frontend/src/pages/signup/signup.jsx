@@ -40,7 +40,6 @@ class Signup extends React.Component {
       employee: this.state.selectedOption === 'employee'
     };
     delete(userData['password'])
-    console.log(userData)
     
     const signupData = {
       username: curForm.state.user.email,
