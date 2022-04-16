@@ -1,8 +1,10 @@
 import React, { createRef } from 'react';
-import InputForm from '../../components/input-form/input-form'
-import { modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
-import { getStorage, ref, getDownloadURL} from 'firebase/storage'
-import './profile.css'
+import { delUser, modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
+import { getStorage, ref, getDownloadURL} from 'firebase/storage';
+import { withRouter } from 'react-router-dom';
+
+import InputForm from '../../components/input-form/input-form';
+import './profile.css';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -34,7 +36,7 @@ class Profile extends React.Component {
                     loading: false
                 });
             })
-        }).catch(() => {
+        }).catch((error) => {
             this.setState({
                 loading: false,
                 imageURL: 'https://firebasestorage.googleapis.com/v0/b/hyperlink-5987b.appspot.com/o/Hyperlink%2FDefault_Profile_Pic.jpeg?alt=media&token=7189e8c5-07e0-45fe-a185-17ae79112bde'
@@ -77,13 +79,15 @@ class Profile extends React.Component {
         })
     }
     
+    // Deletes the user and re-routes to home page
     deletePressed = () => { 
-        //const user = this.state.user;
+        delUser();
         this.props.login(null);
+        this.props.history.push('/');
     }
 
+    // Upload photo. Only change privew of photo if success uploading.
     handleUploadImage = (event) => { 
-        // upload photo. Only change privew of photo if success uploading.
         uploadFileToStorage(this.state.user, event.target.files[0], 'profile_pic').then((success) => {
             if(success) { 
                 this.setState({
@@ -118,7 +122,8 @@ class Profile extends React.Component {
 
     openTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-        if (newWindow) newWindow.opener = null
+        if (newWindow) 
+            newWindow.opener = null;
     }
 
 
@@ -153,7 +158,7 @@ class Profile extends React.Component {
                         {
                             this.state.loading ?  
                                 <h2 className="loading"> Loading... </h2> : 
-                                <img id='profileImage' src={this.state.imageURL} alt={this.state.imageFile}/>
+                                <img id='profileImage' src={this.state.imageURL} alt={this.state.imageURL}/>
                         }
                     </div>
 
@@ -178,4 +183,4 @@ class Profile extends React.Component {
     }
 }
 
-export default Profile;
+export default withRouter(Profile);
