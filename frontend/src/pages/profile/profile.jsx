@@ -11,7 +11,7 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
 
-        this.employerFields = ['name', 'username', 'company name'];
+        this.employerFields = ['name', 'email', 'company name'];
         this.employerTypes = ['text', 'text', 'text'];
         this.employeeFields = ['name', 'email', 'skills', 'about me', 'github', 'linkedin'];
         this.employeeTypes = ['text', 'text', 'text', 'textarea', 'text', 'text'];
@@ -22,7 +22,9 @@ class Profile extends React.Component {
             imageURL: null,
             imageFile: null,
             loading: true,
-            modifyError: ''
+            modifyError: '',
+            modifying: false,
+            finishModify: false
         };
     }
 
@@ -77,8 +79,18 @@ class Profile extends React.Component {
         }
 
         // update user document 
+        this.setState((prevState) => ({
+            ...prevState,
+            modifying: true,
+            finishModify: false
+        }))
         modifyUser(this.state.user, newUser).then((success) => {
             if(success) { 
+                this.setState((prevState) => ({
+                    ...prevState,
+                    modifying: false,
+                    finishModify: true
+                }))
                 this.props.login(newUser || {})
             }
         })
@@ -167,7 +179,7 @@ class Profile extends React.Component {
                         }
                     </div>
 
-                    <div id='resumeDiv'>
+                    <div id='resumeDiv' hidden={!this.isEmployee()}>
                         <h6>Resume</h6>
                         <input id='resUpload' type='file' accept='' onChange = {this.handleUploadResume}></input>
                         <button id='downloadResume' onClick={this.downloadResume}> Open resume</button>
@@ -182,6 +194,8 @@ class Profile extends React.Component {
                                     { name: 'Delete Account', callback: this.deletePressed }]}
                         ref={this.form} 
                     />
+                    <label id='modifyProfile' hidden={this.state.modifying === false  && this.state.finishModify === false}> {this.state.finishModify === true ? "Profile updated" : "Updating profile..."} </label>
+
                 </div>
             </>
         );
