@@ -55,7 +55,7 @@ class App extends React.Component {
     return (
       linksAllowed ? 
       <div id="navbar">
-        <Link> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </Link>
+        <a> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </a>
       </div> :
       <div id="navbar">
         <Link> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </Link>
