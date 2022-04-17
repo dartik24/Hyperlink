@@ -164,3 +164,7 @@ hr {
 #emptyMsg {
   margin-top: 35px;
 }
+
+.entry .confirmDelete {
+  background-color: var(--red);
+}

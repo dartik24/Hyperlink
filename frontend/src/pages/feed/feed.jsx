@@ -29,7 +29,8 @@ class Feed extends React.Component {
       user: this.props.user,
       likeModal: null,
       loading: true,
-      imageURL: null
+      imageURL: null,
+      deleteClicked: false
     };
   }
 
@@ -57,7 +58,7 @@ class Feed extends React.Component {
     });
   }
 
-  dislike = async (feed) => {
+  dislike = async (feed, event) => {
     const user = this.state.user;
 
     if(user.employee) {
@@ -78,14 +79,18 @@ class Feed extends React.Component {
       });
       modifyListing(feed);
     } else {
-      const feedID = feed.employerID + '-' + feed.name;
-      // TODO Remove from database
-      const success = deleteDocument('listings', feedID);
-      // Remove locally
-      if(success) {
-        this.setState({
-          feeds: this.state.feeds.filter(f => !_.isEqual(f, feed))
-        });
+      if(event.target.className.split(' ').indexOf("confirmDelete") !== -1) {
+        const feedID = feed.employerID + '-' + feed.name;
+        const success = deleteDocument('listings', feedID);
+
+        // Remove locally
+        if(success) {
+          this.setState({
+            feeds: this.state.feeds.filter(f => !_.isEqual(f, feed))
+          });
+        }
+      } else {
+        event.target.className += " confirmDelete"
       }
     }
   }
@@ -139,6 +144,7 @@ class Feed extends React.Component {
           <div> <h4> You haven't published any listings! </h4> <h6> Go to the "Add Listing" tab to create one. </h6> </div>
         } 
       </div>
+
     let feed = toDisplay.map((f) => {
       let likeClasses = "bi bi-hand-thumbs-up-fill";
       let dislikeClasses = "bi bi-hand-thumbs-down-fill";
@@ -148,13 +154,13 @@ class Feed extends React.Component {
       if(f.dislikes.indexOf(this.state.user.uid) !== -1) {
         dislikeClasses += " disliked";
       } else if(!this.state.user.employee) {
-        dislikeClasses = "bi bi-x-lg"; 
+        dislikeClasses = "bi bi-x-lg delete"; 
       }
 
       return (
         <div className="entry" key={f.desc}>
           <h4> 
-            <i className={dislikeClasses} onClick={() => this.dislike(f)}></i>
+            <i className={dislikeClasses} onClick={(e) => this.dislike(f, e)}></i>
             {f.name} 
             <i className={likeClasses} onClick={() => this.like(f)}><p>{f.likes.length}</p></i>
           </h4>
