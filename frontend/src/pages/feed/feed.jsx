@@ -130,14 +130,21 @@ class Feed extends React.Component {
 
   render() {
     const toDisplay = this.filter(this.state.feeds);
-    
-    const feed = toDisplay.map((f) => {
-      let likeClasses = "bi bi-hand-thumbs-up-fill";
-      if(f.likes.indexOf(this.state.user.uid) !== -1) {
-        likeClasses += " liked";
-      }
 
+    const emptyFeed = () => 
+      <div id='emptyMsg'>
+        {this.state.user.employee ? 
+          <div> <h4> No listings match your skills!</h4> <h6> Try viewing all listings instead. </h6> </div> 
+          : 
+          <div> <h4> You haven't published any listings! </h4> <h6> Go to the "Add Listing" tab to create one. </h6> </div>
+        } 
+      </div>
+    let feed = toDisplay.map((f) => {
+      let likeClasses = "bi bi-hand-thumbs-up-fill";
       let dislikeClasses = "bi bi-hand-thumbs-down-fill";
+
+      if(f.likes.indexOf(this.state.user.uid) !== -1) likeClasses += " liked";
+
       if(f.dislikes.indexOf(this.state.user.uid) !== -1) {
         dislikeClasses += " disliked";
       } else if(!this.state.user.employee) {
@@ -162,6 +169,10 @@ class Feed extends React.Component {
           </div>
         </div>
     )});
+
+    if(!feed.length) {
+      feed = emptyFeed();
+    }
 
     return (
       <div id="feed-container">
