@@ -58,7 +58,7 @@ class App extends React.Component {
         <a> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </a>
       </div> :
       <div id="navbar">
-        <Link> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </Link>
+        <a> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </a>
         <Link to='feed'> 
           <i className={curPage ==='feed' ? "bi bi-rss active-link" : "bi bi-rss"}> <p> Feed </p> </i>
         </Link>
