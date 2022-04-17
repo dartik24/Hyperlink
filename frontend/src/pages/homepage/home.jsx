@@ -2,7 +2,7 @@ import './home.css';
 import InputForm from '../../components/input-form/input-form';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { login } from '../../firebase/fb-user-functions';
+import { login } from '../../services/fb-user-functions';
 
 class Home extends React.Component {
   constructor(props) {

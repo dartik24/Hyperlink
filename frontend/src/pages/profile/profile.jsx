@@ -1,10 +1,11 @@
 import React, { createRef } from 'react';
-import { delUser, modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
+import { delUser, modifyUser, uploadFileToStorage} from '../../services/fb-user-functions';
 import { getStorage, ref, getDownloadURL} from 'firebase/storage';
 import { withRouter } from 'react-router-dom';
 
 import InputForm from '../../components/input-form/input-form';
 import './profile.css';
+import { parseSkills } from '../../services/helper';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -58,13 +59,15 @@ class Profile extends React.Component {
         const form = this.form.current;
         const oldUser = this.state.user;
         
-        var newUser = {}
+        let newUser = {};
+
+        const skills = parseSkills(form.state.user.skills);
 
         if(this.isEmployee()) {
             newUser = {
                 ...oldUser,
                 ...form.state.user,
-                skills: form.state.user.skills.split(' ')
+                skills: skills
             };
         } else { 
             newUser = {

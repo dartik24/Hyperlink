@@ -3,9 +3,9 @@ import React from 'react';
 import * as _ from 'lodash';
 import ReactModal from 'react-modal';
 
-import { deleteDocument, getCollection } from '../../firebase/fb-generic';
-import { modifyListing } from '../../firebase/fb-listing-functions';
-import { getFromUID } from '../../firebase/fb-user-functions';
+import { deleteDocument, getCollection } from '../../services/fb-generic';
+import { modifyListing } from '../../services/fb-listing-functions';
+import { getFromUID } from '../../services/fb-user-functions';
 import ModalEntry from './modal-entry';
 
 ReactModal.setAppElement('#root');
