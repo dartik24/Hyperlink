@@ -47,15 +47,35 @@ class App extends React.Component {
   }
 
   links = () => {
-    if(!this.state.user)
+    const curPage = window.location.pathname.replaceAll('/', '');
+    const linksAllowed = curPage === 'forgotPassword' || curPage === 'signup' 
+    if(!this.state.user && !linksAllowed)
       return <></>
 
     return (
+      linksAllowed ? 
       <div id="navbar">
-        <Link to='feed'> <i className="bi bi-rss"> <p> Feed </p> </i> </Link>
-        {!this.state.user.employee ? <Link to='add-listing'> <i className="bi bi-plus-lg"> <p> Add Listing </p> </i> </Link>: <p className="hidden_item"> </p> }
-        <Link className='right' to='profile'> <i className="bi bi-person"> <p> Profile </p> </i> </Link>
-        <Link className='right' to='/'> <i onClick={() => this.setUser(null) } className="bi bi-door-closed"> <p> Log Out </p> </i> </Link>
+        <a> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </a>
+      </div> :
+      <div id="navbar">
+        <a> <i className="bi bi-arrow-left back" onClick={() => this.props.history.goBack()}> </i> </a>
+        <Link to='feed'> 
+          <i className={curPage ==='feed' ? "bi bi-rss active-link" : "bi bi-rss"}> <p> Feed </p> </i>
+        </Link>
+
+        {!this.state.user.employee ? 
+          <Link to='add-listing'> 
+            <i className={curPage ==='add-listing' ? "bi bi-plus-lg active-link" : "bi bi-plus-lg"}> <p> Add Listing </p> </i> </Link> 
+          : <p className="hidden_item"> </p> 
+        }
+
+        <Link className='right' to='profile'> 
+          <i className={curPage ==='profile' ? "bi bi-person active-link" : "bi bi-person"}> <p> Profile </p> </i> 
+        </Link>
+
+        <Link className='right' to='/'> 
+          <i onClick={() => this.setUser(null) } className="bi bi-door-closed"> <p> Log Out </p> </i> 
+        </Link>
       </div>
     );
   }

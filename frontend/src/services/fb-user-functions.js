@@ -18,7 +18,6 @@ export async function signup(signupData, userData) {
         setDoc(doc(firebase.db, "users", user.uid), userData);
         return {error: false};
     } catch(error) {
-        console.error(error.code + ": " + error.message);
         return {error};
     }
 }

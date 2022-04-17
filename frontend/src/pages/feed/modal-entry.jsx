@@ -24,12 +24,14 @@ class ModalEntry extends React.Component {
     render() {
         const u = this.state.user;
         return (
-            <div className='userData' key={u.email}>
+            <div className='userData col' key={u.email}>
                 <img src={this.state.image} alt="<profile-picture>" />
                 <div className='userInfo'> 
                     <p>Name: {u.name}</p>
                     <p>Email: {u.email}</p>
                     <p>Skills: {u.skills.join(' ')}</p>
+                    <p>Github: {u.github || "No link provided by employee"}</p>
+                    <p>Linked In: {u.linked || "No link provided by employee"}</p>
                 </div>
             </div>
         );

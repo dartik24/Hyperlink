@@ -3,7 +3,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom'
 
 import InputForm from '../../components/input-form/input-form';
-import { signup } from '../../firebase/fb-user-functions';
+import { signup } from '../../services/fb-user-functions';
+import { parseSkills } from '../../services/helper';
 
 class Signup extends React.Component {
   constructor() {
@@ -36,7 +37,7 @@ class Signup extends React.Component {
     const curForm = this.form.current;
     const userData = {
       ...curForm.state.user,
-      skills: curForm.state.user.skills.split(' '),
+      skills: parseSkills(curForm.state.user.skills),
       employee: this.state.selectedOption === 'employee'
     };
     delete(userData['password'])

@@ -2,7 +2,7 @@ import React from 'react';
 import InputForm from '../../components/input-form/input-form';
 
 import './add-listing.css'
-import { addListing } from '../../firebase/fb-listing-functions';
+import { addListing } from '../../services/fb-listing-functions';
 
 class AddListing extends React.Component {
     constructor() {

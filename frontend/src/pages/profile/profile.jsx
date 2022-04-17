@@ -1,10 +1,11 @@
 import React, { createRef } from 'react';
-import { delUser, modifyUser, uploadFileToStorage} from '../../firebase/fb-user-functions';
+import { delUser, modifyUser, uploadFileToStorage} from '../../services/fb-user-functions';
 import { getStorage, ref, getDownloadURL} from 'firebase/storage';
 import { withRouter } from 'react-router-dom';
 
 import InputForm from '../../components/input-form/input-form';
 import './profile.css';
+import { parseSkills } from '../../services/helper';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -28,20 +29,22 @@ class Profile extends React.Component {
     componentDidMount() {
         const storage = getStorage()
         const imageFolderRef = ref(storage, this.state.user.uid + '/profile_pic')
-        getDownloadURL(imageFolderRef).then((downloadFileURL) => {
-            this.setState({
-                imageURL: downloadFileURL
-            }, () => {
+        getDownloadURL(imageFolderRef)
+            .then((downloadFileURL) => {
                 this.setState({
-                    loading: false
+                    imageURL: downloadFileURL
                 });
             })
-        }).catch((error) => {
-            this.setState({
-                loading: false,
-                imageURL: 'https://firebasestorage.googleapis.com/v0/b/hyperlink-5987b.appspot.com/o/Hyperlink%2FDefault_Profile_Pic.jpeg?alt=media&token=7189e8c5-07e0-45fe-a185-17ae79112bde'
+            .catch(() => {
+                this.setState({
+                    imageURL: 'https://firebasestorage.googleapis.com/v0/b/hyperlink-5987b.appspot.com/o/Hyperlink%2FDefault_Profile_Pic.jpeg?alt=media&token=7189e8c5-07e0-45fe-a185-17ae79112bde'
+                });
+            })
+            .finally(() => {
+                this.setState({
+                    loading: false
+                })
             });
-        })
     }
 
     static getDerivedStateFromProps = (nextProps) => {
@@ -56,13 +59,15 @@ class Profile extends React.Component {
         const form = this.form.current;
         const oldUser = this.state.user;
         
-        var newUser = {}
+        let newUser = {};
+
+        const skills = parseSkills(form.state.user.skills);
 
         if(this.isEmployee()) {
             newUser = {
                 ...oldUser,
                 ...form.state.user,
-                skills: form.state.user.skills.split(' ')
+                skills: skills
             };
         } else { 
             newUser = {

@@ -2,7 +2,7 @@ import './home.css';
 import InputForm from '../../components/input-form/input-form';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { login } from '../../firebase/fb-user-functions';
+import { login } from '../../services/fb-user-functions';
 
 class Home extends React.Component {
   constructor(props) {
@@ -59,9 +59,9 @@ class Home extends React.Component {
           inputs={['email', 'password']}
           types={['text', 'password']}
           buttons={[
-            {name: 'Forgot password?', callback: this.forgotPassword},
             { name: 'Login', callback: this.loginPressed },
             { name: 'Sign Up', callback: this.signupPressed },
+            { name: 'Forgot password?', callback: this.forgotPassword },
           ]}
         />
       </div>
