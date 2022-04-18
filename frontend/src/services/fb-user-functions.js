@@ -74,10 +74,41 @@ export async function delUser() {
     const auth = getAuth();
     const user = auth.currentUser;
 
-    deleteUser(user).then(() => {
-        return true
-    }).catch((error) => {
-        console.error(error.code + ": " + error.message)
-        return false
-    });
+    if(user === null) { 
+        // Get encrypted password and decrypt it
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        const CryptoJS = require("crypto-js");
+        const encryptedPass = localStorage.getItem('UserPassword')
+        const bytes  = CryptoJS.AES.decrypt(encryptedPass, 'J:pq/!,?vE"v!UKf');
+        const password = bytes.toString(CryptoJS.enc.Utf8);
+       
+        const userData = {
+            username: storedUser['email'],
+            password: password
+        }
+
+        // Attemp to login to auth before delete
+        login(userData).then(user => {
+          if(user.error) {
+              user = null
+              console.error(user.error.code + ": " + user.error.message)
+              return false
+          } else { // on success of auth, delete user
+              user = auth.currentUser;
+              deleteUser(user).then(() => {
+                  return true
+              }).catch((error) => {
+                  console.error(error.code + ": " + error.message)
+                  return false
+              });
+          }
+        });
+    } else {  
+        deleteUser(user).then(() => {
+            return true
+        }).catch((error) => {
+            console.error(error.code + ": " + error.message)
+            return false
+        });
+    }
 }

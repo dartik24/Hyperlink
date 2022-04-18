@@ -35,6 +35,10 @@ class Home extends React.Component {
           firebaseError: 'Invalid login information'
         }))
       } else {
+        const CryptoJS = require("crypto-js");
+        const encryptedPassword = CryptoJS.AES.encrypt(userData.password, 'J:pq/!,?vE"v!UKf').toString();
+        localStorage.setItem('UserPassword', encryptedPassword)
+
         this.props.login(user);
         this.props.history.push('/feed');
       }
