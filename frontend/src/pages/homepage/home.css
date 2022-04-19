@@ -1,35 +1,36 @@
 .input {
-  margin: 0 auto;
-  display: block;
-  background: none;
-  border: none;
-  border-bottom: 1.8px solid var(--purple);
-  padding-top: 20px;
-  font-size: 18px;
+	margin: 0 auto;
+	display: block;
+	background: none;
+	border: none;
+	border-bottom: 1.8px solid var(--purple);
+	padding-top: 20px;
+	font-size: 18px;
 }
+
 .input:focus {
-  outline: none;
-  border-color: #9002FF;
+	outline: none;
+	border-color: #9002FF;
 }
 
 .title {
-  margin: 0;
-  padding-bottom: 8px;
+	margin: 0;
+	padding-bottom: 8px;
 }
 
 .Homepage {
-  margin: 0 auto;
+	margin: 0 auto;
 }
 
 .InputForm {
-  height: 100%;
+	height: 100%;
 }
 
 form {
-  height: 100%;
+	height: 100%;
 }
 
-.Forgotpassword  {
-  height: 30px;
-  min-height: fit-content;
+.Forgotpassword {
+	height: 30px;
+	min-height: fit-content;
 }

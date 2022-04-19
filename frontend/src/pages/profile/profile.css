@@ -1,31 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@700&display=swap');
 
 #profile {
-    height: fit-content;
-    width: fit-content;
-    margin: 0 auto;
-    padding: 20px;
-    border: 2px solid var(--purple);
-    border-radius: 3px;
+	height: fit-content;
+	width: fit-content;
+	margin: 0 auto;
+	padding: 20px;
+	border: 2px solid var(--purple);
+	border-radius: 3px;
 	filter: drop-shadow(2.5px 2px 2px grey);
-    margin-bottom: 50px;
-    margin-top: 10px;
+	margin-bottom: 50px;
+	margin-top: 10px;
 	padding-left: 50px;
 	padding-right: 50px;
 }
-#profileImage { 
-    margin: 0 auto;
-    height: 200px;
-    width: 200px;
-    border-image-width: 10px;
+
+#profileImage {
+	margin: 0 auto;
+	height: 200px;
+	width: 200px;
+	border-image-width: 10px;
 	border: 3px solid var(--purple);
 }
+
 #profileImage:hover {
 	border: 3px solid #9002FF;
 }
 
 #uploadInput {
-    display: inline-flex;
+	display: inline-flex;
 	flex: auto;
 	text-align: center;
 	justify-content: center;
@@ -37,22 +39,22 @@
 	padding: 10px;
 }
 
-#profileImageDiv { 
-    margin: 0 auto;
-    position: relative;
-    height: 250px;
-    width: 100%;
-    background: none;
+#profileImageDiv {
+	margin: 0 auto;
+	position: relative;
+	height: 250px;
+	width: 100%;
+	background: none;
 }
 
 #profileImageDiv * {
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
+	display: block;
+	width: fit-content;
+	margin: 0 auto;
 }
 
 #profileImageDiv img {
-    width: 200px;
+	width: 200px;
 }
 
 button {
@@ -60,25 +62,26 @@ button {
 }
 
 #downloadResume {
-    margin-left: 5px;
- }
- 
- #resumeDiv {
-     padding-top: 20px;
- }
- 
- #uploadInput { 
-     width: 110px !important;
-     color: transparent !important;
- }
- #resUpload {
-     width:  105px!important;
-     color: transparent !important;
- }
+	margin-left: 5px;
+}
+
+#resumeDiv {
+	padding-top: 20px;
+}
+
+#uploadInput {
+	width: 110px !important;
+	color: transparent !important;
+}
+
+#resUpload {
+	width: 105px !important;
+	color: transparent !important;
+}
 
 h3 {
-    font-family: 'Readex Pro', sans-serif;
-    font-size: 35px;
+	font-family: 'Readex Pro', sans-serif;
+	font-size: 35px;
 }
 
 ul {

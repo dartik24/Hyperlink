@@ -23,15 +23,15 @@ class ModalEntry extends React.Component {
 
     render() {
         const u = this.state.user;
+		// <img src={this.state.image} alt="<profile-picture>" /> /* BUG: Doesn't display picture! */
         return (
             <div className='userData col' key={u.email}>
-                <img src={this.state.image} alt="<profile-picture>" />
                 <div className='userInfo'> 
-                    <p>Name: {u.name}</p>
-                    <p>Email: {u.email}</p>
-                    <p>Skills: {u.skills.join(' ')}</p>
-                    <p>Github: {u.github || "No link provided by employee"}</p>
-                    <p>Linked In: {u.linked || "No link provided by employee"}</p>
+                    <p><b>Name:      </b> {u.name}</p>
+                    <p><b>Email:      </b> {u.email}</p>
+                    <p><b>Skills:      </b> {u.skills.join(' ')}</p>
+                    <p><b>Github:    </b> {u.github || "No link provided by the employee."}</p>
+                    <p><b>LinkedIn: </b> {u.linked || "No link provided by the employee."}</p>
                 </div>
             </div>
         );
