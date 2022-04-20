@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .entry {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 15px;
 	background-color: #bab6c0;
-	border: 1px solid black;
+	border: 1px solid grey;
+	border-radius: 5px;
+	filter: drop-shadow(2.5px 2px 2px rgb(168, 168, 168));
 }
 
 .entry h4 {
@@ -13,9 +18,10 @@
 	font-weight: bold;
 	background-color: #6e5def;
 	color: white;
-	border-bottom: 1px solid black;
-	border-top-left-radius: 0px;
-	border-top-right-radius: 0px;
+	border-bottom: 1px solid grey;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	font-family: 'Readex Pro', sans-serif;
 }
 
 .entry p {
@@ -76,6 +82,10 @@
 .entry h4 .bi-hand-thumbs-up-fill:active {
 	background-color: var(--green);
 	transform: scale(0.9);
+}
+
+.entry h4 .bi-hand-thumbs-up-fill p {
+	font-family: 'Roboto', sans-serif;
 }
 
 img {
@@ -152,6 +162,8 @@ hr {
 .image-container {
 	width: 100%;
 	background-color: #948ae3;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 .image-container p {

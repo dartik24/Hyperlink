@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300&display=swap');
+
 #add-listing-form {
 	margin-top: 10vh;
 	background-color: white;
@@ -6,6 +8,8 @@
 #add-listing-form h2 {
 	padding-bottom: 10px;
 	margin: 0;
+	font-family: 'Readex Pro', sans-serif;
+	text-align: center;
 }
 
 #add-listing-form form * {
