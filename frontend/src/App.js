@@ -34,10 +34,13 @@ class App extends React.Component {
 
   componentDidMount() {
     let user = localStorage.getItem('user');
-    if(user) {
-      user = JSON.parse(user);
-      this.setState({user});
-      // this.props.history.push('/feed');
+    console.log(user)
+    user = JSON.parse(user);
+    if(user !== null) {
+      this.setState({user}, () => {
+        this.props.history.push('/feed');
+      });
+      
     }
   }
 
