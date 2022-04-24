@@ -63,9 +63,8 @@ class Profile extends React.Component {
 
 		let newUser = {};
 
-		const skills = parseSkills(form.state.user.skills);
-
 		if (this.isEmployee()) {
+			const skills = parseSkills(form.state.user.skills);
 			newUser = {
 				...oldUser,
 				...form.state.user,
